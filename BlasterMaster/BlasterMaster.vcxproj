@@ -18,10 +18,47 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Engine\Renderer\Camera.cc" />
+    <ClCompile Include="Engine\Renderer\Animation.cc" />
+    <ClCompile Include="Source\BlasterMaster.cc" />
+    <ClCompile Include="Engine\Core\Window.cc" />
+    <ClCompile Include="Engine\Core\Game.cc" />
+    <ClCompile Include="Engine\Renderer\Renderer.cc" />
+    <ClCompile Include="Engine\Event\KeyEvent.cc" />
+    <ClCompile Include="Engine\Scene\Scene.cc" />
+    <ClCompile Include="Engine\DataStructure\QuadTree.cc" />
+    <ClCompile Include="Source\Character\Character.cc" />
+    <ClCompile Include="Source\Character\SophiaIII.cc" />
+    <ClCompile Include="Engine\Renderer\Sprite.cc" />
+    <ClCompile Include="Engine\Renderer\Texture.cc" />
+    <ClCompile Include="Engine\Math\Vector.cc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Engine\Event\KeyEvent.hh" />
+    <ClInclude Include="Engine\Math\Math.hh" />
+    <ClInclude Include="Engine\Renderer\Camera.hh" />
+    <ClInclude Include="Engine\Renderer\Animation.hh" />
+    <ClInclude Include="Engine\Core\TimeStep.hh" />
+    <ClInclude Include="Engine\Core\Window.hh" />
+    <ClInclude Include="Engine\Core\Game.hh" />
+    <ClInclude Include="Engine\Renderer\Renderer.hh" />
+    <ClInclude Include="Engine\Scene\Scene.hh" />
+    <ClInclude Include="Engine\DataStructure\QuadTree.hh" />
+    <ClInclude Include="Source\Character\Character.hh" />
+    <ClInclude Include="Source\Character\SophiaIII.hh" />
+    <ClInclude Include="Engine\Renderer\Sprite.hh" />
+    <ClInclude Include="Engine\Renderer\Texture.hh" />
+    <ClInclude Include="Engine\Math\Vector.hh" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\Full_Area_3_Open_Wolrd.png" />
+    <Image Include="Resources\Jason_and_Sophia_III.png" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{8f63abd7-e36a-4b17-8ae3-94ec40e728a2}</ProjectGuid>
+    <ProjectGuid>{5036cf47-d2d7-4396-9aee-d103d91aa1d0}</ProjectGuid>
     <RootNamespace>BlasterMaster</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -43,7 +80,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -72,47 +109,43 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(DXSDK_DIR)\Include;</IncludePath>
-    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(DXSDK_DIR)\Lib\x86;</LibraryPath>
     <OutDir>$(SolutionDir)Binaries\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)Binaries\Intermediates\$(Platform)\$(Configuration)\</IntDir>
+    <IntDir>$(SolutionDir)Binaries\Intermediate\$(Platform)\$(Configuration)\</IntDir>
+    <IncludePath>$(DXSDK_DIR)Include\;$(ProjectDir);$(IncludePath)</IncludePath>
+    <LibraryPath>$(DXSDK_DIR)Lib\x86\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(DXSDK_DIR)\Include;</IncludePath>
-    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(DXSDK_DIR)\Lib\x86;</LibraryPath>
     <OutDir>$(SolutionDir)Binaries\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)Binaries\Intermediates\$(Platform)\$(Configuration)\</IntDir>
+    <IntDir>$(SolutionDir)Binaries\Intermediate\$(Platform)\$(Configuration)\</IntDir>
+    <IncludePath>$(DXSDK_DIR)Include\;$(ProjectDir);$(IncludePath)</IncludePath>
+    <LibraryPath>$(DXSDK_DIR)Lib\x86\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(DXSDK_DIR)\Include;</IncludePath>
-    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
-    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(DXSDK_DIR)\Lib\x64;</LibraryPath>
     <OutDir>$(SolutionDir)Binaries\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)Binaries\Intermediates\$(Platform)\$(Configuration)\</IntDir>
+    <IntDir>$(SolutionDir)Binaries\Intermediate\$(Platform)\$(Configuration)\</IntDir>
+    <IncludePath>$(DXSDK_DIR)Include\;$(ProjectDir);$(IncludePath)</IncludePath>
+    <LibraryPath>$(DXSDK_DIR)Lib\x64\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(DXSDK_DIR)\Include;</IncludePath>
-    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
-    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(DXSDK_DIR)\Lib\x64;</LibraryPath>
     <OutDir>$(SolutionDir)Binaries\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)Binaries\Intermediates\$(Platform)\$(Configuration)\</IntDir>
+    <IntDir>$(SolutionDir)Binaries\Intermediate\$(Platform)\$(Configuration)\</IntDir>
+    <IncludePath>$(DXSDK_DIR)Include\;$(ProjectDir);$(IncludePath)</IncludePath>
+    <LibraryPath>$(DXSDK_DIR)Lib\x64\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>dinput8.lib;d3dx9.lib;d3d9.lib;dxguid.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d9.lib;d3dx9.lib;dxguid.lib;dxerr.lib;dinput8.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -121,26 +154,28 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>d3d9.lib;d3dx9.lib;dxguid.lib;dxerr.lib;dinput8.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>d3d9.lib;d3dx9.lib;dxguid.lib;dxerr.lib;dinput8.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -149,37 +184,17 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>d3d9.lib;d3dx9.lib;dxguid.lib;dxerr.lib;dinput8.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="Debug.cc" />
-    <ClCompile Include="Game.cc" />
-    <ClCompile Include="GameObject.cc" />
-    <ClCompile Include="BlasterMaster.cc" />
-    <ClCompile Include="Jason.cc" />
-    <ClCompile Include="Sprites.cc" />
-    <ClCompile Include="Textures.cc" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Debug.hh" />
-    <ClInclude Include="Game.hh" />
-    <ClInclude Include="GameObject.hh" />
-    <ClInclude Include="Jason.hh" />
-    <ClInclude Include="Sprites.hh" />
-    <ClInclude Include="Textures.hh" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Textures\Jason.png" />
-    <Image Include="Textures\mario.png" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

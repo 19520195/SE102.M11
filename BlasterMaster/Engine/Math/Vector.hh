@@ -1,0 +1,17 @@
+#pragma once
+
+class Vector2D
+{
+public:
+  Vector2D(float X = 0, float Y = 0);
+  
+  float GetX() const;
+  float GetY() const;
+
+  friend Vector2D operator+(const Vector2D& shl, const Vector2D& shr);
+
+protected:
+  float m_X;
+  float m_Y;
+};
+
