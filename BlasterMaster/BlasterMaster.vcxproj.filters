@@ -5,8 +5,8 @@
     <ClCompile Include="Engine\Core\Window.cc" />
     <ClCompile Include="Engine\Core\Game.cc" />
     <ClCompile Include="Engine\Renderer\Renderer.cc" />
-    <ClCompile Include="Source\Character\SophiaIII.cc" />
-    <ClCompile Include="Source\Character\Character.cc" />
+    <ClCompile Include="Source\Object\Player\SophiaIII.cc" />
+    <ClCompile Include="Source\Object\Object.cc" />
     <ClCompile Include="Engine\Renderer\Sprite.cc" />
     <ClCompile Include="Engine\Renderer\Texture.cc" />
     <ClCompile Include="Engine\Renderer\Animation.cc" />
@@ -20,8 +20,8 @@
     <ClInclude Include="Engine\Core\Window.hh" />
     <ClInclude Include="Engine\Core\Game.hh" />
     <ClInclude Include="Engine\Renderer\Renderer.hh" />
-    <ClInclude Include="Source\Character\SophiaIII.hh" />
-    <ClInclude Include="Source\Character\Character.hh" />
+    <ClInclude Include="Source\Object\Player\SophiaIII.hh" />
+    <ClInclude Include="Source\Object\Object.hh" />
     <ClInclude Include="Engine\Core\TimeStep.hh" />
     <ClInclude Include="Engine\Renderer\Sprite.hh" />
     <ClInclude Include="Engine\Renderer\Texture.hh" />

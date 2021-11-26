@@ -3,11 +3,11 @@
 #include "Engine/Core/TimeStep.hh"
 #include "Engine/Math/Math.hh"
 
-class Character : public Vector2D
+class Object : public Vector2D
 {
 public:
-  Character();
-  ~Character() = default;
+  Object();
+  ~Object() = default;
 
   void SetPos(float X, float Y);
   void SetSpeed(float speedX, float speedY);
@@ -29,3 +29,4 @@ protected:
   int m_State;
 };
 
+#include "Player/SophiaIII.hh"

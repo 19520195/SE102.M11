@@ -62,7 +62,7 @@ void Renderer::Render()
     G_SpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
     // Render objects
-    Renderer::Draw(-1344-128*(R_SophiaIII.GetX()-16 * 4), -48 - 128*(R_SophiaIII.GetY()- (16 * 8 - 4)), SpriteBase::GetInstance()->Get(20001));
+    // Renderer::Draw(-1344-128*(R_SophiaIII.GetX()-16 * 4), -48 - 128*(R_SophiaIII.GetY()- (16 * 8 - 4)), SpriteBase::GetInstance()->Get(20001));
     R_SophiaIII.Render();
 
     G_SpriteHandler->End();

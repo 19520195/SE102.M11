@@ -1,47 +1,47 @@
-#include "Character.hh"
+#include "Object.hh"
 
-Character::Character()
+Object::Object()
 {
   m_X = m_Y = 0;
   m_SpeedX = m_SpeedY = 0;
   m_State = 0;
 }
 
-void Character::SetPos(float X, float Y)
+void Object::SetPos(float X, float Y)
 {
   m_X = X;
   m_Y = Y;
 }
 
-void Character::SetSpeed(float speedX, float speedY)
+void Object::SetSpeed(float speedX, float speedY)
 {
   m_SpeedX = speedX;
   m_SpeedY = speedY;
 }
 
-void Character::SetState(int state)
+void Object::SetState(int state)
 {
   m_State = state;
 }
 
-void Character::GetPos(float& X, float& Y)
+void Object::GetPos(float& X, float& Y)
 {
   X = m_X;
   Y = m_Y;
 }
 
-void Character::GetSpeed(float& speedX, float& speedY)
+void Object::GetSpeed(float& speedX, float& speedY)
 {
   speedX = m_SpeedX;
   speedY = m_SpeedY;
 }
 
-int Character::GetState()
+int Object::GetState()
 {
   return m_State;
 }
 
-void Character::Update(TimeStep step)
+void Object::Update(TimeStep step)
 {
   m_X += step * m_SpeedX;
   m_Y += step * m_SpeedY;

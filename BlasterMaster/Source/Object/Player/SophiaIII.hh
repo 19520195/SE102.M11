@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Character.hh"
+#include "../Object.hh"
 
 enum SophiaIIIState
 {
@@ -11,7 +11,9 @@ enum SophiaIIIState
   SOPHIAIII_WALK_RIGHT,
 };
 
-class SophiaIII : public Character
+constexpr float SOPHIAIII_SPEED = 0.2F;
+
+class SophiaIII : public Object
 {
 public:
   SophiaIII();

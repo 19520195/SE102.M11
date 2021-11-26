@@ -44,9 +44,6 @@ void LoadResources()
   // SophiaIII Right Wheel
   animation = new Animation(100);
   animation->Add(10002);
-  animation->Add(10003);
-  animation->Add(10004);
-  animation->Add(10001);
   AnimationBase::Get()->Add(102, animation);
 
   // SophiaIII Body

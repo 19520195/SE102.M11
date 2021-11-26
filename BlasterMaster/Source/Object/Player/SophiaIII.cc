@@ -11,7 +11,7 @@ SophiaIII::SophiaIII()
 
 void SophiaIII::SetState(int state)
 {
-  Character::SetState(state);
+  Object::SetState(state);
   
   switch (state)
   {
@@ -21,11 +21,11 @@ void SophiaIII::SetState(int state)
     break;
 
   case SOPHIAIII_WALK_LEFT:
-    m_SpeedX = -0.001f;
+    m_SpeedX = -SOPHIAIII_SPEED;
     break;
 
   case SOPHIAIII_WALK_RIGHT:
-    m_SpeedX = 0.001f;
+    m_SpeedX = SOPHIAIII_SPEED;
     break;
   }
 }
