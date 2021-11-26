@@ -45,6 +45,7 @@
     <ClInclude Include="Engine\Renderer\Renderer.hh" />
     <ClInclude Include="Engine\Scene\Scene.hh" />
     <ClInclude Include="Engine\DataStructure\QuadTree.hh" />
+    <ClInclude Include="Source\BlasterMaster.hh" />
     <ClInclude Include="Source\Object\Object.hh" />
     <ClInclude Include="Source\Object\Player\SophiaIII.hh" />
     <ClInclude Include="Engine\Renderer\Sprite.hh" />

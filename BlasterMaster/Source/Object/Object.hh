@@ -12,21 +12,19 @@ public:
   void SetPos(float X, float Y);
   void SetSpeed(float speedX, float speedY);
   void SetState(int state);
+  void SetAnimation(size_t ID); 
 
-  void GetPos(float& X, float& Y);
-  void GetSpeed(float& speedX, float& speedY);
   int GetState();
 
   void Update(TimeStep step);
   virtual void Render() = 0;
 
 protected:
-  // float m_X;
-  // float m_Y;
   float m_SpeedX;
   float m_SpeedY;
 
   int m_State;
+  size_t m_AnimationID;
 };
 
 #include "Player/SophiaIII.hh"

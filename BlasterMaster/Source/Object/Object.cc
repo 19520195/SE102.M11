@@ -24,16 +24,9 @@ void Object::SetState(int state)
   m_State = state;
 }
 
-void Object::GetPos(float& X, float& Y)
+void Object::SetAnimation(size_t ID)
 {
-  X = m_X;
-  Y = m_Y;
-}
-
-void Object::GetSpeed(float& speedX, float& speedY)
-{
-  speedX = m_SpeedX;
-  speedY = m_SpeedY;
+  m_AnimationID = ID;
 }
 
 int Object::GetState()

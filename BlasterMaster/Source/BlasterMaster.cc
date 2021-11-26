@@ -1,3 +1,4 @@
+#include "BlasterMaster.hh"
 #include "Engine/Core/Game.hh"
 #include "Engine/Renderer/Texture.hh"
 #include "Engine/Renderer/Sprite.hh"
@@ -66,18 +67,15 @@ INT APIENTRY wWinMain(_In_     HINSTANCE hInstance,
                       _In_     LPWSTR    lpCmdLine,
                       _In_     int       nCmdShow)
 {
-  int tilesOfWidth = 16;
-  int tilesOfHeight = 14;
-
-  int screenWidth = tilesOfWidth * 16 * OX_SCREEN_ZOOM;
-  int screenHeight = tilesOfHeight * 16 * OX_SCREEN_ZOOM;
-
-  Game::GetInstance()->Create(screenWidth, screenHeight, L"Blaster Master", hInstance, nCmdShow);
+  Game::GetInstance()->Create(SCREEN_WIDTH, SCREEN_HEIGHT, L"Blaster Master", hInstance, nCmdShow);
   
   LoadResources();
-  R_SophiaIII.SetPos(16 * 4, 16 * 8 - 4);
-  R_SophiaIII.SetState(SOPHIAIII_IDLE_LEFT);
-  R_SophiaIII.SetAnimation(105, 104, 103, 102);
+  R_SophiaIII.SetPos(0, 0);
+  R_SophiaIII.SetState(SOPHIAIII_IDLE_RIGHT);
+  R_SophiaIII.m_Barrel = std::make_unique<SophiaIIIComponent>();
+
+  R_SophiaIII.m_Barrel->SetAnimation(101); 
+  R_SophiaIII.m_Barrel->SetPos(0, 0); 
 
   Game::GetInstance()->Run(); 
   return EXIT_SUCCESS;

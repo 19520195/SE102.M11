@@ -60,10 +60,10 @@ void Game::InitKeyboard()
 void Game::Create(int width, int height, std::wstring title, HINSTANCE hInstance, int nCmdShow)
 {
   m_Window = std::make_unique<Window>();
-  m_Window->Create(width, height, title, hInstance);
+  m_Window->Create(width * OX_SCREEN_ZOOM, height * OX_SCREEN_ZOOM, title, hInstance);
   m_Window->Show(nCmdShow);
 
-  Renderer::InitDirectX3D(m_Window->GetHandle(), width / OX_SCREEN_ZOOM, height / OX_SCREEN_ZOOM);
+  Renderer::InitDirectX3D(m_Window->GetHandle(), width, height);
   m_KeyHandler = new SampleKeyEvent();
   InitKeyboard();
 }

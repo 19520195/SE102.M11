@@ -32,6 +32,7 @@
     <ClInclude Include="Engine\Event\KeyEvent.hh" />
     <ClInclude Include="Engine\Scene\Scene.hh" />
     <ClInclude Include="Engine\DataStructure\QuadTree.hh" />
+    <ClInclude Include="Source\BlasterMaster.hh" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Jason_and_Sophia_III.png" />

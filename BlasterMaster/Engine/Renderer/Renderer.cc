@@ -1,3 +1,4 @@
+#include "Source/BlasterMaster.hh"
 #include "Renderer.hh"
 #include "Texture.hh"
 #include "Animation.hh"
@@ -75,6 +76,10 @@ void Renderer::Render()
 
 void Renderer::Draw(float X, float Y, Sprite* sprite)
 {
+  // Reformat coordiante 
+  Y += SCREEN_HEIGHT - (sprite->GetRect()->bottom - sprite->GetRect()->top + 1);
+  
+  // Drawing sprite
   D3DXVECTOR3 p(round(X), round(Y), 0);
   G_SpriteHandler->Draw(
     sprite->GetTexture(), 
