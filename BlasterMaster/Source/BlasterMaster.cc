@@ -40,26 +40,26 @@ void LoadResources()
   animation->Add(10002);
   animation->Add(10003);
   animation->Add(10004);
-  AnimationBase::Get()->Add(101, animation);
+  AnimationBase::GetInstance()->Add(101, animation);
 
   // SophiaIII Right Wheel
   animation = new Animation(100);
   animation->Add(10002);
-  AnimationBase::Get()->Add(102, animation);
+  AnimationBase::GetInstance()->Add(102, animation);
 
   // SophiaIII Body
   animation = new Animation(100);
   animation->Add(10011);
-  AnimationBase::Get()->Add(103, animation);
+  AnimationBase::GetInstance()->Add(103, animation);
 
   // SophiaIII Right gun
   animation = new Animation(100);
   animation->Add(10021);
-  AnimationBase::Get()->Add(104, animation);
+  AnimationBase::GetInstance()->Add(104, animation);
   // SophiaIII Right gun
   animation = new Animation(100);
   animation->Add(10031);
-  AnimationBase::Get()->Add(105, animation);
+  AnimationBase::GetInstance()->Add(105, animation);
 }
 
 INT APIENTRY wWinMain(_In_     HINSTANCE hInstance,
@@ -74,7 +74,7 @@ INT APIENTRY wWinMain(_In_     HINSTANCE hInstance,
   R_SophiaIII.SetState(SOPHIAIII_IDLE_RIGHT);
   R_SophiaIII.m_Barrel = std::make_unique<SophiaIIIComponent>();
 
-  R_SophiaIII.m_Barrel->SetAnimation(101); 
+  R_SophiaIII.m_Barrel->SetID(10011);
   R_SophiaIII.m_Barrel->SetPos(0, 0); 
 
   Game::GetInstance()->Run(); 

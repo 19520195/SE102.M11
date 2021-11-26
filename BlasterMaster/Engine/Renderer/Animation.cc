@@ -52,7 +52,7 @@ void Animation::Render(float X, float Y)
 		}
 	}
 
-	Renderer::Draw(X, Y, m_Frames[m_CurrentFrame]->GetSprite());
+	m_Frames[m_CurrentFrame]->GetSprite()->Render(X, Y);
 }
 
 void AnimationBase::Add(size_t ID, Animation* animation)
@@ -65,7 +65,7 @@ Animation* AnimationBase::Get(size_t ID)
 	return m_Animations[ID].get(); 
 }
 
-AnimationBase* AnimationBase::Get()
+AnimationBase* AnimationBase::GetInstance()
 {
 	return s_Instance.get();
 }

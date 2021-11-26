@@ -41,7 +41,7 @@ public:
 
   Animation* Get(size_t ID); 
   
-  static AnimationBase* Get(); 
+  static AnimationBase* GetInstance(); 
 
 private:
   std::unordered_map<size_t, std::shared_ptr<Animation>> m_Animations;

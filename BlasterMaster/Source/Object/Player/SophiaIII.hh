@@ -3,6 +3,7 @@
 #include "../Object.hh"
 #include "Engine/Renderer/Animation.hh"
 #include "Engine/Renderer/Renderer.hh"
+#include "Engine/Renderer/Renderable.hh"
 #include <memory>
 
 enum SophiaIIIState
@@ -16,12 +17,12 @@ enum SophiaIIIState
 
 constexpr float SOPHIAIII_SPEED = 0.2F;
 
-class SophiaIIIComponent : public Object
+class SophiaIIIComponent : public Object, public SpriteRender
 {
 public:
-  void Render() 
+  void Render()
   {
-    AnimationBase::Get()->Get(m_AnimationID)->Render(m_X, m_Y);
+    SpriteRender::Render(m_X, m_Y);
   }
 };
 
@@ -41,9 +42,9 @@ private:
   // size_t m_WheelAID;
 
 public: // DEBUG // 
-  std::unique_ptr<Object> m_Barrel;
-  std::unique_ptr<Object> m_Hammer;
-  std::unique_ptr<Object> m_Grip;
-  std::unique_ptr<Object> m_LWheel;
-  std::unique_ptr<Object> m_RWheel;
+  std::unique_ptr<SophiaIIIComponent> m_Barrel;
+  std::unique_ptr<SophiaIIIComponent> m_Hammer;
+  std::unique_ptr<SophiaIIIComponent> m_Grip;
+  std::unique_ptr<SophiaIIIComponent> m_LWheel;
+  std::unique_ptr<SophiaIIIComponent> m_RWheel;
 };

@@ -1,4 +1,5 @@
 #include "Sprite.hh"
+#include "Renderer.hh"
 
 Sprite::Sprite(size_t ID, size_t top, size_t left, size_t bottom, size_t right, LPDIRECT3DTEXTURE9 texture) 
 {
@@ -25,8 +26,9 @@ LPDIRECT3DTEXTURE9 Sprite::GetTexture()
   return m_Texture;
 }
 
-void Sprite::Draw(float X, float Y)
+void Sprite::Render(float X, float Y)
 {
+  Renderer::Draw(X, Y, this);
 }
 
 std::shared_ptr<SpriteBase> SpriteBase::s_Instance = std::make_shared<SpriteBase>();

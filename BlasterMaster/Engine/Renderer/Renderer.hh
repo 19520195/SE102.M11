@@ -3,7 +3,10 @@
 #include <d3d9.h>
 #include <d3dx9.h>
 
+#include "Source/BlasterMaster.hh"
+#include "Texture.hh"
 #include "Sprite.hh"
+#include "Animation.hh"
 
 extern LPDIRECT3D9        G_D3D;
 extern LPDIRECT3DDEVICE9  G_Device;

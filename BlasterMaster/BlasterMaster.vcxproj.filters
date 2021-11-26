@@ -15,6 +15,7 @@
     <ClCompile Include="Engine\Event\KeyEvent.cc" />
     <ClCompile Include="Engine\Scene\Scene.cc" />
     <ClCompile Include="Engine\DataStructure\QuadTree.cc" />
+    <ClCompile Include="Engine\Renderer\Renderable.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Core\Window.hh" />
@@ -33,6 +34,7 @@
     <ClInclude Include="Engine\Scene\Scene.hh" />
     <ClInclude Include="Engine\DataStructure\QuadTree.hh" />
     <ClInclude Include="Source\BlasterMaster.hh" />
+    <ClInclude Include="Engine\Renderer\Renderable.hh" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Jason_and_Sophia_III.png" />

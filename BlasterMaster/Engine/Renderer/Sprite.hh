@@ -13,7 +13,7 @@ public:
   RECT* GetRect();
   LPDIRECT3DTEXTURE9 GetTexture();
 
-  void Draw(float X, float Y); 
+  void Render(float X, float Y); 
 
 private:
   size_t m_ID;

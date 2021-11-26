@@ -26,7 +26,7 @@ void SophiaIII::Render()
 {
   if (m_Barrel) m_Barrel->Render();
   if (m_Hammer) m_Hammer->Render();
-  if (m_Grip) m_Grip->Render();
+  if (m_Grip)   m_Grip  ->Render();
   if (m_LWheel) m_LWheel->Render();
   if (m_RWheel) m_RWheel->Render();
 }
