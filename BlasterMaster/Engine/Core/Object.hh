@@ -10,7 +10,6 @@ public:
   Object();
   ~Object() = default;
 
-  void SetPos(float X, float Y);
   void SetSpeed(float speedX, float speedY);
   void SetState(int state);
 

@@ -2,15 +2,9 @@
 
 Object::Object()
 {
-  m_X = m_Y = 0;
-  m_SpeedX = m_SpeedY = 0;
+  m_SpeedX = 0;
+  m_SpeedY = 0;
   m_State = 0;
-}
-
-void Object::SetPos(float X, float Y)
-{
-  m_X = X;
-  m_Y = Y;
 }
 
 void Object::SetSpeed(float speedX, float speedY)

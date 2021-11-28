@@ -14,7 +14,7 @@ INT APIENTRY wWinMain(_In_     HINSTANCE hInstance,
   Game::GetInstance()->Create(SCREEN_WIDTH, SCREEN_HEIGHT, L"Blaster Master", hInstance, nCmdShow);
   
   LoadResources();
-  R_SophiaIII.SetPos(100, 100);
+  R_SophiaIII.SetXY(100, 100);
   R_SophiaIII.SetState(SOPHIAIII_IDLE_LEFT);
 
   Game::GetInstance()->Run(); 
