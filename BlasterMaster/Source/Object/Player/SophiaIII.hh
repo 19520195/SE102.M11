@@ -14,27 +14,11 @@ enum SophiaIIIState
   SOPHIAIII_WALK_RIGHT,
 };
 
-constexpr float SOPHIAIII_SPEED = 0.2F;
+constexpr float SOPHIAIII_SPEED = 0.1F;
 
-typedef RenderableObject SophiaIIIComponent;
-
-class SophiaIIIBodyPart : public SpriteObject
-{
-public:
-  // 
-
-private:
-  // 
-};
-
-class SophiaIIIWheel : public AnimationObject
-{
-public:
-  // 
-
-private:
-  // 
-};
+typedef RenderableObject  SophiaIIIComponent;
+typedef SpriteObject      SophiaIIIBodyPart;
+typedef AnimationObject   SophiaIIIWheel;
 
 class SophiaIII : public Object
 {
@@ -43,7 +27,7 @@ public:
 
   void SetState(int state);
   
-  void Render();
+  void Render(TimeStep step);
 
 private: 
   std::unique_ptr<SophiaIIIComponent> m_Barrel;

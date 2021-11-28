@@ -34,8 +34,3 @@ void Object::Update(TimeStep step)
   m_X += step * m_SpeedX;
   m_Y += step * m_SpeedY;
 }
-
-void RenderableObject::Render()
-{
-  // 
-}

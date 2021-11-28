@@ -25,10 +25,12 @@ public:
 
   void Add(int spriteID, TimeStep time = 0);
   void Render(float X, float Y);
+  void Render(float X, float Y, TimeStep step);
 
 private:
   TimeStep m_DefaultTime;
   size_t   m_CurrentFrame;
+  TimeStep m_TimeStep; 
 
   TimeStep m_LastFrameTime;
   std::vector<std::shared_ptr<Frame>> m_Frames;

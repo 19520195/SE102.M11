@@ -52,7 +52,7 @@ void Renderer::CleanDirectX3D()
   if (G_SpriteHandler != NULL) G_SpriteHandler->Release();
 }
 
-void Renderer::Render()
+void Renderer::Render(const TimeStep& step)
 {
   if (G_Device->BeginScene() == S_OK)
   {
@@ -60,8 +60,8 @@ void Renderer::Render()
     G_SpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
     // Render objects
-    // Renderer::Draw(-1344-128*(R_SophiaIII.GetX()-16 * 4), -48 - 128*(R_SophiaIII.GetY()- (16 * 8 - 4)), SpriteBase::GetInstance()->Get(20001));
-    R_SophiaIII.Render();
+    Renderer::Draw(-1344-128*(R_SophiaIII.GetX()-16 * 4), -48 - 128*(R_SophiaIII.GetY()- (16 * 8 - 4)), SpriteBase::GetInstance()->Get(20001));
+    R_SophiaIII.Render(step);
 
     G_SpriteHandler->End();
     G_Device->EndScene();

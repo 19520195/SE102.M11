@@ -28,33 +28,33 @@ protected:
 class RenderableObject : public Object, public Renderable
 {
 public:
-  virtual void Render() = 0; 
+  virtual void Render(TimeStep step) = 0; 
 };
 
 class SpriteObject : public RenderableObject
 {
 public:
-  void Render(float X, float Y)
+  void Render(float X, float Y, TimeStep step)
   {
     SpriteBase::GetInstance()->Get(m_ID)->Render(X, Y); 
   }
 
-  void Render()
+  void Render(TimeStep step)
   {
-    Render(m_X, m_Y); 
+    Render(m_X, m_Y, step); 
   }
 };
 
 class AnimationObject : public RenderableObject
 {
 public:
-  void Render(float X, float Y)
+  void Render(float X, float Y, TimeStep step)
   {
-    AnimationBase::GetInstance()->Get(m_ID)->Render(X, Y);
+    AnimationBase::GetInstance()->Get(m_ID)->Render(X, Y, step);
   }
 
-  void Render()
+  void Render(TimeStep step)
   {
-    Render(m_X, m_Y);
+    Render(m_X, m_Y, step);
   }
 };

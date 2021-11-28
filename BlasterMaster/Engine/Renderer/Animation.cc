@@ -24,6 +24,7 @@ Animation::Animation(TimeStep defaultTime)
   m_DefaultTime = defaultTime;
   m_CurrentFrame = -1;
   m_LastFrameTime = -1;
+	m_TimeStep = 0;
 }
 
 void Animation::Add(int spriteID, TimeStep time)
@@ -53,6 +54,15 @@ void Animation::Render(float X, float Y)
 	}
 
 	m_Frames[m_CurrentFrame]->GetSprite()->Render(X, Y);
+}
+
+void Animation::Render(float X, float Y, TimeStep step)
+{
+	TimeStep offset = m_Frames.size() * m_DefaultTime;
+	m_TimeStep = (m_TimeStep + offset + step) % (offset);
+
+	size_t frameID = (size_t)(m_TimeStep / m_DefaultTime);
+	m_Frames[frameID]->GetSprite()->Render(X, Y);
 }
 
 void AnimationBase::Add(size_t ID, Animation* animation)

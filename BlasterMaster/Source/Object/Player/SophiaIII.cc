@@ -1,5 +1,6 @@
 #include "SophiaIII.hh"
 #include "Engine/Renderer/Animation.hh"
+#include <string>
 
 SophiaIII::SophiaIII()
 {
@@ -37,11 +38,12 @@ void SophiaIII::SetState(int state)
   }
 }
 
-void SophiaIII::Render()
+void SophiaIII::Render(TimeStep step)
 {
   m_LWheel->SetXY(m_X     , m_Y     ); 
   m_RWheel->SetXY(m_X + 16, m_Y     );
 
+  // Assemble Sophia III
   switch (m_State)
   {
   case SOPHIAIII_IDLE_LEFT:
@@ -63,9 +65,24 @@ void SophiaIII::Render()
     break;
   }
 
-  m_Barrel->Render();
-  m_Hammer->Render();
-  m_Grip  ->Render();
-  m_LWheel->Render();
-  m_RWheel->Render();
+  // Movement
+  switch (m_State)
+  {
+  case SOPHIAIII_IDLE_LEFT:
+  case SOPHIAIII_IDLE_RIGHT:
+    step = 0;
+    break;
+
+  case SOPHIAIII_WALK_LEFT:
+    step = -step;
+    break;
+  }
+
+  OutputDebugString(std::to_wstring(step).c_str());
+
+  m_Barrel->Render(step);
+  m_Hammer->Render(step);
+  m_Grip  ->Render(step);
+  m_LWheel->Render(step);
+  m_RWheel->Render(step);
 }

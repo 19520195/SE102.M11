@@ -18,7 +18,7 @@ class Renderer
 public:
   static void InitDirectX3D(HWND hWindow, LONG width = 0, LONG height = 0);
   static void CleanDirectX3D();
-  static void Render();
+  static void Render(const TimeStep& step = 0);
 
   static void Draw(float X, float Y, Sprite* sprite);
 };

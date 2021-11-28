@@ -2,4 +2,4 @@
 
 #include <Windows.h>
 
-typedef ULONGLONG TimeStep;
+typedef LONGLONG TimeStep;
