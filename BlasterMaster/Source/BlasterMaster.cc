@@ -25,8 +25,8 @@ void LoadResources()
 
 {
   Animation* animation;
-  TextureBase::Get()->InsertTexture(1, L"Resources\\SophiaIII.png", D3DCOLOR_XRGB(0, 57, 115));
-  LPDIRECT3DTEXTURE9 TXSophiaIII = TextureBase::Get()->GetTexture(1);
+  TextureBase::GetInstance()->Add(1, L"Resources\\SophiaIII.png", D3DCOLOR_XRGB(0, 57, 115));
+  LPDIRECT3DTEXTURE9 TXSophiaIII = TextureBase::GetInstance()->GetTexture(1);
 
   // Barrel
   SpriteBase::GetInstance()->Add(10101,  1,  1,  9,  9, TXSophiaIII);
