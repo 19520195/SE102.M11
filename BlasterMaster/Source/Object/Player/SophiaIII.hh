@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Object.hh"
+#include "Engine/Core/Object.hh"
 #include "Engine/Renderer/Animation.hh"
 #include "Engine/Renderer/Renderer.hh"
 #include "Engine/Renderer/Renderable.hh"

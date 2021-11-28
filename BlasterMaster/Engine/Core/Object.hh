@@ -26,5 +26,3 @@ protected:
   int m_State;
   size_t m_AnimationID;
 };
-
-#include "Player/SophiaIII.hh"

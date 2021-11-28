@@ -17,7 +17,7 @@ constexpr int KEYBOARD_BUFFER_SIZE = 1024;
 constexpr TimeStep ENGINE_FPS        = 120;
 constexpr TimeStep ENGINE_FRAME_STEP = 1000 / ENGINE_FPS;
 
-#include "Source/Object/Object.hh"
+#include "Source/Object/Player/SophiaIII.hh"
 extern SophiaIII R_SophiaIII;
 
 class Game
