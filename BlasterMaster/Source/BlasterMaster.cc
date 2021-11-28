@@ -72,18 +72,12 @@ INT APIENTRY wWinMain(_In_     HINSTANCE hInstance,
   LoadResources();
   R_SophiaIII.SetPos(0, 0);
   R_SophiaIII.SetState(SOPHIAIII_IDLE_RIGHT);
-  R_SophiaIII.m_Barrel = std::make_unique<SophiaIIIBodyPart>();
 
-  R_SophiaIII.m_Barrel->SetID(10011);
-  R_SophiaIII.m_Barrel->SetPos(8, 4);
-
-  R_SophiaIII.m_LWheel = std::make_unique<SophiaIIIWheel>();
+  R_SophiaIII.m_Barrel->SetID(10021);
+  R_SophiaIII.m_Hammer->SetID(10031);
+  R_SophiaIII.m_Grip->SetID(10011);
   R_SophiaIII.m_LWheel->SetID(101);
-  R_SophiaIII.m_LWheel->SetPos(0, 0);
-
-  R_SophiaIII.m_RWheel = std::make_unique<SophiaIIIWheel>();
   R_SophiaIII.m_RWheel->SetID(101);
-  R_SophiaIII.m_RWheel->SetPos(16, 0);
 
   Game::GetInstance()->Run(); 
   return EXIT_SUCCESS;

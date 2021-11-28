@@ -5,6 +5,8 @@ class Vector2D
 public:
   Vector2D(float X = 0, float Y = 0);
   
+  void SetXY(float X, float Y); 
+
   float GetX() const;
   float GetY() const;
 

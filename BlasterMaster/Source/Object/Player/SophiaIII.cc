@@ -1,6 +1,15 @@
 #include "SophiaIII.hh"
 #include "Engine/Renderer/Animation.hh"
 
+SophiaIII::SophiaIII()
+{
+  m_Barrel = std::make_unique<SophiaIIIBodyPart>();
+  m_Hammer = std::make_unique<SophiaIIIBodyPart>();
+  m_Grip   = std::make_unique<SophiaIIIBodyPart>();
+  m_LWheel = std::make_unique<SophiaIIIWheel>();
+  m_RWheel = std::make_unique<SophiaIIIWheel>();
+}
+
 void SophiaIII::SetState(int state)
 {
   Object::SetState(state);
@@ -22,15 +31,17 @@ void SophiaIII::SetState(int state)
   }
 }
 
-#include <string>
 void SophiaIII::Render()
 {
-  OutputDebugString((L"X = " + std::to_wstring(m_X) + L", ").c_str());
-  OutputDebugString((L"Y = " + std::to_wstring(m_Y) + L"\n").c_str());
+  m_Barrel->SetXY(m_X + 8 , m_Y + 12);
+  m_Hammer->SetXY(m_X     , m_Y + 12);
+  m_Grip  ->SetXY(m_X + 8 , m_Y + 4 );
+  m_LWheel->SetXY(m_X     , m_Y     ); 
+  m_RWheel->SetXY(m_X + 16, m_Y     );
 
-  if (m_Barrel) m_Barrel->Render();
-  if (m_Hammer) m_Hammer->Render();
-  if (m_Grip)   m_Grip  ->Render();
-  if (m_LWheel) m_LWheel->Render();
-  if (m_RWheel) m_RWheel->Render();
+  m_Barrel->Render();
+  m_Hammer->Render();
+  m_Grip  ->Render();
+  m_LWheel->Render();
+  m_RWheel->Render();
 }

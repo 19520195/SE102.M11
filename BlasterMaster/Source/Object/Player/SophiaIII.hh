@@ -40,7 +40,7 @@ private:
 class SophiaIII : public Object
 {
 public:
-  SophiaIII() = default;
+  SophiaIII();
 
   void SetState(int state);
   

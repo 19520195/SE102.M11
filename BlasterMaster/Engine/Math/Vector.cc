@@ -6,6 +6,12 @@ Vector2D::Vector2D(float X, float Y)
   m_Y = Y;
 }
 
+void Vector2D::SetXY(float X, float Y)
+{
+  m_X = X;
+  m_Y = Y;
+}
+
 float Vector2D::GetX() const
 {
   return m_X;
