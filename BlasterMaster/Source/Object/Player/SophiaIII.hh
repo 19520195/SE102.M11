@@ -9,9 +9,8 @@
 enum SophiaIIIState
 {
   SOPHIAIII_IDLE_LEFT,
-  SOPHIAIII_IDLE_RIGHT,
-
   SOPHIAIII_WALK_LEFT,
+  SOPHIAIII_IDLE_RIGHT,
   SOPHIAIII_WALK_RIGHT,
 };
 
@@ -46,7 +45,7 @@ public:
   
   void Render();
 
-public: // DEBUG // 
+private: 
   std::unique_ptr<SophiaIIIComponent> m_Barrel;
   std::unique_ptr<SophiaIIIComponent> m_Hammer;
   std::unique_ptr<SophiaIIIComponent> m_Grip;

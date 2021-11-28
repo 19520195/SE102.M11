@@ -29,7 +29,7 @@ private:
 class SpriteBase
 {
 public:
-  void InsertSprite(size_t ID, size_t top, size_t left, size_t bottom, size_t right, LPDIRECT3DTEXTURE9 texture);
+  void Add(size_t ID, size_t top, size_t left, size_t bottom, size_t right, LPDIRECT3DTEXTURE9 texture);
   Sprite* Get(size_t ID);
 
   static SpriteBase* GetInstance(); 

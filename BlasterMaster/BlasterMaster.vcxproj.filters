@@ -39,5 +39,6 @@
   <ItemGroup>
     <Image Include="Resources\Jason_and_Sophia_III.png" />
     <Image Include="Resources\Full_Area_3_Open_Wolrd.png" />
+    <Image Include="Resources\SophiaIII.png" />
   </ItemGroup>
 </Project>

@@ -8,6 +8,12 @@ SophiaIII::SophiaIII()
   m_Grip   = std::make_unique<SophiaIIIBodyPart>();
   m_LWheel = std::make_unique<SophiaIIIWheel>();
   m_RWheel = std::make_unique<SophiaIIIWheel>();
+
+  m_Barrel->SetID(10101);
+  m_Hammer->SetID(10401);
+  m_Grip  ->SetID(10201);
+  m_LWheel->SetID(10301);
+  m_RWheel->SetID(10302);
 }
 
 void SophiaIII::SetState(int state)
@@ -33,11 +39,29 @@ void SophiaIII::SetState(int state)
 
 void SophiaIII::Render()
 {
-  m_Barrel->SetXY(m_X + 8 , m_Y + 12);
-  m_Hammer->SetXY(m_X     , m_Y + 12);
-  m_Grip  ->SetXY(m_X + 8 , m_Y + 4 );
   m_LWheel->SetXY(m_X     , m_Y     ); 
   m_RWheel->SetXY(m_X + 16, m_Y     );
+
+  switch (m_State)
+  {
+  case SOPHIAIII_IDLE_LEFT:
+  case SOPHIAIII_WALK_LEFT:
+    m_Barrel->SetXY(m_X     , m_Y + 12);
+    m_Hammer->SetXY(m_X +  8, m_Y + 12);
+    m_Grip  ->SetXY(m_X +  8, m_Y +  4);
+    m_Barrel->SetID(10101);
+    m_Hammer->SetID(10401);
+    break;
+
+  case SOPHIAIII_IDLE_RIGHT:
+  case SOPHIAIII_WALK_RIGHT:
+    m_Barrel->SetXY(m_X + 16, m_Y + 12);
+    m_Hammer->SetXY(m_X     , m_Y + 12);
+    m_Grip  ->SetXY(m_X +  8, m_Y +  4);
+    m_Barrel->SetID(10105);
+    m_Hammer->SetID(10402);
+    break;
+  }
 
   m_Barrel->Render();
   m_Hammer->Render();

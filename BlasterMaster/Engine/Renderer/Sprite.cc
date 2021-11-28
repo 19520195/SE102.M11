@@ -33,7 +33,7 @@ void Sprite::Render(float X, float Y)
 
 std::shared_ptr<SpriteBase> SpriteBase::s_Instance = std::make_shared<SpriteBase>();
 
-void SpriteBase::InsertSprite(size_t ID, size_t top, size_t left, size_t bottom, size_t right, LPDIRECT3DTEXTURE9 texture)
+void SpriteBase::Add(size_t ID, size_t top, size_t left, size_t bottom, size_t right, LPDIRECT3DTEXTURE9 texture)
 {
   m_Sprites[ID].reset(new Sprite(ID, top, left, bottom, right, texture));
 }
