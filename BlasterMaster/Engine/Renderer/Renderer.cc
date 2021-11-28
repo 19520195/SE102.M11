@@ -74,7 +74,7 @@ void Renderer::Render()
 void Renderer::Draw(float X, float Y, Sprite* sprite)
 {
   // Reformat coordiante 
-  Y += SCREEN_HEIGHT - (sprite->GetRect()->bottom - sprite->GetRect()->top + 1);
+  Y = SCREEN_HEIGHT - (sprite->GetRect()->bottom - sprite->GetRect()->top + 1) - Y;
   
   // Drawing sprite
   D3DXVECTOR3 p(round(X), round(Y), 0);

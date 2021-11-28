@@ -24,11 +24,6 @@ void Object::SetState(int state)
   m_State = state;
 }
 
-void Object::SetAnimation(size_t ID)
-{
-  m_AnimationID = ID;
-}
-
 int Object::GetState()
 {
   return m_State;
@@ -38,4 +33,9 @@ void Object::Update(TimeStep step)
 {
   m_X += step * m_SpeedX;
   m_Y += step * m_SpeedY;
+}
+
+void RenderableObject::Render()
+{
+  // 
 }

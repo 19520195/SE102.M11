@@ -12,10 +12,10 @@ void Renderable::SetID(size_t ID)
 
 void AnimationRender::Render(float X, float Y)
 {
-  AnimationBase::GetInstance()->Get(m_ID)->Render(X, Y);
+  if (m_ID) AnimationBase::GetInstance()->Get(m_ID)->Render(X, Y);
 }
 
 void SpriteRender::Render(float X, float Y)
 {
-  SpriteBase::GetInstance()->Get(m_ID)->Render(X, Y);
+  if (m_ID) SpriteBase::GetInstance()->Get(m_ID)->Render(X, Y);
 }

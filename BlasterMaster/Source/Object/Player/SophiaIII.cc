@@ -22,8 +22,12 @@ void SophiaIII::SetState(int state)
   }
 }
 
+#include <string>
 void SophiaIII::Render()
 {
+  OutputDebugString((L"X = " + std::to_wstring(m_X) + L", ").c_str());
+  OutputDebugString((L"Y = " + std::to_wstring(m_Y) + L"\n").c_str());
+
   if (m_Barrel) m_Barrel->Render();
   if (m_Hammer) m_Hammer->Render();
   if (m_Grip)   m_Grip  ->Render();

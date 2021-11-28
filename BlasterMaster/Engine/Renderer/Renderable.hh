@@ -17,7 +17,7 @@ protected:
 class SpriteRender : public Renderable
 {
 public:
-  void Render(float X, float Y);
+  virtual void Render(float X, float Y);
 };
 
 class AnimationRender : public Renderable

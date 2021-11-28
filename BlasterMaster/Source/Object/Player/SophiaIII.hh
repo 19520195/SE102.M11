@@ -17,13 +17,24 @@ enum SophiaIIIState
 
 constexpr float SOPHIAIII_SPEED = 0.2F;
 
-class SophiaIIIComponent : public Object, public SpriteRender
+typedef RenderableObject SophiaIIIComponent;
+
+class SophiaIIIBodyPart : public SpriteObject
 {
 public:
-  void Render()
-  {
-    SpriteRender::Render(m_X, m_Y);
-  }
+  // 
+
+private:
+  // 
+};
+
+class SophiaIIIWheel : public AnimationObject
+{
+public:
+  // 
+
+private:
+  // 
 };
 
 class SophiaIII : public Object
@@ -34,12 +45,6 @@ public:
   void SetState(int state);
   
   void Render();
-
-private:
-  // size_t m_BarrelAID;
-  // size_t m_HammerAID;
-  // size_t m_GripAID;
-  // size_t m_WheelAID;
 
 public: // DEBUG // 
   std::unique_ptr<SophiaIIIComponent> m_Barrel;
