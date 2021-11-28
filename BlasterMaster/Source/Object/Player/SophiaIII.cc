@@ -1,6 +1,5 @@
 #include "SophiaIII.hh"
 #include "Engine/Renderer/Animation.hh"
-#include <string>
 
 SophiaIII::SophiaIII()
 {
@@ -77,8 +76,6 @@ void SophiaIII::Render(TimeStep step)
     step = -step;
     break;
   }
-
-  OutputDebugString(std::to_wstring(step).c_str());
 
   m_Barrel->Render(step);
   m_Hammer->Render(step);
