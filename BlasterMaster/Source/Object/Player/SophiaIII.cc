@@ -16,6 +16,13 @@ SophiaIII::SophiaIII()
   m_RWheel->SetID(10302);
 }
 
+void SophiaIII::Update(TimeStep step)
+{
+  Object::Update(step); 
+
+  m_SpeedY -= SOPHIAIII_GRAVITY * step; 
+}
+
 void SophiaIII::SetState(int state)
 {
   Object::SetState(state);

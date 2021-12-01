@@ -14,7 +14,8 @@ enum SophiaIIIState
   SOPHIAIII_WALK_RIGHT,
 };
 
-constexpr float SOPHIAIII_SPEED = 0.1F;
+constexpr float SOPHIAIII_SPEED   = 0.1f;
+constexpr float SOPHIAIII_GRAVITY = 0.1f;
 
 typedef RenderableObject  SophiaIIIComponent;
 typedef SpriteObject      SophiaIIIBodyPart;
@@ -24,6 +25,8 @@ class SophiaIII : public Object
 {
 public:
   SophiaIII();
+
+  virtual void Update(TimeStep step);
 
   void SetState(int state);
   

@@ -15,7 +15,7 @@ public:
 
   int GetState();
 
-  void Update(TimeStep step);
+  virtual void Update(TimeStep step);
 
 protected:
   float m_SpeedX;
