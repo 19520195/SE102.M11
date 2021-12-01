@@ -18,6 +18,7 @@
     <ClCompile Include="Engine\Renderer\Renderable.cc" />
     <ClCompile Include="Engine\Core\Input.cc" />
     <ClCompile Include="Engine\Debug\Debug.cc" />
+    <ClCompile Include="Source\Scene\PlayScene.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Core\Window.hh" />
@@ -39,6 +40,8 @@
     <ClInclude Include="Engine\Renderer\Renderable.hh" />
     <ClInclude Include="Engine\Core\Input.hh" />
     <ClInclude Include="Engine\Debug\Debug.hh" />
+    <ClInclude Include="Source\Scene\PlayScene.hh" />
+    <ClInclude Include="Source\Object\Object.hh" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\SophiaIII.png" />

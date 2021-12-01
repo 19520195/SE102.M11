@@ -27,7 +27,7 @@ protected:
 class RenderableObject : public Object, public Renderable
 {
 public:
-  virtual void Render(TimeStep step) = 0; 
+  virtual void Render(TimeStep step) = 0;
 };
 
 class SpriteObject : public RenderableObject

@@ -1,6 +1,7 @@
 #pragma once
 
-#include "Engine/Core/Object.hh"
+#include "../Object.hh"
+#include "Engine/Core/Input.hh"
 #include "Engine/Renderer/Animation.hh"
 #include "Engine/Renderer/Renderer.hh"
 #include "Engine/Renderer/Renderable.hh"
@@ -15,22 +16,21 @@ enum SophiaIIIState
 };
 
 constexpr float SOPHIAIII_SPEED   = 0.1f;
-constexpr float SOPHIAIII_GRAVITY = 0.1f;
+constexpr float SOPHIAIII_GRAVITY = 0.00001f;
 
 typedef RenderableObject  SophiaIIIComponent;
 typedef SpriteObject      SophiaIIIBodyPart;
 typedef AnimationObject   SophiaIIIWheel;
 
-class SophiaIII : public Object
+class SophiaIII : public Player
 {
 public:
   SophiaIII();
 
-  virtual void Update(TimeStep step);
-
   void SetState(int state);
   
-  void Render(TimeStep step);
+  virtual void Update(TimeStep step);
+  virtual void Render(TimeStep step);
 
 private: 
   std::unique_ptr<SophiaIIIComponent> m_Barrel;
@@ -38,4 +38,15 @@ private:
   std::unique_ptr<SophiaIIIComponent> m_Grip;
   std::unique_ptr<SophiaIIIComponent> m_LWheel;
   std::unique_ptr<SophiaIIIComponent> m_RWheel;
+};
+
+class SophiaIIIKeyboardEvent : public KeyboardEvent
+{
+public:
+  virtual void KeyState(BYTE* state);
+  virtual void OnKeyUp(int code);
+  virtual void OnKeyDown(int code);
+
+public: // DEBUG //
+  SophiaIII* m_SophiaIII; 
 };

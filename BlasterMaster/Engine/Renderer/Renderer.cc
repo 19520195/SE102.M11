@@ -59,8 +59,8 @@ void Renderer::Render(const TimeStep& step)
     G_Device->ColorFill(G_Buffer, NULL, D3DCOLOR_XRGB(0, 0, 0));
     G_SpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
-    // Render objects
-    R_SophiaIII.Render(step);
+    // Render objects in current scene
+    Game::GetInstance()->GetScene()->Render(step); 
 
     G_SpriteHandler->End();
     G_Device->EndScene();

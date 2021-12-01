@@ -4,6 +4,9 @@
 #include "Engine/Renderer/Sprite.hh"
 #include "Engine/Renderer/Animation.hh"
 
+#include "Scene/PlayScene.hh"
+#include "Object/Player/SophiaIII.hh"
+
 void LoadResources();
 
 INT APIENTRY wWinMain(_In_     HINSTANCE hInstance,
@@ -14,9 +17,19 @@ INT APIENTRY wWinMain(_In_     HINSTANCE hInstance,
   Game::GetInstance()->Create(SCREEN_WIDTH, SCREEN_HEIGHT, L"Blaster Master", hInstance, nCmdShow);
   
   LoadResources();
-  R_SophiaIII.SetXY(100, 100);
-  R_SophiaIII.SetState(SOPHIAIII_IDLE_LEFT);
 
+  SophiaIII __SophiaIII;
+  __SophiaIII.SetXY(100, 100);
+  __SophiaIII.SetState(SOPHIAIII_IDLE_LEFT);
+
+  std::unique_ptr<PlayScene> scene(new PlayScene());
+  scene->SetPlayer(&__SophiaIII); 
+
+  std::unique_ptr<SophiaIIIKeyboardEvent> keyboard(new SophiaIIIKeyboardEvent());
+  keyboard->m_SophiaIII = &__SophiaIII;
+  scene->SetKeyboardHandler(keyboard.get()); 
+
+  Game::GetInstance()->SetScene(scene.get());
   Game::GetInstance()->Run(); 
   return EXIT_SUCCESS;
 }

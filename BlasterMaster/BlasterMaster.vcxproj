@@ -24,6 +24,7 @@
     <ClCompile Include="Engine\Renderer\Camera.cc" />
     <ClCompile Include="Engine\Renderer\Animation.cc" />
     <ClCompile Include="Engine\Renderer\Renderable.cc" />
+    <ClCompile Include="Source\Scene\PlayScene.cc" />
     <ClCompile Include="Source\BlasterMaster.cc" />
     <ClCompile Include="Engine\Core\Window.cc" />
     <ClCompile Include="Engine\Core\Game.cc" />
@@ -51,6 +52,8 @@
     <ClInclude Include="Engine\Scene\Scene.hh" />
     <ClInclude Include="Engine\DataStructure\QuadTree.hh" />
     <ClInclude Include="Engine\Renderer\Renderable.hh" />
+    <ClInclude Include="Source\Object\Object.hh" />
+    <ClInclude Include="Source\Scene\PlayScene.hh" />
     <ClInclude Include="Source\BlasterMaster.hh" />
     <ClInclude Include="Engine\Core\Object.hh" />
     <ClInclude Include="Source\Object\Player\SophiaIII.hh" />

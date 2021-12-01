@@ -16,17 +16,10 @@ SophiaIII::SophiaIII()
   m_RWheel->SetID(10302);
 }
 
-void SophiaIII::Update(TimeStep step)
-{
-  Object::Update(step); 
-
-  m_SpeedY -= SOPHIAIII_GRAVITY * step; 
-}
-
 void SophiaIII::SetState(int state)
 {
   Object::SetState(state);
-  
+
   switch (state)
   {
   case SOPHIAIII_IDLE_LEFT:
@@ -42,6 +35,13 @@ void SophiaIII::SetState(int state)
     m_SpeedX = SOPHIAIII_SPEED;
     break;
   }
+}
+
+void SophiaIII::Update(TimeStep step)
+{
+  Object::Update(step); 
+
+  m_SpeedY -= SOPHIAIII_GRAVITY * step; 
 }
 
 void SophiaIII::Render(TimeStep step)
@@ -89,4 +89,29 @@ void SophiaIII::Render(TimeStep step)
   m_Grip  ->Render(step);
   m_LWheel->Render(step);
   m_RWheel->Render(step);
+}
+
+void SophiaIIIKeyboardEvent::KeyState(BYTE* state)
+{
+  if (Input::GetInstance()->IsKeyDown(DIK_RIGHT))
+    m_SophiaIII->SetState(SOPHIAIII_WALK_RIGHT);
+  else if (Input::GetInstance()->IsKeyDown(DIK_LEFT))
+    m_SophiaIII->SetState(SOPHIAIII_WALK_LEFT);
+  else
+  {
+    if (m_SophiaIII->GetState() == SOPHIAIII_WALK_LEFT)
+      m_SophiaIII->SetState(SOPHIAIII_IDLE_LEFT);
+    else if (m_SophiaIII->GetState() == SOPHIAIII_WALK_RIGHT)
+      m_SophiaIII->SetState(SOPHIAIII_IDLE_RIGHT);
+  }
+}
+
+void SophiaIIIKeyboardEvent::OnKeyUp(int code) 
+{
+  // 
+}
+
+void SophiaIIIKeyboardEvent::OnKeyDown(int code) 
+{
+  //
 }
