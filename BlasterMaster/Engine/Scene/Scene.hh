@@ -9,6 +9,7 @@ class Scene
 public:
   Scene() = default;
 
+  Camera         GetCamera() const; 
   KeyboardEvent* GetKeyboardHandler() const;
 
   virtual void Update(TimeStep step) = 0;

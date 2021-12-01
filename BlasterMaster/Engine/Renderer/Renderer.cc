@@ -76,7 +76,12 @@ void Renderer::Draw(float X, float Y, Sprite* sprite)
   Y = SCREEN_HEIGHT - (sprite->GetRect()->bottom - sprite->GetRect()->top + 1) - Y;
   
   // Drawing sprite
-  D3DXVECTOR3 p(round(X), round(Y), 0);
+  Camera camera = Game::GetInstance()->GetScene()->GetCamera();
+  D3DXVECTOR3 p(
+    round(X + camera.GetX()),
+    round(Y + camera.GetY()),
+    0);
+
   G_SpriteHandler->Draw(
     sprite->GetTexture(), 
     sprite->GetRect(),
