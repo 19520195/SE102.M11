@@ -16,12 +16,6 @@ public:
   void Render(float X, float Y); 
 
 private:
-  size_t m_ID;
-  size_t m_Top;
-  size_t m_Left;
-  size_t m_Bottom;
-  size_t m_Right;
-
   RECT               m_Rect; 
   LPDIRECT3DTEXTURE9 m_Texture;
 };

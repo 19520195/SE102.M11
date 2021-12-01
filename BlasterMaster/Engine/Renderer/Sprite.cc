@@ -3,12 +3,6 @@
 
 Sprite::Sprite(size_t ID, size_t top, size_t left, size_t bottom, size_t right, LPDIRECT3DTEXTURE9 texture) 
 {
-  m_ID      = ID;
-  m_Top     = top;
-  m_Left    = left;
-  m_Bottom  = bottom;
-  m_Right   = right;
-
   m_Rect.top    = top;
   m_Rect.left   = left;
   m_Rect.bottom = bottom;
