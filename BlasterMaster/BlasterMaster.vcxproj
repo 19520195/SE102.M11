@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Engine\Debug\Debug.cc" />
+    <ClCompile Include="Engine\Core\Input.cc" />
     <ClCompile Include="Engine\Renderer\Camera.cc" />
     <ClCompile Include="Engine\Renderer\Animation.cc" />
     <ClCompile Include="Engine\Renderer\Renderable.cc" />
@@ -26,7 +28,7 @@
     <ClCompile Include="Engine\Core\Window.cc" />
     <ClCompile Include="Engine\Core\Game.cc" />
     <ClCompile Include="Engine\Renderer\Renderer.cc" />
-    <ClCompile Include="Engine\Event\KeyEvent.cc" />
+    <ClCompile Include="Engine\Event\KeyboardEvent.cc" />
     <ClCompile Include="Engine\Scene\Scene.cc" />
     <ClCompile Include="Engine\DataStructure\QuadTree.cc" />
     <ClCompile Include="Engine\Core\Object.cc" />
@@ -36,7 +38,9 @@
     <ClCompile Include="Engine\Math\Vector.cc" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Engine\Event\KeyEvent.hh" />
+    <ClInclude Include="Engine\Debug\Debug.hh" />
+    <ClInclude Include="Engine\Core\Input.hh" />
+    <ClInclude Include="Engine\Event\KeyboardEvent.hh" />
     <ClInclude Include="Engine\Math\Math.hh" />
     <ClInclude Include="Engine\Renderer\Camera.hh" />
     <ClInclude Include="Engine\Renderer\Animation.hh" />

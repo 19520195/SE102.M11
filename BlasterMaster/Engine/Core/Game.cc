@@ -16,8 +16,8 @@ void Game::Create(int width, int height, std::wstring title, HINSTANCE hInstance
   m_Window->Show(nCmdShow);
 
   Renderer::InitDirectX3D(m_Window->GetHandle(), width, height);
-  KeyboardHandler::GetInstance()->Init(m_Window->GetHandle());
-  KeyboardHandler::GetInstance()->m_KeyHandler = new SampleKeyEvent();
+  Input::GetInstance()->InitKeyboard(m_Window->GetHandle());
+  Input::GetInstance()->SetKeyHandler(new SampleKeyEvent());
 }
 
 void Game::Run()
@@ -47,7 +47,7 @@ void Game::Run()
     else
     {
       Update(step);
-      KeyboardHandler::GetInstance()->ProcKeyboard();
+      Input::GetInstance()->ProcKeyboard();
       Renderer::Render(step);
     }
   }

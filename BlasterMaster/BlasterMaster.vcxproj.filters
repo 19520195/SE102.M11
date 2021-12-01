@@ -12,10 +12,12 @@
     <ClCompile Include="Engine\Renderer\Animation.cc" />
     <ClCompile Include="Engine\Renderer\Camera.cc" />
     <ClCompile Include="Engine\Math\Vector.cc" />
-    <ClCompile Include="Engine\Event\KeyEvent.cc" />
+    <ClCompile Include="Engine\Event\KeyboardEvent.cc" />
     <ClCompile Include="Engine\Scene\Scene.cc" />
     <ClCompile Include="Engine\DataStructure\QuadTree.cc" />
     <ClCompile Include="Engine\Renderer\Renderable.cc" />
+    <ClCompile Include="Engine\Core\Input.cc" />
+    <ClCompile Include="Engine\Debug\Debug.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Core\Window.hh" />
@@ -30,11 +32,13 @@
     <ClInclude Include="Engine\Renderer\Camera.hh" />
     <ClInclude Include="Engine\Math\Vector.hh" />
     <ClInclude Include="Engine\Math\Math.hh" />
-    <ClInclude Include="Engine\Event\KeyEvent.hh" />
+    <ClInclude Include="Engine\Event\KeyboardEvent.hh" />
     <ClInclude Include="Engine\Scene\Scene.hh" />
     <ClInclude Include="Engine\DataStructure\QuadTree.hh" />
     <ClInclude Include="Source\BlasterMaster.hh" />
     <ClInclude Include="Engine\Renderer\Renderable.hh" />
+    <ClInclude Include="Engine\Core\Input.hh" />
+    <ClInclude Include="Engine\Debug\Debug.hh" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\SophiaIII.png" />

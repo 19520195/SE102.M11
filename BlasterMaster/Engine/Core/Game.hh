@@ -2,10 +2,11 @@
 
 #include <memory>
 
+#include "Engine/Debug/Debug.hh"
 #include "Window.hh"
 #include "TimeStep.hh"
 #include "Engine/Renderer/Renderer.hh"
-#include "Engine/Event/KeyEvent.hh"
+#include "Input.hh"
 
 constexpr int OX_SCREEN_ZOOM = 3;
 
@@ -39,15 +40,15 @@ private:
   static std::shared_ptr<Game> s_Instance; 
 };
 
-class SampleKeyEvent : public KeyEvent
+class SampleKeyEvent : public KeyboardEvent
 {
   void KeyState(BYTE* state)
   {
     SophiaIII* sophiaIII = &R_SophiaIII;
 
-    if (KeyboardHandler::GetInstance()->IsKeyDown(DIK_RIGHT))
+    if (Input::GetInstance()->IsKeyDown(DIK_RIGHT))
       sophiaIII->SetState(SOPHIAIII_WALK_RIGHT);
-    else if (KeyboardHandler::GetInstance()->IsKeyDown(DIK_LEFT))
+    else if (Input::GetInstance()->IsKeyDown(DIK_LEFT))
       sophiaIII->SetState(SOPHIAIII_WALK_LEFT);
     else
     {
