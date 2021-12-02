@@ -13,6 +13,10 @@
 constexpr int KEYBOARD_BUFFER_SIZE = 1024;
 constexpr int KEYSTATE_BUFFER_SIZE = 256;
 
+#ifndef IS_KEYDOWN
+#define IS_KEYDOWN(KEYSTATE, KEYCODE) (bool)(KEYSTATE[KEYCODE] & 0x80)
+#endif // IS_KEYDOWN
+
 class Input
 {
 public:

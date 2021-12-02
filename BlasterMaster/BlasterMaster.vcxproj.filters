@@ -19,6 +19,8 @@
     <ClCompile Include="Engine\Core\Input.cc" />
     <ClCompile Include="Engine\Debug\Debug.cc" />
     <ClCompile Include="Source\Scene\PlayScene.cc" />
+    <ClCompile Include="Source\Object\Brick.cc" />
+    <ClCompile Include="Engine\Math\Collision.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Core\Window.hh" />
@@ -42,8 +44,11 @@
     <ClInclude Include="Engine\Debug\Debug.hh" />
     <ClInclude Include="Source\Scene\PlayScene.hh" />
     <ClInclude Include="Source\Object\Object.hh" />
+    <ClInclude Include="Source\Object\Brick.hh" />
+    <ClInclude Include="Engine\Math\Collision.hh" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\SophiaIII.png" />
+    <Image Include="Resources\Blue.png" />
   </ItemGroup>
 </Project>

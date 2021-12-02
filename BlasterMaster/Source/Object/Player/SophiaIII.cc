@@ -14,6 +14,9 @@ SophiaIII::SophiaIII()
   m_Grip  ->SetID(10201);
   m_LWheel->SetID(10301);
   m_RWheel->SetID(10302);
+
+  m_Width = 24;
+  m_Height = 18;
 }
 
 void SophiaIII::SetState(int state)
@@ -37,11 +40,26 @@ void SophiaIII::SetState(int state)
   }
 }
 
-void SophiaIII::Update(TimeStep step)
+void SophiaIII::Update(TimeStep elapsed, std::vector<Object*> objects)
 {
-  Object::Update(step); 
+  m_SpeedY -= SOPHIAIII_GRAVITY * elapsed;
 
-  m_SpeedY -= SOPHIAIII_GRAVITY * step; 
+  float deltaX = m_SpeedX * elapsed;
+  float deltaY = m_SpeedY * elapsed; 
+  
+  for (size_t i = 0; i < objects.size(); ++i)
+  {
+    float deltaT = Collision::SweptAABB(*this, *objects[i]);
+    if (deltaT >= 0 && deltaT <= elapsed)
+    {
+      deltaY = m_SpeedY * deltaT;
+      m_SpeedY = 0;
+    }
+  }
+
+  m_X += deltaX;
+  m_Y += deltaY;
+  DEBUG_MSG(L"deltaY = %d\n", deltaY);
 }
 
 void SophiaIII::Render(TimeStep step)
@@ -93,9 +111,9 @@ void SophiaIII::Render(TimeStep step)
 
 void SophiaIIIKeyboardEvent::KeyState(BYTE* state)
 {
-  if (Input::GetInstance()->IsKeyDown(DIK_RIGHT))
+  if (IS_KEYDOWN(state, DIK_RIGHT))
     m_SophiaIII->SetState(SOPHIAIII_WALK_RIGHT);
-  else if (Input::GetInstance()->IsKeyDown(DIK_LEFT))
+  else if (IS_KEYDOWN(state, DIK_LEFT))
     m_SophiaIII->SetState(SOPHIAIII_WALK_LEFT);
   else
   {

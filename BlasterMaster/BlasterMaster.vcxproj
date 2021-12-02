@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Engine\Math\Collision.cc" />
+    <ClCompile Include="Source\Object\Brick.cc" />
     <ClCompile Include="Engine\Debug\Debug.cc" />
     <ClCompile Include="Engine\Core\Input.cc" />
     <ClCompile Include="Engine\Renderer\Camera.cc" />
@@ -39,6 +41,8 @@
     <ClCompile Include="Engine\Math\Vector.cc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Engine\Math\Collision.hh" />
+    <ClInclude Include="Source\Object\Brick.hh" />
     <ClInclude Include="Engine\Debug\Debug.hh" />
     <ClInclude Include="Engine\Core\Input.hh" />
     <ClInclude Include="Engine\Event\KeyboardEvent.hh" />
@@ -62,6 +66,7 @@
     <ClInclude Include="Engine\Math\Vector.hh" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Resources\Blue.png" />
     <Image Include="Resources\SophiaIII.png" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

@@ -23,8 +23,27 @@ int Object::GetState()
   return m_State;
 }
 
-void Object::Update(TimeStep step)
+void Object::Update(TimeStep step, std::vector<Object*> objects)
 {
-  m_X += step * m_SpeedX;
-  m_Y += step * m_SpeedY;
+  // 
+}
+
+void SpriteObject::Render(float X, float Y, TimeStep elapsed)
+{
+  SpriteBase::GetInstance()->Get(m_ID)->Render(X, Y);
+}
+
+void SpriteObject::Render(TimeStep elapsed)
+{
+  Render(m_X, m_Y, elapsed);
+}
+
+void AnimationObject::Render(float X, float Y, TimeStep elapsed)
+{
+  AnimationBase::GetInstance()->Get(m_ID)->Render(X, Y, elapsed);
+}
+
+void AnimationObject::Render(TimeStep elapsed)
+{
+  Render(m_X, m_Y, elapsed);
 }

@@ -16,7 +16,7 @@ enum SophiaIIIState
 };
 
 constexpr float SOPHIAIII_SPEED   = 0.1f;
-constexpr float SOPHIAIII_GRAVITY = 0.00001f;
+constexpr float SOPHIAIII_GRAVITY = 0.0001f;
 
 typedef RenderableObject  SophiaIIIComponent;
 typedef SpriteObject      SophiaIIIBodyPart;
@@ -29,8 +29,8 @@ public:
 
   void SetState(int state);
   
-  virtual void Update(TimeStep step);
-  virtual void Render(TimeStep step);
+  virtual void Update(TimeStep elapsed, std::vector<Object*> objects);
+  virtual void Render(TimeStep elapsed);
 
 private: 
   std::unique_ptr<SophiaIIIComponent> m_Barrel;

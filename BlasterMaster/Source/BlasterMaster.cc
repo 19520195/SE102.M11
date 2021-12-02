@@ -19,15 +19,23 @@ INT APIENTRY wWinMain(_In_     HINSTANCE hInstance,
   LoadResources();
 
   SophiaIII __SophiaIII;
-  __SophiaIII.SetXY(100, 100);
+  __SophiaIII.SetXY(100, 200);
   __SophiaIII.SetState(SOPHIAIII_IDLE_LEFT);
 
   std::unique_ptr<PlayScene> scene(new PlayScene());
-  scene->SetPlayer(&__SophiaIII); 
+  scene->SetPlayer(&__SophiaIII);
+
+  // Brick
+  Brick brick;
+  brick.SetXY(64, 64);
+  brick.SetWidth(128);
+  brick.SetHeight(8);
+  brick.SetID(20101);
+  scene->AddRenderableObject(&brick); 
 
   std::unique_ptr<SophiaIIIKeyboardEvent> keyboard(new SophiaIIIKeyboardEvent());
   keyboard->m_SophiaIII = &__SophiaIII;
-  scene->SetKeyboardHandler(keyboard.get()); 
+  scene->SetKeyboardHandler(keyboard.get());
 
   Game::GetInstance()->SetScene(scene.get());
   Game::GetInstance()->Run(); 
@@ -37,6 +45,10 @@ INT APIENTRY wWinMain(_In_     HINSTANCE hInstance,
 void LoadResources()
 
 {
+  TextureBase::GetInstance()->Add(2, L"Resources\\Blue.png", D3DCOLOR_XRGB(0, 0, 0));
+  LPDIRECT3DTEXTURE9 blue = TextureBase::GetInstance()->GetTexture(2);
+  SpriteBase::GetInstance()->Add(20101, 0, 0, 8, 128, blue);
+
   Animation* animation;
   TextureBase::GetInstance()->Add(1, L"Resources\\SophiaIII.png", D3DCOLOR_XRGB(0, 57, 115));
   LPDIRECT3DTEXTURE9 TXSophiaIII = TextureBase::GetInstance()->GetTexture(1);

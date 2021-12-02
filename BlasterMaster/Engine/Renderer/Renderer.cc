@@ -70,7 +70,7 @@ void Renderer::Render(const TimeStep& step)
   G_Device->Present(NULL, NULL, NULL, NULL);
 }
 
-void Renderer::Draw(float X, float Y, Sprite* sprite)
+void Renderer::DrawSprite(float X, float Y, Sprite* sprite)
 {
   // Reformat coordiante 
   Y = SCREEN_HEIGHT - (sprite->GetRect()->bottom - sprite->GetRect()->top + 1) - Y;

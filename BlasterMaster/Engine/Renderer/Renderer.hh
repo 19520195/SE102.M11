@@ -20,5 +20,5 @@ public:
   static void CleanDirectX3D();
   static void Render(const TimeStep& step = 0);
 
-  static void Draw(float X, float Y, Sprite* sprite);
+  static void DrawSprite(float X, float Y, Sprite* sprite);
 };

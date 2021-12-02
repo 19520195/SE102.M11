@@ -22,7 +22,7 @@ LPDIRECT3DTEXTURE9 Sprite::GetTexture()
 
 void Sprite::Render(float X, float Y)
 {
-  Renderer::Draw(X, Y, this);
+  Renderer::DrawSprite(X, Y, this);
 }
 
 std::shared_ptr<SpriteBase> SpriteBase::s_Instance = std::make_shared<SpriteBase>();
