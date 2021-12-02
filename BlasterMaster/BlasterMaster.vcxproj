@@ -66,6 +66,7 @@
     <ClInclude Include="Engine\Math\Vector.hh" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Resources\Area3.png" />
     <Image Include="Resources\Blue.png" />
     <Image Include="Resources\SophiaIII.png" />
   </ItemGroup>

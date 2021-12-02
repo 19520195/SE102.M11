@@ -50,5 +50,6 @@
   <ItemGroup>
     <Image Include="Resources\SophiaIII.png" />
     <Image Include="Resources\Blue.png" />
+    <Image Include="Resources\Area3.png" />
   </ItemGroup>
 </Project>

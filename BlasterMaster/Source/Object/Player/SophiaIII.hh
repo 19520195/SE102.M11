@@ -16,7 +16,7 @@ enum SophiaIIIState
 };
 
 constexpr float SOPHIAIII_SPEED   = 0.1f;
-constexpr float SOPHIAIII_GRAVITY = 0.0001f;
+constexpr float SOPHIAIII_GRAVITY = 0.001f;
 
 typedef RenderableObject  SophiaIIIComponent;
 typedef SpriteObject      SophiaIIIBodyPart;

@@ -78,7 +78,7 @@ void Renderer::DrawSprite(float X, float Y, Sprite* sprite)
   // Drawing sprite
   Camera camera = Game::GetInstance()->GetScene()->GetCamera();
   D3DXVECTOR3 p(
-    round(X + camera.GetX()),
+    round(X - camera.GetX()),
     round(Y + camera.GetY()),
     0);
 

@@ -72,18 +72,18 @@ void SophiaIII::Render(TimeStep step)
   {
   case SOPHIAIII_IDLE_LEFT:
   case SOPHIAIII_WALK_LEFT:
-    m_Barrel->SetXY(m_X     , m_Y + 12);
-    m_Hammer->SetXY(m_X +  8, m_Y + 12);
-    m_Grip  ->SetXY(m_X +  8, m_Y +  4);
+    m_Barrel->SetXY(m_X     , m_Y + 10);
+    m_Hammer->SetXY(m_X +  8, m_Y + 10);
+    m_Grip  ->SetXY(m_X +  8, m_Y +  2);
     m_Barrel->SetID(10101);
     m_Hammer->SetID(10401);
     break;
 
   case SOPHIAIII_IDLE_RIGHT:
   case SOPHIAIII_WALK_RIGHT:
-    m_Barrel->SetXY(m_X + 16, m_Y + 12);
-    m_Hammer->SetXY(m_X     , m_Y + 12);
-    m_Grip  ->SetXY(m_X +  8, m_Y +  4);
+    m_Barrel->SetXY(m_X + 16, m_Y + 10);
+    m_Hammer->SetXY(m_X     , m_Y + 10);
+    m_Grip  ->SetXY(m_X +  8, m_Y +  2);
     m_Barrel->SetID(10105);
     m_Hammer->SetID(10402);
     break;
@@ -109,6 +109,8 @@ void SophiaIII::Render(TimeStep step)
   m_RWheel->Render(step);
 }
 
+#include "Engine/Core/Game.hh"
+
 void SophiaIIIKeyboardEvent::KeyState(BYTE* state)
 {
   if (IS_KEYDOWN(state, DIK_RIGHT))
@@ -121,6 +123,30 @@ void SophiaIIIKeyboardEvent::KeyState(BYTE* state)
       m_SophiaIII->SetState(SOPHIAIII_IDLE_LEFT);
     else if (m_SophiaIII->GetState() == SOPHIAIII_WALK_RIGHT)
       m_SophiaIII->SetState(SOPHIAIII_IDLE_RIGHT);
+  }
+
+  /// DEBUG /// 
+  static float cameraMovement = 8.f;
+  Camera camera = Game::GetInstance()->GetScene()->GetCamera();
+  if (IS_KEYDOWN(state, DIK_A))
+  {
+    camera.SetXY(camera.GetX() - cameraMovement, camera.GetY());
+    Game::GetInstance()->GetScene()->SetCamera(camera);
+  }
+  else if (IS_KEYDOWN(state, DIK_D))
+  {
+    camera.SetXY(camera.GetX() + cameraMovement, camera.GetY());
+    Game::GetInstance()->GetScene()->SetCamera(camera);
+  }
+  else if (IS_KEYDOWN(state, DIK_S))
+  {
+    camera.SetXY(camera.GetX(), camera.GetY() - cameraMovement);
+    Game::GetInstance()->GetScene()->SetCamera(camera);
+  }
+  else if (IS_KEYDOWN(state, DIK_W))
+  {
+    camera.SetXY(camera.GetX(), camera.GetY() + cameraMovement);
+    Game::GetInstance()->GetScene()->SetCamera(camera);
   }
 }
 

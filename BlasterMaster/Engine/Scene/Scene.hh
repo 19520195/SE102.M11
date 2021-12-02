@@ -9,6 +9,8 @@ class Scene
 public:
   Scene() = default;
 
+  void SetCamera(Camera camera); 
+
   Camera         GetCamera() const; 
   KeyboardEvent* GetKeyboardHandler() const;
 

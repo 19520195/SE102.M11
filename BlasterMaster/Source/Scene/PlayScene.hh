@@ -6,7 +6,7 @@
 class PlayScene : public Scene
 {
 public:
-  PlayScene() = default; 
+  PlayScene();
 
   /// GETTER /// 
   Player* GetPlayer() const;
@@ -15,6 +15,7 @@ public:
   void SetPlayer(Player* player);
   void SetKeyboardHandler(KeyboardEvent* handler);
 
+  void AddObject(Object* object); 
   void AddRenderableObject(RenderableObject* object); 
 
   virtual void Update(TimeStep elapsed);
