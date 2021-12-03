@@ -11,6 +11,7 @@ public:
   float GetY() const;
 
   friend Vector2D operator+(const Vector2D& shl, const Vector2D& shr);
+  friend bool operator!=(const Vector2D& shl, const Vector2D& shr);
 
 protected:
   float m_X;

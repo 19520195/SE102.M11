@@ -38,14 +38,5 @@ class Collision
 {
 public:
   static bool IsColliding(const Movable& object, const Movable& other);
-  static float SweptAABB(const Movable& object, const Movable& other);
-};
-
-class CollisionEvent
-{
-public:
-  // 
-
-private:
-  // 
+  static Vector2D SweptAABB(const Movable& object, const Movable& other);
 };

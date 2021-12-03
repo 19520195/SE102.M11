@@ -26,3 +26,8 @@ Vector2D operator+(const Vector2D& shl, const Vector2D& shr)
 {
   return Vector2D(shl.m_X + shr.m_X, shl.m_Y + shr.m_Y);
 }
+
+bool operator!=(const Vector2D& shl, const Vector2D& shr)
+{
+  return shl.m_X != shr.m_X && shl.m_Y != shr.m_Y;
+}

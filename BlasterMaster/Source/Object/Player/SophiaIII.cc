@@ -44,22 +44,30 @@ void SophiaIII::Update(TimeStep elapsed, std::vector<Object*> objects)
 {
   m_SpeedY -= SOPHIAIII_GRAVITY * elapsed;
 
-  float deltaX = m_SpeedX * elapsed;
-  float deltaY = m_SpeedY * elapsed; 
-  
+  float deltaTimeX = m_SpeedX * elapsed;
+  float deltaTimeY = m_SpeedY * elapsed; 
+
   for (size_t i = 0; i < objects.size(); ++i)
   {
-    float deltaT = Collision::SweptAABB(*this, *objects[i]);
-    if (deltaT >= 0 && deltaT <= elapsed)
+    Vector2D deltaT = Collision::SweptAABB(*this, *objects[i]);
+    if (deltaT != Vector2D(-1.0f, -1.0f))
     {
-      deltaY = m_SpeedY * deltaT;
-      m_SpeedY = 0;
+      if (0 <= deltaT.GetX() && deltaT.GetX() <= elapsed)
+      {
+        deltaTimeX = m_SpeedX * deltaT.GetX();
+        m_SpeedX = 0;
+      }
+
+      if (0 <= deltaT.GetY() && deltaT.GetY() <= elapsed)
+      {
+        deltaTimeY = m_SpeedY * deltaT.GetY();
+        m_SpeedY = 0;
+      }
     }
   }
 
-  m_X += deltaX;
-  m_Y += deltaY;
-  DEBUG_MSG(L"deltaY = %d\n", deltaY);
+  m_X += deltaTimeX;
+  m_Y += deltaTimeY;
 }
 
 void SophiaIII::Render(TimeStep step)
@@ -117,6 +125,8 @@ void SophiaIIIKeyboardEvent::KeyState(BYTE* state)
     m_SophiaIII->SetState(SOPHIAIII_WALK_RIGHT);
   else if (IS_KEYDOWN(state, DIK_LEFT))
     m_SophiaIII->SetState(SOPHIAIII_WALK_LEFT);
+  else if (IS_KEYDOWN(state, DIK_SPACE))
+    m_SophiaIII->SetSpeed(m_SophiaIII->GetSpeedX(), 0.25f);
   else
   {
     if (m_SophiaIII->GetState() == SOPHIAIII_WALK_LEFT)

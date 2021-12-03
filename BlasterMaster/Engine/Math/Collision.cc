@@ -62,7 +62,7 @@ bool Collision::IsColliding(const Movable& object, const Movable& other)
          other.GetBottom() <= object.GetTop   () ;
 }
 
-float Collision::SweptAABB(const Movable& object, const Movable& other)
+Vector2D Collision::SweptAABB(const Movable& object, const Movable& other)
 {
   // Delta of ENTRY and EXIT
   float entryDeltaX, exitDeltaX;
@@ -119,7 +119,17 @@ float Collision::SweptAABB(const Movable& object, const Movable& other)
   float entryTime = max(entryTimeX, entryTimeY);
   float exitTime  = min(exitTimeX , exitTimeY );
 
-  if (entryTime > exitTime)
-    return -1.0f;
-  return entryTime;
+  if (entryTime > exitTime || entryTime < 0.0f)
+    return Vector2D(-1.0f, -1.0f);
+
+  Movable entry = object;
+  entry.SetXY(entry.GetX() + entryTime * object.GetSpeedX(), entry.GetY() + entryTime * object.GetSpeedY());
+  if (!IsColliding(entry, other))
+    return Vector2D(-1.0f, -1.0f);
+
+  DEBUG_MSG(L"Time = %f %f\n", entryTimeX, entryTimeY);
+
+  // entryTimeX = max(entryTimeX, 0.0f);
+  // entryTimeY = max(entryTimeY, 0.0f);
+  return Vector2D(entryTimeX, entryTimeY);
 }

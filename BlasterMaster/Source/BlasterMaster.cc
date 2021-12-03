@@ -37,8 +37,8 @@ INT APIENTRY wWinMain(_In_     HINSTANCE hInstance,
   brick->SetWidth(16 * 6);
   brick->SetHeight(16);
   scene->AddObject(brick);
+  
   brick = new Brick;
-
   brick->SetXY(1376, 624 - 16 * 4);
   brick->SetWidth(16 * 8);
   brick->SetHeight(16);

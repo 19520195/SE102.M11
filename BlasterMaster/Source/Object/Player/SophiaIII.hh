@@ -16,7 +16,7 @@ enum SophiaIIIState
 };
 
 constexpr float SOPHIAIII_SPEED   = 0.1f;
-constexpr float SOPHIAIII_GRAVITY = 0.001f;
+constexpr float SOPHIAIII_GRAVITY = 0.002f;
 
 typedef RenderableObject  SophiaIIIComponent;
 typedef SpriteObject      SophiaIIIBodyPart;
@@ -47,6 +47,6 @@ public:
   virtual void OnKeyUp(int code);
   virtual void OnKeyDown(int code);
 
-public: // DEBUG //
+public: /// DEBUG ///
   SophiaIII* m_SophiaIII; 
 };
