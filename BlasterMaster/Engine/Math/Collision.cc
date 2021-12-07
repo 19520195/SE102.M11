@@ -72,7 +72,9 @@ void Movable::Move(float delta)
 
 bool Collision::IsCollideX(const Movable& object, const Movable& other)
 {
-  return false;
+  return
+    std::abs(object.GetLeft() - other.GetRight()) < TIME_EPSILON ||
+    std::abs(object.GetRight() - other.GetLeft()) < TIME_EPSILON;
 }
 
 bool Collision::IsCollideY(const Movable& object, const Movable& other)

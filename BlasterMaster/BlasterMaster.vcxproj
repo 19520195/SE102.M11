@@ -66,6 +66,7 @@
     <ClInclude Include="Engine\Renderer\Sprite.hh" />
     <ClInclude Include="Engine\Renderer\Texture.hh" />
     <ClInclude Include="Engine\Math\Vector.hh" />
+    <ClInclude Include="Source\Object\State.hh" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Area3.png" />

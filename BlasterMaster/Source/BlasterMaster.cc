@@ -20,7 +20,6 @@ INT APIENTRY wWinMain(_In_     HINSTANCE hInstance,
 
   SophiaIII __SophiaIII;
   __SophiaIII.SetXY(1408, 672);
-  __SophiaIII.SetState(SOPHIAIII_IDLE_RIGHT);
 
   std::shared_ptr<PlayScene> scene = SceneParser::FromFile("Resources/Area3.ini");
   scene->SetPlayer(&__SophiaIII);

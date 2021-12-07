@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../Object.hh"
+#include "../State.hh"
 #include "Engine/Core/Input.hh"
 #include "Engine/Renderer/Animation.hh"
 #include "Engine/Renderer/Renderer.hh"
@@ -9,15 +10,8 @@
 
 extern std::vector<bool> DEBUG_Collision;
 
-enum SophiaIIIState
-{
-  SOPHIAIII_IDLE_LEFT,
-  SOPHIAIII_WALK_LEFT,
-  SOPHIAIII_IDLE_RIGHT,
-  SOPHIAIII_WALK_RIGHT,
-};
-
-constexpr float SOPHIAIII_SPEED   = 0.2f;
+constexpr float SOPHIAIII_SPEEDX  = 0.2f;
+constexpr float SOPHIAIII_SPEEDY  = 0.6f;
 constexpr float SOPHIAIII_GRAVITY = 0.002f;
 
 typedef RenderableObject  SophiaIIIComponent;

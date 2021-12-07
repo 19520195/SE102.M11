@@ -19,26 +19,27 @@ SophiaIII::SophiaIII()
 
   m_Width = 24;
   m_Height = 18;
+
+  SM_SET_IDLE(m_State);
+  SD_SET_LEFT(m_State);
 }
 
 void SophiaIII::SetState(int state)
 {
   Object::SetState(state);
 
-  switch (state)
+  if (SM_IS_IDLE(m_State)) m_SpeedX = 0; 
+  else
   {
-  case SOPHIAIII_IDLE_LEFT:
-  case SOPHIAIII_IDLE_RIGHT:
-    m_SpeedX = 0;
-    break;
-
-  case SOPHIAIII_WALK_LEFT:
-    m_SpeedX = -SOPHIAIII_SPEED;
-    break;
-
-  case SOPHIAIII_WALK_RIGHT:
-    m_SpeedX = SOPHIAIII_SPEED;
-    break;
+    // MOVE: left / right
+    if (SD_IS_LEFT(m_State)) m_SpeedX = -SOPHIAIII_SPEEDX;
+    if (SD_IS_RIGHT(m_State)) m_SpeedX = SOPHIAIII_SPEEDX;
+  }
+  
+  if (SM_IS_JUMP(m_State))
+  {
+    m_SpeedY = SOPHIAIII_SPEEDY;
+    SM_SET_FALL(m_State); 
   }
 }
 
@@ -60,29 +61,26 @@ void SophiaIII::Update(TimeStep elapsed, std::vector<Object*> objects)
       float remainTime = (float)elapsed - deltaTime;
       float deltaY = deltaTime * this->GetSpeedY();
 
-      Movable movedThis = *this;
+      Movable movedThis(this->m_SpeedX, this->m_SpeedY, this->m_X, this->m_Y, this->m_Width, this->m_Height);
       movedThis.Move(deltaTime); 
+
       if (Collision::IsCollideY(movedThis, *object))
       {
-        deltaTimeX = std::min(deltaTimeX, (deltaTime + remainTime));
-        deltaTimeY = std::min(deltaTimeY, (deltaTime));
+        deltaTimeX = std::min(deltaTimeX, deltaTime + remainTime);
+        deltaTimeY = std::min(deltaTimeY, deltaTime);
       }
-      else
+
+      if (Collision::IsCollideX(movedThis, *object))
       {
-        deltaTimeX = std::min(deltaTimeX, (deltaTime));
-        deltaTimeY = std::min(deltaTimeY, (deltaTime + remainTime));
+        deltaTimeX = std::min(deltaTimeX, deltaTime);
+        deltaTimeY = std::min(deltaTimeY, deltaTime + remainTime);
       }
     }
   }
 
-  // DEBUG_MSG(L"Colliders: "); 
-  // for (size_t i = 0; i < DEBUG_Collision.size(); ++i)
-  //   if (DEBUG_Collision[i])
-  //     DEBUG_MSG(L"%d ", i);
-  // DEBUG_MSG(L"\n");
-
-  m_X += m_SpeedX * deltaTimeX;
-  m_Y += m_SpeedY * deltaTimeY;
+  m_X += m_SpeedX * std::max(0.f, deltaTimeX);
+  m_Y += m_SpeedY * std::max(0.f, deltaTimeY);
+  
   if (deltaTimeX < elapsed) m_SpeedX = 0;
   if (deltaTimeY < elapsed) m_SpeedY = 0;
 }
@@ -93,38 +91,29 @@ void SophiaIII::Render(TimeStep step)
   m_RWheel->SetXY(m_X + 16, m_Y     );
 
   // Assemble Sophia III
-  switch (m_State)
+  if (SD_IS_LEFT(m_State))
   {
-  case SOPHIAIII_IDLE_LEFT:
-  case SOPHIAIII_WALK_LEFT:
-    m_Barrel->SetXY(m_X     , m_Y + 10);
-    m_Hammer->SetXY(m_X +  8, m_Y + 10);
-    m_Grip  ->SetXY(m_X +  8, m_Y +  2);
+    m_Barrel->SetXY(m_X    , m_Y + 10);
+    m_Hammer->SetXY(m_X + 8, m_Y + 10);
+    m_Grip  ->SetXY(m_X + 8, m_Y +  2);
     m_Barrel->SetID(10101);
     m_Hammer->SetID(10401);
-    break;
+  }
 
-  case SOPHIAIII_IDLE_RIGHT:
-  case SOPHIAIII_WALK_RIGHT:
+  if (SD_IS_RIGHT(m_State))
+  {
     m_Barrel->SetXY(m_X + 16, m_Y + 10);
     m_Hammer->SetXY(m_X     , m_Y + 10);
     m_Grip  ->SetXY(m_X +  8, m_Y +  2);
     m_Barrel->SetID(10105);
     m_Hammer->SetID(10402);
-    break;
   }
 
-  // Movement
-  switch (m_State)
+  if (SM_IS_IDLE(m_State)) step = 0;
+  else
   {
-  case SOPHIAIII_IDLE_LEFT:
-  case SOPHIAIII_IDLE_RIGHT:
-    step = 0;
-    break;
-
-  case SOPHIAIII_WALK_LEFT:
-    step = -step;
-    break;
+    if (SD_IS_LEFT(m_State))
+      step = -step;
   }
 
   m_Barrel->Render(step);
@@ -136,45 +125,25 @@ void SophiaIII::Render(TimeStep step)
 
 #include "Engine/Core/Game.hh"
 
-void SophiaIIIKeyboardEvent::KeyState(BYTE* state)
+void SophiaIIIKeyboardEvent::KeyState(BYTE* keyboard)
 {
-  if (IS_KEYDOWN(state, DIK_X))
-    m_SophiaIII->SetSpeed(m_SophiaIII->GetSpeedX(), 0.25f);
-  if (IS_KEYDOWN(state, DIK_RIGHT))
-    m_SophiaIII->SetState(SOPHIAIII_WALK_RIGHT);
-  else if (IS_KEYDOWN(state, DIK_LEFT))
-    m_SophiaIII->SetState(SOPHIAIII_WALK_LEFT);
+  int currentState = m_SophiaIII->GetState(); 
+  if (IS_KEYDOWN(keyboard, DIK_X) && SM_IS_FALL(m_SophiaIII->GetState()))
+    if (!m_SophiaIII->GetSpeedY())
+      SM_SET_JUMP(currentState); 
+
+  if (IS_KEYDOWN(keyboard, DIK_RIGHT) || IS_KEYDOWN(keyboard, DIK_LEFT))
+  {
+    SM_SET_WALK(currentState);
+    IS_KEYDOWN(keyboard, DIK_LEFT) ?
+      SD_SET_LEFT(currentState) : SD_SET_RIGHT(currentState);
+  }
   else
   {
-    if (m_SophiaIII->GetState() == SOPHIAIII_WALK_LEFT)
-      m_SophiaIII->SetState(SOPHIAIII_IDLE_LEFT);
-    else if (m_SophiaIII->GetState() == SOPHIAIII_WALK_RIGHT)
-      m_SophiaIII->SetState(SOPHIAIII_IDLE_RIGHT);
+    SM_SET_IDLE(currentState);
   }
 
-  /// DEBUG /// 
-  static float cameraMovement = 8.f;
-  Camera camera = Game::GetInstance()->GetScene()->GetCamera();
-  if (IS_KEYDOWN(state, DIK_A))
-  {
-    camera.SetXY(camera.GetX() - cameraMovement, camera.GetY());
-    Game::GetInstance()->GetScene()->SetCamera(camera);
-  }
-  else if (IS_KEYDOWN(state, DIK_D))
-  {
-    camera.SetXY(camera.GetX() + cameraMovement, camera.GetY());
-    Game::GetInstance()->GetScene()->SetCamera(camera);
-  }
-  else if (IS_KEYDOWN(state, DIK_S))
-  {
-    camera.SetXY(camera.GetX(), camera.GetY() - cameraMovement);
-    Game::GetInstance()->GetScene()->SetCamera(camera);
-  }
-  else if (IS_KEYDOWN(state, DIK_W))
-  {
-    camera.SetXY(camera.GetX(), camera.GetY() + cameraMovement);
-    Game::GetInstance()->GetScene()->SetCamera(camera);
-  }
+  m_SophiaIII->SetState(currentState);
 }
 
 void SophiaIIIKeyboardEvent::OnKeyUp(int code) 
