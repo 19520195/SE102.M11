@@ -59,9 +59,10 @@ void SophiaIII::Update(TimeStep elapsed, std::vector<Object*> objects)
       DEBUG_MSG(L"ObjectID = %d Delta Time = %f\n", i, deltaTime);
       float remainTime = (float)elapsed - deltaTime;
       float deltaY = deltaTime * this->GetSpeedY();
-      
-      if (std::abs((this->GetBottom() + deltaY) - object->GetTop()) < 1e-3 ||
-          std::abs((this->GetTop() + deltaY) - object->GetBottom()) < 1e-3)
+
+      Movable movedThis = *this;
+      movedThis.Move(deltaTime); 
+      if (Collision::IsCollideY(movedThis, *object))
       {
         deltaTimeX = std::min(deltaTimeX, (deltaTime + remainTime));
         deltaTimeY = std::min(deltaTimeY, (deltaTime));

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Engine/Debug/Debug.hh"
+#include "Engine/Core/TimeStep.hh"
 #include "Vector.hh"
 
 class Box : public Vector2D
@@ -32,6 +33,8 @@ public:
   float GetSpeedX() const;
   float GetSpeedY() const;
 
+  void Move(float delta);
+
 protected:
   float m_SpeedX;
   float m_SpeedY;
@@ -40,6 +43,8 @@ protected:
 class Collision
 {
 public:
+  static bool IsCollideX(const Movable& object, const Movable& other);
+  static bool IsCollideY(const Movable& object, const Movable& other);
   static bool IsColliding(const Movable& object, const Movable& other);
   static float SweptAABB(const Movable& object, const Movable& other);
 };
