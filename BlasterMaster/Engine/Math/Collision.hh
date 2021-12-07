@@ -8,10 +8,13 @@ class Box : public Vector2D
 public:
   Box(float X = 0, float Y = 0, float width = 0, float height = 0); 
 
-  float GetTop() const;
+  float GetWidth() const;
+  float GetHeight() const;
+
   float GetLeft() const;
   float GetBottom() const;
   float GetRight() const;
+  float GetTop() const;
 
   void SetWidth(const float& width);
   void SetHeight(const float& hegiht);
@@ -38,5 +41,5 @@ class Collision
 {
 public:
   static bool IsColliding(const Movable& object, const Movable& other);
-  static Vector2D SweptAABB(const Movable& object, const Movable& other);
+  static float SweptAABB(const Movable& object, const Movable& other);
 };

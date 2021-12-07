@@ -8,11 +8,6 @@ Box::Box(float X, float Y, float width, float height) : Vector2D(X, Y)
   m_Height = height; 
 }
 
-float Box::GetTop() const
-{
-  return m_Y + m_Height;
-}
-
 float Box::GetLeft() const
 {
   return m_X;
@@ -26,6 +21,21 @@ float Box::GetBottom() const
 float Box::GetRight() const
 {
   return m_X + m_Width;
+}
+
+float Box::GetTop() const
+{
+  return m_Y + m_Height;
+}
+
+float Box::GetWidth() const
+{
+  return m_Width;
+}
+
+float Box::GetHeight() const
+{
+  return m_Height;
 }
 
 void Box::SetWidth(const float& width)
@@ -62,7 +72,7 @@ bool Collision::IsColliding(const Movable& object, const Movable& other)
          other.GetBottom() <= object.GetTop   () ;
 }
 
-Vector2D Collision::SweptAABB(const Movable& object, const Movable& other)
+float Collision::SweptAABB(const Movable& object, const Movable& other)
 {
   // Delta of ENTRY and EXIT
   float entryDeltaX, exitDeltaX;
@@ -116,20 +126,17 @@ Vector2D Collision::SweptAABB(const Movable& object, const Movable& other)
     exitTimeY = exitDeltaY / object.GetSpeedY();
   }
 
-  float entryTime = max(entryTimeX, entryTimeY);
-  float exitTime  = min(exitTimeX , exitTimeY );
+  float entryTime = std::max(entryTimeX, entryTimeY);
+  float exitTime  = std::min(exitTimeX , exitTimeY );
 
   if (entryTime > exitTime || entryTime < 0.0f)
-    return Vector2D(-1.0f, -1.0f);
+    return -1.0f;
 
-  Movable entry = object;
-  entry.SetXY(entry.GetX() + entryTime * object.GetSpeedX(), entry.GetY() + entryTime * object.GetSpeedY());
-  if (!IsColliding(entry, other))
-    return Vector2D(-1.0f, -1.0f);
-
-  DEBUG_MSG(L"Time = %f %f\n", entryTimeX, entryTimeY);
-
-  // entryTimeX = max(entryTimeX, 0.0f);
-  // entryTimeY = max(entryTimeY, 0.0f);
-  return Vector2D(entryTimeX, entryTimeY);
+  Movable moved(object);
+  moved.SetX(moved.GetX() + moved.GetSpeedX() * entryTime);
+  moved.SetY(moved.GetY() + moved.GetSpeedY() * entryTime);
+  if (!IsColliding(moved, other))
+    return -1.0f;
+  
+  return entryTime; 
 }

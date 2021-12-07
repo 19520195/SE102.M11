@@ -1,6 +1,8 @@
 #include "SophiaIII.hh"
 #include "Engine/Renderer/Animation.hh"
 
+std::vector<bool> DEBUG_Collision;
+
 SophiaIII::SophiaIII()
 {
   m_Barrel = std::make_unique<SophiaIIIBodyPart>();
@@ -43,31 +45,45 @@ void SophiaIII::SetState(int state)
 void SophiaIII::Update(TimeStep elapsed, std::vector<Object*> objects)
 {
   m_SpeedY -= SOPHIAIII_GRAVITY * elapsed;
-
-  float deltaTimeX = m_SpeedX * elapsed;
-  float deltaTimeY = m_SpeedY * elapsed; 
-
+  float deltaTimeX = static_cast<float>(elapsed);
+  float deltaTimeY = static_cast<float>(elapsed);
+  
+  DEBUG_Collision = std::vector<bool>(objects.size()); 
   for (size_t i = 0; i < objects.size(); ++i)
   {
-    Vector2D deltaT = Collision::SweptAABB(*this, *objects[i]);
-    if (deltaT != Vector2D(-1.0f, -1.0f))
+    auto object = objects[i];
+    float deltaTime = Collision::SweptAABB(*this, *object);
+    if (0 <= deltaTime && deltaTime <= elapsed)
     {
-      if (0 <= deltaT.GetX() && deltaT.GetX() <= elapsed)
+      DEBUG_Collision[i] = true;
+      DEBUG_MSG(L"ObjectID = %d Delta Time = %f\n", i, deltaTime);
+      float remainTime = (float)elapsed - deltaTime;
+      float deltaY = deltaTime * this->GetSpeedY();
+      
+      if (std::abs((this->GetBottom() + deltaY) - object->GetTop()) < 1e-3 ||
+          std::abs((this->GetTop() + deltaY) - object->GetBottom()) < 1e-3)
       {
-        deltaTimeX = m_SpeedX * deltaT.GetX();
-        m_SpeedX = 0;
+        deltaTimeX = std::min(deltaTimeX, (deltaTime + remainTime));
+        deltaTimeY = std::min(deltaTimeY, (deltaTime));
       }
-
-      if (0 <= deltaT.GetY() && deltaT.GetY() <= elapsed)
+      else
       {
-        deltaTimeY = m_SpeedY * deltaT.GetY();
-        m_SpeedY = 0;
+        deltaTimeX = std::min(deltaTimeX, (deltaTime));
+        deltaTimeY = std::min(deltaTimeY, (deltaTime + remainTime));
       }
     }
   }
 
-  m_X += deltaTimeX;
-  m_Y += deltaTimeY;
+  // DEBUG_MSG(L"Colliders: "); 
+  // for (size_t i = 0; i < DEBUG_Collision.size(); ++i)
+  //   if (DEBUG_Collision[i])
+  //     DEBUG_MSG(L"%d ", i);
+  // DEBUG_MSG(L"\n");
+
+  m_X += m_SpeedX * deltaTimeX;
+  m_Y += m_SpeedY * deltaTimeY;
+  if (deltaTimeX < elapsed) m_SpeedX = 0;
+  if (deltaTimeY < elapsed) m_SpeedY = 0;
 }
 
 void SophiaIII::Render(TimeStep step)
@@ -121,12 +137,12 @@ void SophiaIII::Render(TimeStep step)
 
 void SophiaIIIKeyboardEvent::KeyState(BYTE* state)
 {
+  if (IS_KEYDOWN(state, DIK_X))
+    m_SophiaIII->SetSpeed(m_SophiaIII->GetSpeedX(), 0.25f);
   if (IS_KEYDOWN(state, DIK_RIGHT))
     m_SophiaIII->SetState(SOPHIAIII_WALK_RIGHT);
   else if (IS_KEYDOWN(state, DIK_LEFT))
     m_SophiaIII->SetState(SOPHIAIII_WALK_LEFT);
-  else if (IS_KEYDOWN(state, DIK_SPACE))
-    m_SophiaIII->SetSpeed(m_SophiaIII->GetSpeedX(), 0.25f);
   else
   {
     if (m_SophiaIII->GetState() == SOPHIAIII_WALK_LEFT)

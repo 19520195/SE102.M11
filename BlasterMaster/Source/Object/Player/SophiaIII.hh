@@ -7,6 +7,8 @@
 #include "Engine/Renderer/Renderable.hh"
 #include <memory>
 
+extern std::vector<bool> DEBUG_Collision;
+
 enum SophiaIIIState
 {
   SOPHIAIII_IDLE_LEFT,
@@ -15,7 +17,7 @@ enum SophiaIIIState
   SOPHIAIII_WALK_RIGHT,
 };
 
-constexpr float SOPHIAIII_SPEED   = 0.1f;
+constexpr float SOPHIAIII_SPEED   = 0.2f;
 constexpr float SOPHIAIII_GRAVITY = 0.002f;
 
 typedef RenderableObject  SophiaIIIComponent;

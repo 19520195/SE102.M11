@@ -6,6 +6,16 @@ Vector2D::Vector2D(float X, float Y)
   m_Y = Y;
 }
 
+void Vector2D::SetX(float X)
+{
+  m_X = X;
+}
+
+void Vector2D::SetY(float Y)
+{
+  m_Y = Y;
+}
+
 void Vector2D::SetXY(float X, float Y)
 {
   m_X = X;
