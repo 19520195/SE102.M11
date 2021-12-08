@@ -12,10 +12,10 @@ SophiaIII::SophiaIII()
   m_RWheel = std::make_unique<SophiaIIIWheel>();
 
   m_Barrel->SetID(10101);
-  m_Hammer->SetID(10401);
-  m_Grip  ->SetID(10201);
-  m_LWheel->SetID(10301);
-  m_RWheel->SetID(10302);
+  m_Hammer->SetID(10201);
+  m_Grip  ->SetID(10301);
+  m_LWheel->SetID(104);
+  m_RWheel->SetID(105);
 
   m_Width = 24;
   m_Height = 18;
@@ -97,7 +97,7 @@ void SophiaIII::Render(TimeStep step)
     m_Hammer->SetXY(m_X + 8, m_Y + 10);
     m_Grip  ->SetXY(m_X + 8, m_Y +  2);
     m_Barrel->SetID(10101);
-    m_Hammer->SetID(10401);
+    m_Hammer->SetID(10201);
   }
 
   if (SD_IS_RIGHT(m_State))
@@ -106,7 +106,7 @@ void SophiaIII::Render(TimeStep step)
     m_Hammer->SetXY(m_X     , m_Y + 10);
     m_Grip  ->SetXY(m_X +  8, m_Y +  2);
     m_Barrel->SetID(10105);
-    m_Hammer->SetID(10402);
+    m_Hammer->SetID(10202);
   }
 
   if (SM_IS_IDLE(m_State)) step = 0;

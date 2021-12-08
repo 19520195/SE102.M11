@@ -54,33 +54,33 @@ void LoadResources()
   SpriteBase::GetInstance()->Add(10104,  1, 28,  9, 36, TXSophiaIII);
   SpriteBase::GetInstance()->Add(10105,  1, 37,  9, 45, TXSophiaIII);
 
+  // Hammer
+  SpriteBase::GetInstance()->Add(10201, 28, 1, 36, 17, TXSophiaIII);
+  SpriteBase::GetInstance()->Add(10202, 28, 19, 36, 35, TXSophiaIII);
+
   // Grip
-  SpriteBase::GetInstance()->Add(10201, 10,  1, 18,  9, TXSophiaIII);
-  SpriteBase::GetInstance()->Add(10201, 10, 10, 18, 18, TXSophiaIII);
+  SpriteBase::GetInstance()->Add(10301, 10,  1, 18,  9, TXSophiaIII);
+  SpriteBase::GetInstance()->Add(10301, 10, 10, 18, 18, TXSophiaIII);
 
   // Wheel
-  SpriteBase::GetInstance()->Add(10301, 19,  1, 27,  9, TXSophiaIII);
-  SpriteBase::GetInstance()->Add(10302, 19, 10, 27, 18, TXSophiaIII);
-  SpriteBase::GetInstance()->Add(10303, 19, 19, 27, 27, TXSophiaIII);
-  SpriteBase::GetInstance()->Add(10304, 19, 28, 27, 36, TXSophiaIII);
+  SpriteBase::GetInstance()->Add(10401, 19,  1, 27,  9, TXSophiaIII);
+  SpriteBase::GetInstance()->Add(10402, 19, 10, 27, 18, TXSophiaIII);
+  SpriteBase::GetInstance()->Add(10403, 19, 19, 27, 27, TXSophiaIII);
+  SpriteBase::GetInstance()->Add(10404, 19, 28, 27, 36, TXSophiaIII);
 
-  // Hammer
-  SpriteBase::GetInstance()->Add(10401, 28,  1, 36, 17, TXSophiaIII);
-  SpriteBase::GetInstance()->Add(10402, 28, 19, 36, 35, TXSophiaIII);
-  
   // LWheel
   animation = new Animation(100);
-  animation->Add(10301);
-  animation->Add(10302);
-  animation->Add(10303);
-  animation->Add(10304);
-  AnimationBase::GetInstance()->Add(10301, animation);
+  animation->Add(10401);
+  animation->Add(10402);
+  animation->Add(10403);
+  animation->Add(10404);
+  AnimationBase::GetInstance()->Add(104, animation);
 
   // RWheel
   animation = new Animation(100);
-  animation->Add(10302);
-  animation->Add(10303);
-  animation->Add(10304);
-  animation->Add(10301);
-  AnimationBase::GetInstance()->Add(10302, animation);
+  animation->Add(10402);
+  animation->Add(10403);
+  animation->Add(10404);
+  animation->Add(10401);
+  AnimationBase::GetInstance()->Add(105, animation);
 }
