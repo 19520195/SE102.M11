@@ -62,6 +62,8 @@
     <Image Include="Resources\Blue.png" />
     <Image Include="Resources\Area3.png" />
     <Image Include="Resources\Area3Tiled.png" />
+    <Image Include="Resources\Enemies.png" />
+    <Image Include="Resources\Red.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Area3.ini" />
