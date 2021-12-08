@@ -74,13 +74,13 @@ void PlayScene::Render(TimeStep elapsed)
     {
       Texture* bbox = (DEBUG_Collision[i] ? redBox : blueBox); 
       Sprite sprite(0, 0, 0, (size_t)object->GetHeight(), (size_t)object->GetWidth(), bbox);
-      Renderer::DrawSprite(object->GetX(), object->GetY(), &sprite);
+      // Renderer::DrawSprite(object->GetX(), object->GetY(), &sprite);
       object->Render(elapsed);
     }
   }
 
   Sprite sprite(0, 0, 0, (size_t)m_Player->GetHeight(), (size_t)m_Player->GetWidth(), blueBox);
-  Renderer::DrawSprite(m_Player->GetX(), m_Player->GetY(), &sprite);
+  // Renderer::DrawSprite(m_Player->GetX(), m_Player->GetY(), &sprite);
   #endif // _DEBUG
 
   m_Player->Render(elapsed);
@@ -91,7 +91,7 @@ void PlayScene::Render(TimeStep elapsed)
     {
       const auto& object = bullet;
       Sprite sprite(0, 0, 0, (size_t)object->GetHeight(), (size_t)object->GetWidth(), blueBox);
-      Renderer::DrawSprite(object->GetX(), object->GetY(), &sprite);
+      // Renderer::DrawSprite(object->GetX(), object->GetY(), &sprite);
       object->Render(elapsed);
     }
   }
