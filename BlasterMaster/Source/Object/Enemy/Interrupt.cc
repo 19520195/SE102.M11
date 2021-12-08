@@ -8,5 +8,7 @@ Interrupt::Interrupt()
 
 void Interrupt::Render(TimeStep elapsed)
 {
-  SpriteBase::GetInstance()->Get(15)->Render(m_X, m_Y);
+  SpriteBase::GetInstance()
+    ->Get(SPRID_INTERRUPT_IDLE)
+    ->Render(m_X, m_Y);
 }
