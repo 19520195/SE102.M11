@@ -23,9 +23,14 @@ int Object::GetState()
   return m_State;
 }
 
+void Object::Update(TimeStep step)
+{
+  //
+}
+
 void Object::Update(TimeStep step, std::vector<Object*> objects)
 {
-  // 
+  //
 }
 
 void SpriteObject::Render(float X, float Y, TimeStep elapsed)

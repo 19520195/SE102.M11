@@ -9,5 +9,6 @@ constexpr size_t OBJECT_ID_ENEMY  = 2;
 typedef Object Player;
 typedef Object Enenmy;
 
+#include "State.hh"
 #include "Brick.hh"
 #include "Player/SophiaIII.hh"

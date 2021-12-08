@@ -20,6 +20,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Math\Collision.cc" />
+    <ClCompile Include="Source\Bullet\Bullet.cpp" />
+    <ClCompile Include="Source\Bullet\SophiaIIIBullet.cc" />
     <ClCompile Include="Source\Scene\SceneParser.cc" />
     <ClCompile Include="Source\Object\Brick.cc" />
     <ClCompile Include="Engine\Debug\Debug.cc" />
@@ -43,6 +45,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Math\Collision.hh" />
+    <ClInclude Include="Source\Bullet\Bullet.hh" />
+    <ClInclude Include="Source\Bullet\SophiaIIIBullet.hh" />
     <ClInclude Include="Source\Scene\SceneParser.hh" />
     <ClInclude Include="Source\Object\Brick.hh" />
     <ClInclude Include="Engine\Debug\Debug.hh" />
@@ -133,28 +137,28 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)Binaries\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Binaries\Intermediate\$(Platform)\$(Configuration)\</IntDir>
-    <IncludePath>$(DXSDK_DIR)Include\;$(ProjectDir);$(IncludePath)</IncludePath>
+    <IncludePath>$(DXSDK_DIR)Include\;$(ProjectDir);$(ProjectDir)Source;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)Lib\x86\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)Binaries\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Binaries\Intermediate\$(Platform)\$(Configuration)\</IntDir>
-    <IncludePath>$(DXSDK_DIR)Include\;$(ProjectDir);$(IncludePath)</IncludePath>
+    <IncludePath>$(DXSDK_DIR)Include\;$(ProjectDir);$(ProjectDir)Source;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)Lib\x86\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)Binaries\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Binaries\Intermediate\$(Platform)\$(Configuration)\</IntDir>
-    <IncludePath>$(DXSDK_DIR)Include\;$(ProjectDir);$(IncludePath)</IncludePath>
+    <IncludePath>$(DXSDK_DIR)Include\;$(ProjectDir);$(ProjectDir)Source;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)Lib\x64\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)Binaries\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Binaries\Intermediate\$(Platform)\$(Configuration)\</IntDir>
-    <IncludePath>$(DXSDK_DIR)Include\;$(ProjectDir);$(IncludePath)</IncludePath>
+    <IncludePath>$(DXSDK_DIR)Include\;$(ProjectDir);$(ProjectDir)Source;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)Lib\x64\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

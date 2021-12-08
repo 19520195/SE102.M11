@@ -50,7 +50,7 @@ void SophiaIII::Update(TimeStep elapsed, std::vector<Object*> objects)
   float deltaTimeY = static_cast<float>(elapsed);
   
   DEBUG_Collision = std::vector<bool>(objects.size()); 
-  for (size_t i = 0; i < objects.size(); ++i)
+  for (size_t i = 0; i < objects.size(); ++i) if (static_cast<Brick*>(objects[i]))
   {
     auto object = objects[i];
     float deltaTime = Collision::SweptAABB(*this, *object);
@@ -123,15 +123,51 @@ void SophiaIII::Render(TimeStep step)
   m_RWheel->Render(step);
 }
 
+/// DEBUG /// 
 #include "Engine/Core/Game.hh"
+#include "Scene/PlayScene.hh"
 
 void SophiaIIIKeyboardEvent::KeyState(BYTE* keyboard)
 {
   int currentState = m_SophiaIII->GetState(); 
+
+  if (IS_KEYDOWN(keyboard, DIK_C))
+  {
+    TimeStep currentBulletTime = GetTickCount64();
+    if (currentBulletTime - m_LastBulletTime >= SOPHIAIII_BULLET_TIMEOUT)
+    {
+      // Update bullet frame time
+      m_LastBulletTime = currentBulletTime;
+
+      // Handle shoot event
+      bool isVertical = false; 
+      SophiaIIIBullet* bullet = new SophiaIIIBullet(isVertical);
+      if (isVertical)
+      {
+        // 
+      }
+      else
+      {
+        bullet->SetX(m_SophiaIII->GetX() + m_SophiaIII->GetWidth());
+        bullet->SetY(m_SophiaIII->GetY() + (m_SophiaIII->GetHeight() - bullet->GetHeight()) / 2);
+        if (SD_IS_LEFT(m_SophiaIII->GetState()))
+        {
+          bullet->SetX(m_SophiaIII->GetX() - bullet->GetWidth());
+          bullet->SetSpeed(-bullet->GetSpeedX(), 0);
+        }
+
+        PlayScene* scene = dynamic_cast<PlayScene*>(Game::GetInstance()->GetScene());
+        scene->AddObject(bullet); 
+      }
+    }
+  }
+
+  // MOVE: Jump
   if (IS_KEYDOWN(keyboard, DIK_X) && SM_IS_FALL(m_SophiaIII->GetState()))
     if (!m_SophiaIII->GetSpeedY())
       SM_SET_JUMP(currentState); 
 
+  // MOVE: Left / Right / Idle
   if (IS_KEYDOWN(keyboard, DIK_RIGHT) || IS_KEYDOWN(keyboard, DIK_LEFT))
   {
     SM_SET_WALK(currentState);
@@ -143,6 +179,7 @@ void SophiaIIIKeyboardEvent::KeyState(BYTE* keyboard)
     SM_SET_IDLE(currentState);
   }
 
+  // Set state
   m_SophiaIII->SetState(currentState);
 }
 

@@ -1,7 +1,8 @@
 #pragma once
 
-#include "../Object.hh"
-#include "../State.hh"
+#include "Object/Object.hh"
+#include "Bullet/Bullet.hh"
+
 #include "Engine/Core/Input.hh"
 #include "Engine/Renderer/Animation.hh"
 #include "Engine/Renderer/Renderer.hh"
@@ -13,6 +14,8 @@ extern std::vector<bool> DEBUG_Collision;
 constexpr float SOPHIAIII_SPEEDX  = 0.2f;
 constexpr float SOPHIAIII_SPEEDY  = 0.6f;
 constexpr float SOPHIAIII_GRAVITY = 0.002f;
+
+constexpr float SOPHIAIII_BULLET_TIMEOUT = 300; // UNIT: ms
 
 typedef RenderableObject  SophiaIIIComponent;
 typedef SpriteObject      SophiaIIIBodyPart;
@@ -39,9 +42,14 @@ private:
 class SophiaIIIKeyboardEvent : public KeyboardEvent
 {
 public:
+  SophiaIIIKeyboardEvent() = default;
+
   virtual void KeyState(BYTE* state);
   virtual void OnKeyUp(int code);
   virtual void OnKeyDown(int code);
+
+private:
+  TimeStep m_LastBulletTime;
 
 public: /// DEBUG ///
   SophiaIII* m_SophiaIII; 

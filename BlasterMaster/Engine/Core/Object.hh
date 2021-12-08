@@ -15,6 +15,7 @@ public:
 
   int GetState();
 
+  virtual void Update(TimeStep step);
   virtual void Update(TimeStep step, std::vector<Object*> objects);
 
 protected:
