@@ -18,6 +18,11 @@ Scene* Game::GetScene() const
   return m_Scene; 
 }
 
+TimeStep Game::GetLastFrameTime() const
+{
+  return m_LastFrameTime;
+}
+
 void Game::Create(int width, int height, std::wstring title, HINSTANCE hInstance, int nCmdShow)
 {
   m_Window = std::make_unique<Window>();

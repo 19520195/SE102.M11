@@ -22,6 +22,7 @@ public:
   void SetScene(Scene* scene); 
 
   Scene* GetScene() const;
+  TimeStep GetLastFrameTime() const;
 
   void Create(int width, int height, std::wstring title, HINSTANCE hInstance, int nCmdShow);
 

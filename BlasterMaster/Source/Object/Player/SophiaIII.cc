@@ -1,4 +1,5 @@
 #include "SophiaIII.hh"
+#include "Engine/Core/Game.hh"
 #include "Engine/Renderer/Animation.hh"
 
 std::vector<bool> DEBUG_Collision;
@@ -32,11 +33,14 @@ TimeStep SophiaIII::GetLastBulletTime() const
 
 std::vector<SophiaIIIBullet*> SophiaIII::GetBullets()
 {
-  std::vector<SophiaIIIBullet*> bullets;
-  // TimeStep currentTime = GetTickCount64(); 
-  // while (m_Bullets.size())
-  //   if ((m_Bulle))
+  while (m_Bullets.size())
+  {
+    TimeStep lastFrameTime = Game::GetInstance()->GetLastFrameTime();
+    if ((lastFrameTime - m_Bullets.front()->GetArriveTime()) < S3_BULLET_TIMEOUT) break;
+    m_Bullets.pop_front();
+  }
 
+  std::vector<SophiaIIIBullet*> bullets;
   for (const auto& bullet : m_Bullets)
     bullets.emplace_back(bullet.get());
   return bullets;
