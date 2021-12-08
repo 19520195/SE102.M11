@@ -2,7 +2,9 @@
 
 #include "Engine/Core/Object.hh"
 
-class Brick : public Object 
-{
+class Enemy : public Object 
+{ 
   //
 };
+
+#include "Interrupt.hh"

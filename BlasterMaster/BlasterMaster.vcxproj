@@ -21,10 +21,9 @@
   <ItemGroup>
     <ClCompile Include="Engine\Math\Collision.cc" />
     <ClCompile Include="Source\Object\Enemy\Interrupt.cc" />
-    <ClCompile Include="Source\Bullet\Bullet.cc" />
-    <ClCompile Include="Source\Bullet\SophiaIIIBullet.cc" />
+    <ClCompile Include="Source\Object\Bullet\Bullet.cc" />
+    <ClCompile Include="Source\Object\Bullet\SophiaIIIBullet.cc" />
     <ClCompile Include="Source\Scene\SceneParser.cc" />
-    <ClCompile Include="Source\Object\Brick.cc" />
     <ClCompile Include="Engine\Debug\Debug.cc" />
     <ClCompile Include="Engine\Core\Input.cc" />
     <ClCompile Include="Engine\Renderer\Camera.cc" />
@@ -46,11 +45,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Math\Collision.hh" />
-    <ClInclude Include="Source\Object\Enemy\Interrupt.hh" />
-    <ClInclude Include="Source\Bullet\Bullet.hh" />
-    <ClInclude Include="Source\Bullet\SophiaIIIBullet.hh" />
-    <ClInclude Include="Source\Scene\SceneParser.hh" />
     <ClInclude Include="Source\Object\Brick.hh" />
+    <ClInclude Include="Source\Object\Enemy\Enemy.hh" />
+    <ClInclude Include="Source\Object\Enemy\Interrupt.hh" />
+    <ClInclude Include="Source\Object\Bullet\Bullet.hh" />
+    <ClInclude Include="Source\Object\Bullet\SophiaIIIBullet.hh" />
+    <ClInclude Include="Source\Object\Player\Player.hh" />
+    <ClInclude Include="Source\Scene\SceneParser.hh" />
     <ClInclude Include="Engine\Debug\Debug.hh" />
     <ClInclude Include="Engine\Core\Input.hh" />
     <ClInclude Include="Engine\Event\KeyboardEvent.hh" />
