@@ -65,9 +65,11 @@ void Animation::Render(float X, float Y, TimeStep step)
 	m_Frames[frameID]->GetSprite()->Render(X, Y);
 }
 
-void AnimationBase::Add(size_t ID, Animation* animation)
+Animation* AnimationBase::Add(size_t ID, Animation* animation)
 {
-	m_Animations[ID].reset(animation); 
+	std::shared_ptr<Animation>& pAnimation = m_Animations[ID];
+	pAnimation.reset(animation);
+	return pAnimation.get();
 }
 
 Animation* AnimationBase::Get(size_t ID)

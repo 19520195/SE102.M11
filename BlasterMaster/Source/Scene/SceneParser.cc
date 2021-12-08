@@ -4,10 +4,10 @@
 
 int SceneParser::GetHeader(const std::string& header)
 {
-  if (header == "[TEXTURES]" ) return SCENE_HEADER_TEXTURES  ;
-  if (header == "[SPRITES]"  ) return SCENE_HEADER_SPRITES   ;
-  if (header == "[ANIMATION]") return SCENE_HEADER_ANIMATIONS;
-  if (header == "[OBJECTS]"  ) return SCENE_HEADER_OBJECTS   ;
+  if (header == "[TEXTURES]"  ) return SCENE_HEADER_TEXTURES  ;
+  if (header == "[SPRITES]"   ) return SCENE_HEADER_SPRITES   ;
+  if (header == "[ANIMATIONS]") return SCENE_HEADER_ANIMATIONS;
+  if (header == "[OBJECTS]"   ) return SCENE_HEADER_OBJECTS   ;
   return SCENE_HEADER_UNKNOW;
 }
 
@@ -39,6 +39,9 @@ std::shared_ptr<PlayScene> SceneParser::FromFile(const std::string& filename)
           break;
         case SCENE_HEADER_SPRITES:
           ParseSprite(buffer);
+          break;
+        case SCENE_HEADER_ANIMATIONS:
+          ParseAnimation(buffer);
           break;
       }
     }
@@ -112,4 +115,18 @@ Sprite* SceneParser::ParseSprite(const std::string& detail)
 
   Texture* texture = TextureBase::GetInstance()->Get(TID); 
   return SpriteBase::GetInstance()->Add(ID, top, left, bottom, right, texture);
+}
+
+Animation* SceneParser::ParseAnimation(const std::string& detail)
+{
+  std::vector<std::string> args = Split(detail, "\t");
+  if (args.size() < 4) return nullptr;
+
+  size_t ID = std::stoul(args[0]);
+  size_t frameTime = std::stoul(args[1]);
+
+  Animation* animation = new Animation(frameTime); 
+  for (size_t i = 2; i < args.size(); ++i)
+    animation->Add(std::stoul(args[i]));
+  return AnimationBase::GetInstance()->Add(ID, animation);
 }

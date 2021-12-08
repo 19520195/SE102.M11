@@ -39,9 +39,8 @@ private:
 class AnimationBase
 {
 public:
-  void Add(size_t ID, Animation* animation);
-
-  Animation* Get(size_t ID); 
+  Animation* Add(size_t ID, Animation* animation);
+  Animation* Get(size_t ID);
   
   static AnimationBase* GetInstance(); 
 

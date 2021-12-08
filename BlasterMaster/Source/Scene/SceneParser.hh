@@ -17,9 +17,10 @@ public:
   static int GetHeader(const std::string& header); 
   static std::shared_ptr<PlayScene> FromFile(const std::string& filename);
 
-  static Object*  ParseObject(const std::string& detail);
-  static Texture* ParseTexture(const std::string& detail); 
-  static Sprite*  ParseSprite(const std::string& detail);
+  static Object*    ParseObject(const std::string& detail);
+  static Texture*   ParseTexture(const std::string& detail); 
+  static Sprite*    ParseSprite(const std::string& detail);
+  static Animation* ParseAnimation(const std::string& detail);
 
 private:
 };

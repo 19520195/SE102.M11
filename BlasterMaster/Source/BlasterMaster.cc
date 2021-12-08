@@ -7,8 +7,6 @@
 #include "Scene/SceneParser.hh"
 #include "Object/Player/SophiaIII.hh"
 
-void LoadResources();
-
 INT APIENTRY wWinMain(_In_     HINSTANCE hInstance,
                       _In_opt_ HINSTANCE hPrevInstance,
                       _In_     LPWSTR    lpCmdLine,
@@ -24,33 +22,11 @@ INT APIENTRY wWinMain(_In_     HINSTANCE hInstance,
   std::shared_ptr<PlayScene> scene = SceneParser::FromFile("Resources/Area3.ini");
   scene->SetPlayer(&__SophiaIII);
 
-
   std::unique_ptr<SophiaIIIKeyboardEvent> keyboard(new SophiaIIIKeyboardEvent());
   keyboard->m_SophiaIII = &__SophiaIII;
   scene->SetKeyboardHandler(keyboard.get());
 
-  LoadResources();
   Game::GetInstance()->SetScene(scene.get());
   Game::GetInstance()->Run(); 
   return EXIT_SUCCESS;
-}
-
-void LoadResources()
-{
-  Animation* animation;
-  // LWheel
-  animation = new Animation(100);
-  animation->Add(10401);
-  animation->Add(10402);
-  animation->Add(10403);
-  animation->Add(10404);
-  AnimationBase::GetInstance()->Add(104, animation);
-
-  // RWheel
-  animation = new Animation(100);
-  animation->Add(10402);
-  animation->Add(10403);
-  animation->Add(10404);
-  animation->Add(10401);
-  AnimationBase::GetInstance()->Add(105, animation);
 }
