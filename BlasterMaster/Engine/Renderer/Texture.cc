@@ -48,7 +48,6 @@ Texture* TextureBase::Add(int ID, LPCWSTR path, D3DCOLOR trans)
   }
 
   m_Textures[ID] = texture;
-  OutputDebugString(L"[INFO] Texture loaded Ok: id=%d, %s\n");
   return texture;
 }
 
