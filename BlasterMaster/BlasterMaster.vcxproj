@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Math\Collision.hh" />
+    <ClInclude Include="Resources\Resources.hh" />
     <ClInclude Include="Source\Object\Brick.hh" />
     <ClInclude Include="Source\Object\Enemy\Enemy.hh" />
     <ClInclude Include="Source\Object\Enemy\Interrupt.hh" />

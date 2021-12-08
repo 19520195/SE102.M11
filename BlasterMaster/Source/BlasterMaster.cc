@@ -5,7 +5,8 @@
 #include "Engine/Renderer/Animation.hh"
 
 #include "Scene/SceneParser.hh"
-#include "Object/Player/SophiaIII.hh"
+#include "Object/Object.hh"
+#include "Resources/Resources.hh"
 
 INT APIENTRY wWinMain(_In_     HINSTANCE hInstance,
                       _In_opt_ HINSTANCE hPrevInstance,
@@ -27,7 +28,7 @@ INT APIENTRY wWinMain(_In_     HINSTANCE hInstance,
 
     for (auto object : parser.GetObjects())
       scene->AddObject(object);
-    scene->SetBackground(parser.GetSpriteID("Background"));
+    scene->SetBackground(SPRID_BACKGROUND);
   }
   scene->SetPlayer(&__SophiaIII);
 

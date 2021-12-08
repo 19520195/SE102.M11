@@ -12,11 +12,11 @@ SophiaIII::SophiaIII()
   m_LWheel = std::make_unique<SophiaIIIWheel>();
   m_RWheel = std::make_unique<SophiaIIIWheel>();
 
-  m_Barrel->SetID(2);
-  m_Hammer->SetID(7);
-  m_Grip  ->SetID(10);
-  m_LWheel->SetID(1);
-  m_RWheel->SetID(2);
+  m_Barrel->SetID(SPRID_S3_BARREL_0);
+  m_Hammer->SetID(SPRID_S3_LEFT_HAMMER);
+  m_Grip  ->SetID(SPRID_S3_GRIP_HRZ);
+  m_LWheel->SetID(ANMID_S3_LEFT_WHEEL);
+  m_RWheel->SetID(ANMID_S3_RIGHT_WHEEL);
 
   m_Width = 24;
   m_Height = 18;
@@ -125,8 +125,8 @@ void SophiaIII::Render(TimeStep elapsed)
     m_Barrel->SetXY(m_X    , m_Y + 10);
     m_Hammer->SetXY(m_X + 8, m_Y + 10);
     m_Grip  ->SetXY(m_X + 8, m_Y +  2);
-    m_Barrel->SetID(2);
-    m_Hammer->SetID(7);
+    m_Barrel->SetID(SPRID_S3_BARREL_0);
+    m_Hammer->SetID(SPRID_S3_LEFT_HAMMER);
   }
 
   if (SD_IS_RIGHT(m_State))
@@ -134,8 +134,8 @@ void SophiaIII::Render(TimeStep elapsed)
     m_Barrel->SetXY(m_X + 16, m_Y + 10);
     m_Hammer->SetXY(m_X     , m_Y + 10);
     m_Grip  ->SetXY(m_X +  8, m_Y +  2);
-    m_Barrel->SetID(6);
-    m_Hammer->SetID(8);
+    m_Barrel->SetID(SPRID_S3_BARREL_4);
+    m_Hammer->SetID(SPRID_S3_RIGHT_HAMMER);
   }
 
   if (SM_IS_IDLE(m_State)) elapsed = 0;
@@ -162,14 +162,14 @@ void SophiaIIIKeyboardEvent::KeyState(BYTE* keyboard)
 
   if (IS_KEYDOWN(keyboard, DIK_C))
   {
-    TimeStep currentTime = GetTickCount64();
-    m_LastBulletTime = m_SophiaIII->GetLastBulletTime();
-    if (currentTime - m_LastBulletTime >= S3_BULLET_T3MP)
+    TimeStep lastFrameTime = Game::GetInstance()->GetLastFrameTime();
+    TimeStep lastBulletTime = m_SophiaIII->GetLastBulletTime();
+    if (lastFrameTime - lastBulletTime >= S3_BULLET_T3MP)
     {
       // Handle shoot event
       bool isVertical = false; 
       SophiaIIIBullet* bullet = new SophiaIIIBullet(isVertical);
-      bullet->SetArriveTime(currentTime);
+      bullet->SetArriveTime(lastFrameTime);
       m_SophiaIII->AddBullet(bullet);
       if (isVertical)
       {

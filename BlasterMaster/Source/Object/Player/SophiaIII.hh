@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Object/Object.hh"
+#include "Resources/Resources.hh"
 #include "Engine/Core/Input.hh"
 #include "Engine/Renderer/Animation.hh"
 #include "Engine/Renderer/Renderer.hh"
@@ -52,9 +53,6 @@ public:
   virtual void KeyState(BYTE* state);
   virtual void OnKeyUp(int code);
   virtual void OnKeyDown(int code);
-
-private:
-  TimeStep m_LastBulletTime;
 
 public: /// DEBUG ///
   SophiaIII* m_SophiaIII;
