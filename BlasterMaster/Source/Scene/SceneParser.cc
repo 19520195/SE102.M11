@@ -31,9 +31,15 @@ std::shared_ptr<PlayScene> SceneParser::FromFile(const std::string& filename)
     default:
       switch (parsingHeader)
       {
-      case SCENE_HEADER_OBJECTS:
-        scene->AddObject(ParseObjects(buffer));
-        break; 
+        case SCENE_HEADER_OBJECTS:
+          scene->AddObject(ParseObject(buffer));
+          break;
+        case SCENE_HEADER_TEXTURES:
+          ParseTexture(buffer);
+          break;
+        case SCENE_HEADER_SPRITES:
+          ParseSprite(buffer);
+          break;
       }
     }
   }
@@ -51,7 +57,7 @@ std::vector<std::string> Split(std::string string, std::string delimeter)
   return tokens;
 }
 
-Object* SceneParser::ParseObjects(const std::string& detail)
+Object* SceneParser::ParseObject(const std::string& detail)
 {
   std::vector<std::string> tokens = Split(detail, "\t");
   if (tokens.size() < 5) return nullptr;
@@ -77,4 +83,33 @@ Object* SceneParser::ParseObjects(const std::string& detail)
   object->SetWidth(width);
   object->SetHeight(height);
   return object;
+}
+
+Texture* SceneParser::ParseTexture(const std::string& detail)
+{
+  std::vector<std::string> args = Split(detail, "\t");
+  if (args.size() != 5) return nullptr;
+
+  size_t       ID   = std::stoul(args[0]);
+  std::wstring path = std::wstring(args[1].begin(), args[1].end());
+  unsigned     R    = std::stoul(args[2]);
+  unsigned     G    = std::stoul(args[3]);
+  unsigned     B    = std::stoul(args[4]);
+  return TextureBase::GetInstance()->Add(ID, path.c_str(), D3DCOLOR_XRGB(R, G, B));
+}
+
+Sprite* SceneParser::ParseSprite(const std::string& detail)
+{
+  std::vector<std::string> args = Split(detail, "\t");
+  if (args.size() != 6) return nullptr;
+
+  size_t ID     = std::stoul(args[0]);
+  size_t TID    = std::stoul(args[1]);
+  size_t top    = std::stoul(args[2]);
+  size_t left   = std::stoul(args[3]);
+  size_t bottom = std::stoul(args[4]);
+  size_t right  = std::stoul(args[5]);
+
+  Texture* texture = TextureBase::GetInstance()->Get(TID); 
+  return SpriteBase::GetInstance()->Add(ID, top, left, bottom, right, texture);
 }

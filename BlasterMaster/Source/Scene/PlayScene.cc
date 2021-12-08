@@ -53,12 +53,12 @@ void PlayScene::Render(TimeStep elapsed)
   SpriteBase::GetInstance()->Get(30101)->Render(0, 0);
 
   #ifdef _DEBUG
-  LPDIRECT3DTEXTURE9 blueBox = TextureBase::GetInstance()->GetTexture(-1);
-  LPDIRECT3DTEXTURE9 redBox = TextureBase::GetInstance()->GetTexture(-2);
+  Texture* blueBox = TextureBase::GetInstance()->Get(-1);
+  Texture* redBox = TextureBase::GetInstance()->Get(-2);
   for (size_t i = 0; i < DEBUG_Collision.size(); ++i)
   {
     const auto& object = m_Objects[i]; 
-    LPDIRECT3DTEXTURE9 bbox = (DEBUG_Collision[i] ? redBox : blueBox); 
+    Texture* bbox = (DEBUG_Collision[i] ? redBox : blueBox); 
     Sprite sprite(0, 0, 0, (size_t)object->GetHeight(), (size_t)object->GetWidth(), bbox);
     Renderer::DrawSprite(object->GetX(), object->GetY(), &sprite);
   }

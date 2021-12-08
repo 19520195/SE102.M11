@@ -4,26 +4,27 @@
 
 #include <memory>
 #include <unordered_map>
+#include "Texture.hh"
 
 class Sprite
 {
 public:
-  Sprite(size_t ID, size_t top, size_t left, size_t bottom, size_t right, LPDIRECT3DTEXTURE9 texture);
+  Sprite(size_t ID, size_t top, size_t left, size_t bottom, size_t right, Texture* texture);
   
   RECT* GetRect();
-  LPDIRECT3DTEXTURE9 GetTexture();
+  Texture* GetTexture();
 
   void Render(float X, float Y); 
 
 private:
   RECT               m_Rect; 
-  LPDIRECT3DTEXTURE9 m_Texture;
+  Texture* m_Texture;
 };
 
 class SpriteBase
 {
 public:
-  void Add(size_t ID, size_t top, size_t left, size_t bottom, size_t right, LPDIRECT3DTEXTURE9 texture);
+  Sprite* Add(size_t ID, size_t top, size_t left, size_t bottom, size_t right, Texture* texture);
   Sprite* Get(size_t ID);
 
   static SpriteBase* GetInstance(); 

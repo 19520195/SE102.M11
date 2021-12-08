@@ -12,7 +12,7 @@ TextureBase::~TextureBase()
   m_Textures.clear();
 }
 
-LPDIRECT3DTEXTURE9 TextureBase::Add(int ID, LPCWSTR path, D3DCOLOR trans)
+Texture* TextureBase::Add(int ID, LPCWSTR path, D3DCOLOR trans)
 {
   D3DXIMAGE_INFO info;
   HRESULT result = D3DXGetImageInfoFromFile(path, &info);
@@ -23,7 +23,7 @@ LPDIRECT3DTEXTURE9 TextureBase::Add(int ID, LPCWSTR path, D3DCOLOR trans)
   }
 
   LPDIRECT3DDEVICE9 d3ddv = G_Device;
-  LPDIRECT3DTEXTURE9 texture;
+  Texture* texture;
 
   result = D3DXCreateTextureFromFileEx(
     d3ddv,								// Pointer to Direct3D device object
@@ -52,7 +52,7 @@ LPDIRECT3DTEXTURE9 TextureBase::Add(int ID, LPCWSTR path, D3DCOLOR trans)
   return texture;
 }
 
-LPDIRECT3DTEXTURE9 TextureBase::GetTexture(size_t ID)
+Texture* TextureBase::Get(size_t ID)
 {
   return m_Textures[ID];
 }
