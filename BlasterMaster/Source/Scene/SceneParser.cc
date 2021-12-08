@@ -2,22 +2,57 @@
 #include <fstream>
 #include <string>
 
-int SceneParser::GetHeader(const std::string& header)
+SceneParser::SceneParser(const std::string& filename)
 {
-  if (header == "[TEXTURES]"  ) return SCENE_HEADER_TEXTURES  ;
-  if (header == "[SPRITES]"   ) return SCENE_HEADER_SPRITES   ;
-  if (header == "[ANIMATIONS]") return SCENE_HEADER_ANIMATIONS;
-  if (header == "[OBJECTS]"   ) return SCENE_HEADER_OBJECTS   ;
-  return SCENE_HEADER_UNKNOW;
+  m_Filename = filename;
+  m_IsParsed = false;
+  m_TextureCount   = 0;
+  m_SpriteCount    = 0;
+  m_AnimationCount = 0;
 }
 
-std::shared_ptr<PlayScene> SceneParser::FromFile(const std::string& filename)
+std::vector<Object*> SceneParser::GetObjects() const
 {
-  std::ifstream ini(filename);
-  if (!ini.is_open()) return nullptr;
+  return m_Objects;
+}
 
-  int parsingHeader = SCENE_HEADER_UNKNOW;
-  std::shared_ptr<PlayScene> scene(new PlayScene());
+size_t SceneParser::GetTextureID(const std::string& name) const
+{
+  if (m_TextureID.count(name))
+    return m_TextureID.at(name);
+  return 0;
+}
+
+size_t SceneParser::GetSpriteID(const std::string& name) const
+{
+  if (m_SpriteID.count(name))
+    return m_SpriteID.at(name);
+  return 0;
+}
+
+size_t SceneParser::GetAnimationID(const std::string& name) const
+{
+  if (m_AnimationID.count(name))
+    return m_AnimationID.at(name);
+  return 0;
+}
+
+int SceneParser::GetHeader(const std::string& header)
+{
+  if (header == "[TEXTURES]"  ) return SceneHeaderTextures  ;
+  if (header == "[SPRITES]"   ) return SceneHeaderSprites   ;
+  if (header == "[ANIMATIONS]") return SceneHeaderAnimations;
+  if (header == "[OBJECTS]"   ) return SceneHeaderObjects   ;
+  return SceneHeaderUnknow;
+}
+
+bool SceneParser::Parse()
+{
+  if (m_IsParsed) return false;
+  std::ifstream ini(m_Filename);
+  if (!ini.is_open()) return false;
+
+  int header = SceneHeaderUnknow;
   for (std::string buffer; std::getline(ini, buffer); )
   {
     if (buffer.empty()) continue;
@@ -25,29 +60,35 @@ std::shared_ptr<PlayScene> SceneParser::FromFile(const std::string& filename)
     {
     case '#': break;
     case '[':
-      parsingHeader = GetHeader(buffer);
-      break; 
+      header = GetHeader(buffer);
+      break;
 
     default:
-      switch (parsingHeader)
+      switch (header)
       {
-        case SCENE_HEADER_OBJECTS:
-          scene->AddObject(ParseObject(buffer));
-          break;
-        case SCENE_HEADER_TEXTURES:
-          ParseTexture(buffer);
-          break;
-        case SCENE_HEADER_SPRITES:
-          ParseSprite(buffer);
-          break;
-        case SCENE_HEADER_ANIMATIONS:
-          ParseAnimation(buffer);
-          break;
+        case SceneHeaderObjects   : ParseObject(buffer)   ; break;
+        case SceneHeaderTextures  : ParseTexture(buffer)  ; break;
+        case SceneHeaderSprites   : ParseSprite(buffer)   ; break;
+        case SceneHeaderAnimations: ParseAnimation(buffer); break;
       }
     }
   }
 
-  return scene;
+  m_IsParsed = true;
+  return true;
+}
+
+void SceneParser::PrintDebugInfo() const
+{
+  DEBUG_MSG(L"[TEXTURES]\n");
+  for (const auto& detail : m_TextureID)
+    DEBUG_MSG(L"%d\t-> %s\n", detail.second, TO_LPSTR(detail.first));
+  DEBUG_MSG(L"[SPRITES]\n");
+  for (const auto& detail : m_SpriteID)
+    DEBUG_MSG(L"%d\t-> %s\n", detail.second, TO_LPSTR(detail.first));
+  DEBUG_MSG(L"[ANIMATIONS]\n");
+  for (const auto& detail : m_AnimationID)
+    DEBUG_MSG(L"%d\t-> %s\n", detail.second, TO_LPSTR(detail.first));
 }
 
 std::vector<std::string> Split(std::string string, std::string delimeter)
@@ -85,6 +126,7 @@ Object* SceneParser::ParseObject(const std::string& detail)
   object->SetXY(X, Y); 
   object->SetWidth(width);
   object->SetHeight(height);
+  m_Objects.push_back(object);
   return object;
 }
 
@@ -93,12 +135,14 @@ Texture* SceneParser::ParseTexture(const std::string& detail)
   std::vector<std::string> args = Split(detail, "\t");
   if (args.size() != 5) return nullptr;
 
-  size_t       ID   = std::stoul(args[0]);
+  std::string  name = args[0];
   std::wstring path = std::wstring(args[1].begin(), args[1].end());
   unsigned     R    = std::stoul(args[2]);
   unsigned     G    = std::stoul(args[3]);
   unsigned     B    = std::stoul(args[4]);
-  return TextureBase::GetInstance()->Add(ID, path.c_str(), D3DCOLOR_XRGB(R, G, B));
+
+  m_TextureID[name] = ++m_TextureCount;
+  return TextureBase::GetInstance()->Add(m_TextureCount, path.c_str(), D3DCOLOR_XRGB(R, G, B));
 }
 
 Sprite* SceneParser::ParseSprite(const std::string& detail)
@@ -106,15 +150,16 @@ Sprite* SceneParser::ParseSprite(const std::string& detail)
   std::vector<std::string> args = Split(detail, "\t");
   if (args.size() != 6) return nullptr;
 
-  size_t ID     = std::stoul(args[0]);
-  size_t TID    = std::stoul(args[1]);
-  size_t top    = std::stoul(args[2]);
-  size_t left   = std::stoul(args[3]);
-  size_t bottom = std::stoul(args[4]);
-  size_t right  = std::stoul(args[5]);
+  std::string name   = args[0];
+  std::string tname  = args[1];
+  size_t      top    = std::stoul(args[2]);
+  size_t      left   = std::stoul(args[3]);
+  size_t      bottom = std::stoul(args[4]);
+  size_t      right  = std::stoul(args[5]);
 
-  Texture* texture = TextureBase::GetInstance()->Get(TID); 
-  return SpriteBase::GetInstance()->Add(ID, top, left, bottom, right, texture);
+  m_SpriteID[name] = ++m_SpriteCount;
+  Texture* texture = TextureBase::GetInstance()->Get(GetTextureID(tname));
+  return SpriteBase::GetInstance()->Add(m_SpriteCount, top, left, bottom, right, texture);
 }
 
 Animation* SceneParser::ParseAnimation(const std::string& detail)
@@ -122,11 +167,12 @@ Animation* SceneParser::ParseAnimation(const std::string& detail)
   std::vector<std::string> args = Split(detail, "\t");
   if (args.size() < 4) return nullptr;
 
-  size_t ID = std::stoul(args[0]);
-  size_t frameTime = std::stoul(args[1]);
+  std::string name      = args[0];
+  size_t      frameTime = std::stoul(args[1]);
 
   Animation* animation = new Animation(frameTime); 
   for (size_t i = 2; i < args.size(); ++i)
-    animation->Add(std::stoul(args[i]));
-  return AnimationBase::GetInstance()->Add(ID, animation);
+    animation->Add(GetSpriteID(args[i]));
+  m_AnimationID[name] = ++m_AnimationCount;
+  return AnimationBase::GetInstance()->Add(m_AnimationCount, animation);
 }

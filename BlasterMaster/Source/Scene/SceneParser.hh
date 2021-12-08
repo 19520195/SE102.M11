@@ -4,23 +4,44 @@
 
 enum SceneHeader : int
 {
-  SCENE_HEADER_UNKNOW    ,
-  SCENE_HEADER_TEXTURES  ,
-  SCENE_HEADER_SPRITES   ,
-  SCENE_HEADER_ANIMATIONS,
-  SCENE_HEADER_OBJECTS   ,
+  SceneHeaderUnknow    ,
+  SceneHeaderTextures  ,
+  SceneHeaderSprites   ,
+  SceneHeaderAnimations,
+  SceneHeaderObjects   ,
 };
 
 class SceneParser
 {
 public:
-  static int GetHeader(const std::string& header); 
-  static std::shared_ptr<PlayScene> FromFile(const std::string& filename);
+  SceneParser() = delete;
+  SceneParser(const std::string& filename);
 
-  static Object*    ParseObject(const std::string& detail);
-  static Texture*   ParseTexture(const std::string& detail); 
-  static Sprite*    ParseSprite(const std::string& detail);
-  static Animation* ParseAnimation(const std::string& detail);
+  std::vector<Object*> GetObjects() const;
+  size_t               GetTextureID(const std::string& name) const;
+  size_t               GetSpriteID(const std::string& name) const;
+  size_t               GetAnimationID(const std::string& name) const;
+
+  int GetHeader(const std::string& header); 
+
+  bool Parse();
+  void PrintDebugInfo() const;
+
+  Object*    ParseObject(const std::string& detail);
+  Texture*   ParseTexture(const std::string& detail); 
+  Sprite*    ParseSprite(const std::string& detail);
+  Animation* ParseAnimation(const std::string& detail);
 
 private:
+  std::string m_Filename;
+  bool        m_IsParsed;
+
+  std::vector<Object*> m_Objects; 
+
+  size_t m_TextureCount;
+  size_t m_SpriteCount;
+  size_t m_AnimationCount;
+  std::unordered_map<std::string, size_t> m_TextureID;
+  std::unordered_map<std::string, size_t> m_SpriteID;
+  std::unordered_map<std::string, size_t> m_AnimationID;
 };

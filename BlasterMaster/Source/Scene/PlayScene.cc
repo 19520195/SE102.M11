@@ -50,14 +50,14 @@ void PlayScene::Update(TimeStep elapsed)
 
 void PlayScene::Render(TimeStep elapsed)
 {
-  SpriteBase::GetInstance()->Get(30101)->Render(0, 0);
+  SpriteBase::GetInstance()->Get(1)->Render(0, 0);
 
   #ifdef _DEBUG
-  Texture* blueBox = TextureBase::GetInstance()->Get(-1);
-  Texture* redBox = TextureBase::GetInstance()->Get(-2);
+  Texture* blueBox = TextureBase::GetInstance()->Get(1);
+  Texture* redBox = TextureBase::GetInstance()->Get(2);
   for (size_t i = 0; i < DEBUG_Collision.size(); ++i)
   {
-    const auto& object = m_Objects[i]; 
+    const auto& object = m_Objects[i];
     Texture* bbox = (DEBUG_Collision[i] ? redBox : blueBox); 
     Sprite sprite(0, 0, 0, (size_t)object->GetHeight(), (size_t)object->GetWidth(), bbox);
     Renderer::DrawSprite(object->GetX(), object->GetY(), &sprite);

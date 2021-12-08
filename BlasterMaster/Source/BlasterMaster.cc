@@ -19,7 +19,15 @@ INT APIENTRY wWinMain(_In_     HINSTANCE hInstance,
   int state = __SophiaIII.GetState();
   __SophiaIII.SetState(SD_SET_RIGHT(state));
 
-  std::shared_ptr<PlayScene> scene = SceneParser::FromFile("Resources/Area3.ini");
+  std::shared_ptr<PlayScene> scene(new PlayScene);
+  {
+    SceneParser parser("Resources/Area3.ini");
+    parser.Parse();
+    parser.PrintDebugInfo();
+    // return EXIT_SUCCESS;
+    for (auto object : parser.GetObjects())
+      scene->AddObject(object);
+  }
   scene->SetPlayer(&__SophiaIII);
 
   std::unique_ptr<SophiaIIIKeyboardEvent> keyboard(new SophiaIIIKeyboardEvent());
