@@ -13,10 +13,21 @@ bricks = map(lambda brick: tuple(map(int, [
   brick['width'], brick['height']])), bricks)
 bricks = sorted(bricks)
 
-with open('Area3.ini', 'w') as conf:
+interrupts = _map.find_all('object', attrs={'name': 'Interrupt'})
+print(interrupts)
+interrupts = map(lambda object: tuple(map(int, [
+  object['x'], object['y'],
+  object['width'], object['height']])), interrupts)
+interrupts = sorted(interrupts)
+
+with open('Area3.2.ini', 'w') as conf:
   print('[OBJECTS]', file=conf)
   print('# 0 = Brick', file=conf)
+  print('# 1 = Interrupt', file=conf)
   print('#', 'X', 'Y', 'WIDTH', 'HEIGHT', sep='\t', file=conf)
   for x, y, width, height in bricks:
     y = MAP_HEIGHT - y - height
     print(0, x, y, width, height, sep='\t', file=conf)
+  for x, y, width, height in interrupts:
+    y = MAP_HEIGHT - y - height
+    print(1, x, y, width, height, sep='\t', file=conf)

@@ -12,17 +12,18 @@ public:
 
   void SetSpeed(float speedX, float speedY);
   void SetState(int state);
+  void Die();
 
   int GetState();
+  bool IsDied() const;
 
   virtual void Update(TimeStep elapsed);
   virtual void Update(TimeStep elapsed, std::vector<Object*> objects);
   virtual void Render(TimeStep elapsed);
 
 protected:
-  // float m_SpeedX;
-  // float m_SpeedY;
-  int m_State;
+  int  m_State;
+  bool m_Died;
 };
 
 class RenderableObject : public Object, public Renderable

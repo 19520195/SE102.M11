@@ -24,6 +24,24 @@ SophiaIII::SophiaIII()
   SD_SET_LEFT(m_State);
 }
 
+TimeStep SophiaIII::GetLastBulletTime() const
+{
+  if (m_Bullets.empty()) return 0;
+  return m_Bullets.back()->GetArriveTime();
+}
+
+std::vector<SophiaIIIBullet*> SophiaIII::GetBullets()
+{
+  std::vector<SophiaIIIBullet*> bullets;
+  // TimeStep currentTime = GetTickCount64(); 
+  // while (m_Bullets.size())
+  //   if ((m_Bulle))
+
+  for (const auto& bullet : m_Bullets)
+    bullets.emplace_back(bullet.get());
+  return bullets;
+}
+
 void SophiaIII::SetState(int state)
 {
   Object::SetState(state);
@@ -43,6 +61,11 @@ void SophiaIII::SetState(int state)
   }
 }
 
+void SophiaIII::AddBullet(SophiaIIIBullet* bullet)
+{
+  m_Bullets.emplace_back(bullet);
+}
+
 void SophiaIII::Update(TimeStep elapsed, std::vector<Object*> objects)
 {
   m_SpeedY -= SOPHIAIII_GRAVITY * elapsed;
@@ -50,30 +73,32 @@ void SophiaIII::Update(TimeStep elapsed, std::vector<Object*> objects)
   float deltaTimeY = static_cast<float>(elapsed);
   
   DEBUG_Collision = std::vector<bool>(objects.size()); 
-  for (size_t i = 0; i < objects.size(); ++i) if (static_cast<Brick*>(objects[i]))
+  for (size_t i = 0; i < objects.size(); ++i)
   {
-    auto object = objects[i];
-    float deltaTime = Collision::SweptAABB(*this, *object);
-    if (0 <= deltaTime && deltaTime <= elapsed)
+    if (dynamic_cast<Brick*>(objects[i]))
     {
-      DEBUG_Collision[i] = true;
-      DEBUG_MSG(L"ObjectID = %d Delta Time = %f\n", i, deltaTime);
-      float remainTime = (float)elapsed - deltaTime;
-      float deltaY = deltaTime * this->GetSpeedY();
-
-      Movable movedThis(this->m_SpeedX, this->m_SpeedY, this->m_X, this->m_Y, this->m_Width, this->m_Height);
-      movedThis.Move(deltaTime); 
-
-      if (Collision::IsCollideY(movedThis, *object))
+      auto object = objects[i];
+      float deltaTime = Collision::SweptAABB(*this, *object);
+      if (0 <= deltaTime && deltaTime <= elapsed)
       {
-        deltaTimeX = std::min(deltaTimeX, deltaTime + remainTime);
-        deltaTimeY = std::min(deltaTimeY, deltaTime);
-      }
+        DEBUG_Collision[i] = true;
+        float remainTime = (float)elapsed - deltaTime;
+        float deltaY = deltaTime * this->GetSpeedY();
 
-      if (Collision::IsCollideX(movedThis, *object))
-      {
-        deltaTimeX = std::min(deltaTimeX, deltaTime);
-        deltaTimeY = std::min(deltaTimeY, deltaTime + remainTime);
+        Movable movedThis(this->m_SpeedX, this->m_SpeedY, this->m_X, this->m_Y, this->m_Width, this->m_Height);
+        movedThis.Move(deltaTime);
+
+        if (Collision::IsCollideY(movedThis, *object))
+        {
+          deltaTimeX = std::min(deltaTimeX, deltaTime + remainTime);
+          deltaTimeY = std::min(deltaTimeY, deltaTime);
+        }
+
+        if (Collision::IsCollideX(movedThis, *object))
+        {
+          deltaTimeX = std::min(deltaTimeX, deltaTime);
+          deltaTimeY = std::min(deltaTimeY, deltaTime + remainTime);
+        }
       }
     }
   }
@@ -133,15 +158,15 @@ void SophiaIIIKeyboardEvent::KeyState(BYTE* keyboard)
 
   if (IS_KEYDOWN(keyboard, DIK_C))
   {
-    TimeStep currentBulletTime = GetTickCount64();
-    if (currentBulletTime - m_LastBulletTime >= SOPHIAIII_BULLET_TIMEOUT)
+    TimeStep currentTime = GetTickCount64();
+    m_LastBulletTime = m_SophiaIII->GetLastBulletTime();
+    if (currentTime - m_LastBulletTime >= S3_BULLET_T3MP)
     {
-      // Update bullet frame time
-      m_LastBulletTime = currentBulletTime;
-
       // Handle shoot event
       bool isVertical = false; 
       SophiaIIIBullet* bullet = new SophiaIIIBullet(isVertical);
+      bullet->SetArriveTime(currentTime);
+      m_SophiaIII->AddBullet(bullet);
       if (isVertical)
       {
         // 
@@ -149,15 +174,12 @@ void SophiaIIIKeyboardEvent::KeyState(BYTE* keyboard)
       else
       {
         bullet->SetX(m_SophiaIII->GetX() + m_SophiaIII->GetWidth());
-        bullet->SetY(m_SophiaIII->GetY() + (m_SophiaIII->GetHeight() - bullet->GetHeight()) / 2);
+        bullet->SetY(m_SophiaIII->GetY() + (m_SophiaIII->GetHeight() - bullet->GetHeight()));
         if (SD_IS_LEFT(m_SophiaIII->GetState()))
         {
           bullet->SetX(m_SophiaIII->GetX() - bullet->GetWidth());
           bullet->SetSpeed(-bullet->GetSpeedX(), 0);
         }
-
-        PlayScene* scene = dynamic_cast<PlayScene*>(Game::GetInstance()->GetScene());
-        scene->AddObject(bullet); 
       }
     }
   }

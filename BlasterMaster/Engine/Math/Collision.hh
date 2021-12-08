@@ -45,6 +45,6 @@ class Collision
 public:
   static bool IsCollideX(const Movable& object, const Movable& other);
   static bool IsCollideY(const Movable& object, const Movable& other);
-  static bool IsColliding(const Movable& object, const Movable& other);
+  static bool AABB(const Movable& object, const Movable& other);
   static float SweptAABB(const Movable& object, const Movable& other);
 };

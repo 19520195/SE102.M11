@@ -119,6 +119,10 @@ Object* SceneParser::ParseObject(const std::string& detail)
     object = new Brick();
     break;
 
+  case OBJECT_ID_INTERRUPT:
+    object = new Interrupt();
+    break;
+
   default:
     return nullptr; 
   }

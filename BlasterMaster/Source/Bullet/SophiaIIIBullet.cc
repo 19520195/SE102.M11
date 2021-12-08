@@ -12,4 +12,16 @@ SophiaIIIBullet::SophiaIIIBullet(bool isVertical)
     std::swap(this->m_Width, this->m_Height);
     std::swap(this->m_SpeedX, this->m_SpeedY);
   }
+
+  this->m_ArriveTime = 0;
+}
+
+TimeStep SophiaIIIBullet::GetArriveTime() const
+{
+  return m_ArriveTime;
+}
+
+void SophiaIIIBullet::SetArriveTime(TimeStep arrive)
+{
+  m_ArriveTime = arrive;
 }

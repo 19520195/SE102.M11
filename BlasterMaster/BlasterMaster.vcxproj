@@ -20,7 +20,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Math\Collision.cc" />
-    <ClCompile Include="Source\Bullet\Bullet.cpp" />
+    <ClCompile Include="Source\Object\Enemy\Interrupt.cc" />
+    <ClCompile Include="Source\Bullet\Bullet.cc" />
     <ClCompile Include="Source\Bullet\SophiaIIIBullet.cc" />
     <ClCompile Include="Source\Scene\SceneParser.cc" />
     <ClCompile Include="Source\Object\Brick.cc" />
@@ -45,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Math\Collision.hh" />
+    <ClInclude Include="Source\Object\Enemy\Interrupt.hh" />
     <ClInclude Include="Source\Bullet\Bullet.hh" />
     <ClInclude Include="Source\Bullet\SophiaIIIBullet.hh" />
     <ClInclude Include="Source\Scene\SceneParser.hh" />

@@ -23,7 +23,8 @@
     <ClCompile Include="Engine\Math\Collision.cc" />
     <ClCompile Include="Source\Scene\SceneParser.cc" />
     <ClCompile Include="Source\Bullet\SophiaIIIBullet.cc" />
-    <ClCompile Include="Source\Bullet\Bullet.cpp" />
+    <ClCompile Include="Source\Bullet\Bullet.cc" />
+    <ClCompile Include="Source\Object\Enemy\Interrupt.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Core\Window.hh" />
@@ -53,6 +54,7 @@
     <ClInclude Include="Source\Object\State.hh" />
     <ClInclude Include="Source\Bullet\SophiaIIIBullet.hh" />
     <ClInclude Include="Source\Bullet\Bullet.hh" />
+    <ClInclude Include="Source\Object\Enemy\Interrupt.hh" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\SophiaIII.png" />

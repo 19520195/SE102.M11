@@ -84,7 +84,7 @@ bool Collision::IsCollideY(const Movable& object, const Movable& other)
     std::abs(object.GetTop() - other.GetBottom()) < TIME_EPSILON;
 }
 
-bool Collision::IsColliding(const Movable& object, const Movable& other)
+bool Collision::AABB(const Movable& object, const Movable& other)
 {
   return other.GetLeft  () <= object.GetRight () &&
          other.GetRight () >= object.GetLeft  () &&
@@ -154,7 +154,7 @@ float Collision::SweptAABB(const Movable& object, const Movable& other)
 
   Movable moved(object);
   moved.Move(entryTime);
-  if (!IsColliding(moved, other))
+  if (!AABB(moved, other))
     return -1.0f;
 
   return entryTime; 

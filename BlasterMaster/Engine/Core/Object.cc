@@ -4,7 +4,9 @@ Object::Object()
 {
   m_SpeedX = 0;
   m_SpeedY = 0;
+
   m_State = 0;
+  m_Died = false;
 }
 
 void Object::SetSpeed(float speedX, float speedY)
@@ -18,9 +20,19 @@ void Object::SetState(int state)
   m_State = state;
 }
 
+void Object::Die()
+{
+  m_Died = true; 
+}
+
 int Object::GetState()
 {
   return m_State;
+}
+
+bool Object::IsDied() const
+{
+  return m_Died;
 }
 
 void Object::Update(TimeStep elapsed)
