@@ -37,3 +37,10 @@ void Bullet::Update(TimeStep elapsed, std::vector<Object*> objects)
 
   Update(elapsed);
 }
+
+void Bullet::Render(TimeStep elapsed)
+{
+  SpriteBase::GetInstance()
+    ->Get(m_SpeedX < 0 ? SPRID_S3_LEFT_BULLET : SPRID_S3_RIGHT_BULLET)
+    ->Render(m_X, m_Y);
+}

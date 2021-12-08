@@ -16,7 +16,7 @@ INT APIENTRY wWinMain(_In_     HINSTANCE hInstance,
   Game::GetInstance()->Create(SCREEN_WIDTH, SCREEN_HEIGHT, L"Blaster Master", hInstance, nCmdShow);
   
   SophiaIII __SophiaIII;
-  __SophiaIII.SetXY(1408, 672);
+  __SophiaIII.SetXY(1250, 390);
   int state = __SophiaIII.GetState();
   __SophiaIII.SetState(SD_SET_RIGHT(state));
 

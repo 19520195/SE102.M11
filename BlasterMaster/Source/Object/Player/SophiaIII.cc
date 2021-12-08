@@ -112,6 +112,7 @@ void SophiaIII::Update(TimeStep elapsed, std::vector<Object*> objects)
   
   if (deltaTimeX < elapsed) m_SpeedX = 0;
   if (deltaTimeY < elapsed) m_SpeedY = 0;
+  DEBUG_MSG(L"X = %.2f Y = %.2f\n", m_X, m_Y);
 }
 
 void SophiaIII::Render(TimeStep elapsed)
