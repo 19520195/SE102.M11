@@ -23,12 +23,17 @@ int Object::GetState()
   return m_State;
 }
 
-void Object::Update(TimeStep step)
+void Object::Update(TimeStep elapsed)
 {
   //
 }
 
-void Object::Update(TimeStep step, std::vector<Object*> objects)
+void Object::Update(TimeStep elapsed, std::vector<Object*> objects)
+{
+  //
+}
+
+void Object::Render(TimeStep elapsed)
 {
   //
 }

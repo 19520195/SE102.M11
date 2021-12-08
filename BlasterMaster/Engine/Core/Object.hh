@@ -15,8 +15,9 @@ public:
 
   int GetState();
 
-  virtual void Update(TimeStep step);
-  virtual void Update(TimeStep step, std::vector<Object*> objects);
+  virtual void Update(TimeStep elapsed);
+  virtual void Update(TimeStep elapsed, std::vector<Object*> objects);
+  virtual void Render(TimeStep elapsed);
 
 protected:
   // float m_SpeedX;

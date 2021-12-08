@@ -5,11 +5,18 @@ PlayScene::PlayScene()
 {
   m_Player = nullptr; 
   m_Camera.SetXY(1344, 544);
+
+  m_BackgroundID = 0;
 }
 
 Player* PlayScene::GetPlayer() const
 {
   return m_Player;
+}
+
+void PlayScene::SetBackground(size_t ID)
+{
+  m_BackgroundID = ID; 
 }
 
 void PlayScene::SetPlayer(Player* player)
@@ -25,12 +32,6 @@ void PlayScene::SetKeyboardHandler(KeyboardEvent* handler)
 void PlayScene::AddObject(Object* object)
 {
   m_Objects.emplace_back(object);
-}
-
-void PlayScene::AddRenderableObject(RenderableObject* object)
-{
-  m_Objects.emplace_back(object);
-  m_RenderableObjects.emplace_back(object);
 }
 
 void PlayScene::Update(TimeStep elapsed)
@@ -50,7 +51,8 @@ void PlayScene::Update(TimeStep elapsed)
 
 void PlayScene::Render(TimeStep elapsed)
 {
-  SpriteBase::GetInstance()->Get(1)->Render(0, 0);
+  // Draw background
+  SpriteBase::GetInstance()->Get(m_BackgroundID)->Render(0, 0);
 
   #ifdef _DEBUG
   Texture* blueBox = TextureBase::GetInstance()->Get(1);
@@ -61,14 +63,12 @@ void PlayScene::Render(TimeStep elapsed)
     Texture* bbox = (DEBUG_Collision[i] ? redBox : blueBox); 
     Sprite sprite(0, 0, 0, (size_t)object->GetHeight(), (size_t)object->GetWidth(), bbox);
     Renderer::DrawSprite(object->GetX(), object->GetY(), &sprite);
+    object->Render(elapsed);
   }
 
   Sprite sprite(0, 0, 0, (size_t)m_Player->GetHeight(), (size_t)m_Player->GetWidth(), blueBox);
   Renderer::DrawSprite(m_Player->GetX(), m_Player->GetY(), &sprite);
-
   #endif // _DEBUG
 
-  ((SophiaIII*)(m_Player))->Render(elapsed); 
-  for (const auto& object : m_RenderableObjects)
-    object->Render(elapsed);
+  m_Player->Render(elapsed);
 }

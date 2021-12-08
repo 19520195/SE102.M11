@@ -48,17 +48,17 @@ void Game::Run()
     }
 
     TimeStep currentFrameTime = GetTickCount64();
-    TimeStep step = currentFrameTime - m_LastFrameTime;
+    TimeStep elapsed = currentFrameTime - m_LastFrameTime;
     m_LastFrameTime = currentFrameTime;
 
-    if (step < ENGINE_FRAME_STEP) Sleep((DWORD)(ENGINE_FRAME_STEP - step));
+    if (elapsed < ENGINE_FRAME_STEP) Sleep((DWORD)(ENGINE_FRAME_STEP - elapsed));
     else
     {
       if (m_Scene)
       {
-        m_Scene->Update(step);
+        m_Scene->Update(elapsed);
         Input::GetInstance()->ProcKeyboard();
-        Renderer::Render(step);
+        Renderer::Render(elapsed);
       }
     }
   }

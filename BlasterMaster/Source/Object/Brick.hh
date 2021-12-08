@@ -2,7 +2,4 @@
 
 #include "Object.hh"
 
-class Brick : public SpriteObject
-{
-  // 
-};
+typedef Object Brick;

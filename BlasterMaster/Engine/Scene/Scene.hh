@@ -14,7 +14,7 @@ public:
   Camera         GetCamera() const; 
   KeyboardEvent* GetKeyboardHandler() const;
 
-  virtual void Update(TimeStep step) = 0;
+  virtual void Update(TimeStep elapsed) = 0;
   virtual void Render(TimeStep elapsed) = 0;
 
 protected:

@@ -24,9 +24,10 @@ INT APIENTRY wWinMain(_In_     HINSTANCE hInstance,
     SceneParser parser("Resources/Area3.ini");
     parser.Parse();
     parser.PrintDebugInfo();
-    // return EXIT_SUCCESS;
+
     for (auto object : parser.GetObjects())
       scene->AddObject(object);
+    scene->SetBackground(parser.GetSpriteID("Background"));
   }
   scene->SetPlayer(&__SophiaIII);
 

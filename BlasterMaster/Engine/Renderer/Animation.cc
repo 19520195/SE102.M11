@@ -56,10 +56,10 @@ void Animation::Render(float X, float Y)
 	m_Frames[m_CurrentFrame]->GetSprite()->Render(X, Y);
 }
 
-void Animation::Render(float X, float Y, TimeStep step)
+void Animation::Render(float X, float Y, TimeStep elapsed)
 {
 	TimeStep offset = m_Frames.size() * m_DefaultTime;
-	m_TimeStep = (m_TimeStep + offset + step) % (offset);
+	m_TimeStep = (m_TimeStep + offset + elapsed) % (offset);
 
 	size_t frameID = (size_t)(m_TimeStep / m_DefaultTime);
 	m_Frames[frameID]->GetSprite()->Render(X, Y);

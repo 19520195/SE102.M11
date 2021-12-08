@@ -85,7 +85,7 @@ void SophiaIII::Update(TimeStep elapsed, std::vector<Object*> objects)
   if (deltaTimeY < elapsed) m_SpeedY = 0;
 }
 
-void SophiaIII::Render(TimeStep step)
+void SophiaIII::Render(TimeStep elapsed)
 {
   m_LWheel->SetXY(m_X     , m_Y     ); 
   m_RWheel->SetXY(m_X + 16, m_Y     );
@@ -109,18 +109,18 @@ void SophiaIII::Render(TimeStep step)
     m_Hammer->SetID(8);
   }
 
-  if (SM_IS_IDLE(m_State)) step = 0;
+  if (SM_IS_IDLE(m_State)) elapsed = 0;
   else
   {
     if (SD_IS_LEFT(m_State))
-      step = -step;
+      elapsed = -elapsed;
   }
 
-  m_Barrel->Render(step);
-  m_Hammer->Render(step);
-  m_Grip  ->Render(step);
-  m_LWheel->Render(step);
-  m_RWheel->Render(step);
+  m_Barrel->Render(elapsed);
+  m_Hammer->Render(elapsed);
+  m_Grip  ->Render(elapsed);
+  m_LWheel->Render(elapsed);
+  m_RWheel->Render(elapsed);
 }
 
 /// DEBUG /// 
