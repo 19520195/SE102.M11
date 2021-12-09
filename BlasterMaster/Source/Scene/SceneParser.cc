@@ -104,32 +104,28 @@ std::vector<std::string> Split(std::string string, std::string delimeter)
 Object* SceneParser::ParseObject(const std::string& detail)
 {
   std::vector<std::string> tokens = Split(detail, "\t");
-  if (tokens.size() < 5) return nullptr;
+  if (tokens.size() != 3 && tokens.size() != 5)
+    return nullptr;
 
-  size_t ID      = std::stoul(tokens[0]);
-  float  X       = std::stof (tokens[1]);
-  float  Y       = std::stof (tokens[2]);
-  float  width   = std::stof (tokens[3]);
-  float  height  = std::stof (tokens[4]);
+  std::string name = tokens[0];
+  float X = std::stof(tokens[1]);
+  float Y = std::stof(tokens[2]);
 
-  Object* object; 
-  switch (ID)
+  Object* object = nullptr;
+  if (name == "Brick") object = new Brick();
+  else object = Enemy::Create(name);
+
+  if (object == nullptr) return nullptr;
+
+  if (tokens.size() == 5)
   {
-  case OBJECT_ID_BRICK:
-    object = new Brick();
-    break;
-
-  case OBJECT_ID_INTERRUPT:
-    object = new Interrupt();
-    break;
-
-  default:
-    return nullptr; 
+    float width = std::stof(tokens[3]);
+    float height = std::stof(tokens[4]);
+    object->SetWidth(width);
+    object->SetHeight(height);
   }
 
-  object->SetXY(X, Y); 
-  object->SetWidth(width);
-  object->SetHeight(height);
+  object->SetXY(X, Y);
   m_Objects.push_back(object);
   return object;
 }

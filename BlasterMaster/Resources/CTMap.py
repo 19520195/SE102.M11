@@ -6,28 +6,18 @@ _map = _map.find('map')
 MAP_WIDTH = int(_map['width']) * int(_map['tilewidth'])
 MAP_HEIGHT = int(_map['height']) * int(_map['tileheight'])
 
-bricks = _map.find('objectgroup', attrs={'name': 'Bricks'})
-bricks = filter(lambda brick: type(brick) == element.Tag, bricks)
-bricks = map(lambda brick: tuple(map(int, [
-  brick['x'], brick['y'],
-  brick['width'], brick['height']])), bricks)
-bricks = sorted(bricks)
-
-interrupts = _map.find_all('object', attrs={'name': 'Interrupt'})
-print(interrupts)
-interrupts = map(lambda object: tuple(map(int, [
-  object['x'], object['y'],
-  object['width'], object['height']])), interrupts)
-interrupts = sorted(interrupts)
-
 with open('Area3.2.ini', 'w') as conf:
   print('[OBJECTS]', file=conf)
-  print('# 0 = Brick', file=conf)
-  print('# 1 = Interrupt', file=conf)
   print('#', 'X', 'Y', 'WIDTH', 'HEIGHT', sep='\t', file=conf)
-  for x, y, width, height in bricks:
-    y = MAP_HEIGHT - y - height
-    print(0, x, y, width, height, sep='\t', file=conf)
-  for x, y, width, height in interrupts:
-    y = MAP_HEIGHT - y - height
-    print(1, x, y, width, height, sep='\t', file=conf)
+
+  for object_name in ['Brick', 'Ball Carry', 'Ballbot', 'Eyelet', 'Interrupt', 'Stuka']:
+    game_object = _map.find_all('object', attrs={'name': object_name})
+    game_object = map(lambda object: tuple(map(int, [
+      object['x'], object['y'],
+      object['width'], object['height']])), game_object)
+    game_object = sorted(game_object)
+
+    object_name = object_name.replace(' ', '-')
+    for x, y, width, height in game_object:
+      y = MAP_HEIGHT - y - height
+      print(object_name, x, y, width, height, sep='\t', file=conf)

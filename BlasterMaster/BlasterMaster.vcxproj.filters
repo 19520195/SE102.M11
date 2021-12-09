@@ -24,6 +24,7 @@
     <ClCompile Include="Source\Object\Bullet\SophiaIIIBullet.cc" />
     <ClCompile Include="Source\Object\Bullet\Bullet.cc" />
     <ClCompile Include="Source\Object\Enemy\Interrupt.cc" />
+    <ClCompile Include="Source\Object\Enemy\Enemy.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Core\Window.hh" />

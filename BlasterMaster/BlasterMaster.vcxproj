@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Math\Collision.cc" />
+    <ClCompile Include="Source\Object\Enemy\Enemy.cc" />
     <ClCompile Include="Source\Object\Enemy\Interrupt.cc" />
     <ClCompile Include="Source\Object\Bullet\Bullet.cc" />
     <ClCompile Include="Source\Object\Bullet\SophiaIIIBullet.cc" />
