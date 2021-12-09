@@ -5,6 +5,8 @@
 #include "Engine/Renderer/Animation.hh"
 #include "Scene/SceneParser.hh"
 
+PlayScene* GetSceneFromFile(const std::string& filename);
+
 INT APIENTRY wWinMain(_In_     HINSTANCE hInstance,
                       _In_opt_ HINSTANCE hPrevInstance,
                       _In_     LPWSTR    lpCmdLine,
@@ -15,29 +17,23 @@ INT APIENTRY wWinMain(_In_     HINSTANCE hInstance,
     SCREEN_HEIGHT,
     SCREEN_TITLE,
     hInstance, nCmdShow);
-  
-  SophiaIII __SophiaIII;
-  __SophiaIII.SetXY(1160, 480);
-  int state = __SophiaIII.GetState();
-  // __SophiaIII.SetState(SD_SET_RIGHT(state));
-
-  std::shared_ptr<PlayScene> scene(new PlayScene);
-  {
-    SceneParser parser("Resources/Area3.ini");
-    parser.Parse();
-    parser.PrintDebugInfo();
-
-    for (auto object : parser.GetObjects())
-      scene->AddObject(object);
-    scene->SetBackground(SPRID_BACKGROUND);
-  }
-  scene->SetPlayer(&__SophiaIII);
-
-  std::unique_ptr<SophiaIIIKeyboardEvent> keyboard(new SophiaIIIKeyboardEvent());
-  keyboard->m_SophiaIII = &__SophiaIII;
-  scene->SetKeyboardHandler(keyboard.get());
-
+  std::shared_ptr<PlayScene> scene(GetSceneFromFile("Resources/Area3.ini"));
   Game::GetInstance()->SetScene(scene.get());
   Game::GetInstance()->Run(); 
   return EXIT_SUCCESS;
+}
+
+PlayScene* GetSceneFromFile(const std::string& filename)
+{
+  SceneParser parser(filename);
+  if (!parser.Parse()) return nullptr;
+
+  parser.PrintDebugInfo();
+  PlayScene* scene = new PlayScene();
+  for (auto object : parser.GetObjects())
+    scene->AddObject(object);
+  scene->SetPlayer((Player*)parser.GetPlayer());
+  scene->SetKeyboardHandler(parser.GetKeyboardEvent());
+  scene->SetBackground(SPRID_BACKGROUND);
+  return scene;
 }

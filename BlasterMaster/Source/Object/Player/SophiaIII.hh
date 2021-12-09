@@ -31,7 +31,8 @@ public:
   void SetState(int state);
   
   void AddBullet(SophiaIIIBullet* bullet);
-
+  
+  SophiaIIIBullet* CreateBullet();
 
   virtual void Update(TimeStep elapsed, std::vector<Object*> objects);
   virtual void Render(TimeStep elapsed);
@@ -54,7 +55,4 @@ public:
   virtual void KeyState(BYTE* state);
   virtual void OnKeyUp(int code);
   virtual void OnKeyDown(int code);
-
-public: /// DEBUG ///
-  SophiaIII* m_SophiaIII;
 };

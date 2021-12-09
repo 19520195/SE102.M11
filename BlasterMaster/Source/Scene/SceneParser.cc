@@ -11,9 +11,19 @@ SceneParser::SceneParser(const std::string& filename)
   m_AnimationCount = 0;
 }
 
+Object* SceneParser::GetPlayer() const
+{
+  return m_Player;
+}
+
 std::vector<Object*> SceneParser::GetObjects() const
 {
   return m_Objects;
+}
+
+KeyboardEvent* SceneParser::GetKeyboardEvent() const
+{
+  return m_Keyboard;
 }
 
 size_t SceneParser::GetTextureID(const std::string& name) const
@@ -112,7 +122,10 @@ Object* SceneParser::ParseObject(const std::string& detail)
   float Y = std::stof(tokens[2]);
 
   Object* object = nullptr;
-  if (name == "Brick") object = new Brick();
+  if (name == "Brick")
+    object = new Brick();
+  else if (name == "SophiaIII")
+    object = new SophiaIII();
   else object = Enemy::Create(name);
 
   if (object == nullptr) return nullptr;
@@ -126,7 +139,12 @@ Object* SceneParser::ParseObject(const std::string& detail)
   }
 
   object->SetXY(X, Y);
-  m_Objects.push_back(object);
+  if (name == "SophiaIII")
+  {
+    m_Keyboard = new SophiaIIIKeyboardEvent();
+    m_Keyboard->SetPlayer(m_Player = object);
+  }
+  else m_Objects.push_back(object);
   return object;
 }
 

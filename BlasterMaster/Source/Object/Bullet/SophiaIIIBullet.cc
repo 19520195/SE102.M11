@@ -6,15 +6,7 @@ SophiaIIIBullet::SophiaIIIBullet(bool isVertical)
 {
   this->m_Width  = S3BULLET_SIZE1;
   this->m_Height = S3BULLET_SIZE0;
-  this->m_SpeedX = S3BULLET_SPEED;
-  this->m_SpeedY = 0;
-
-  if (isVertical)
-  {
-    std::swap(this->m_Width, this->m_Height);
-    std::swap(this->m_SpeedX, this->m_SpeedY);
-  }
-
+  if (isVertical) std::swap(this->m_Width, this->m_Height);
   this->m_ArriveTime = 0;
 }
 
@@ -63,7 +55,9 @@ void SophiaIIIBullet::Update(TimeStep elapsed, std::vector<Object*> objects)
 
 void SophiaIIIBullet::Render(TimeStep elapsed)
 {
-  SpriteBase::GetInstance()
-    ->Get(m_SpeedX < 0 ? SPRID_S3_LEFT_BULLET : SPRID_S3_RIGHT_BULLET)
-    ->Render(m_X, m_Y);
+  size_t spriteID = 0;
+  if (m_SpeedX)
+    spriteID = m_SpeedX < 0 ? SPRID_S3_LEFT_BULLET : SPRID_S3_RIGHT_BULLET;
+  else spriteID = SPRID_S3_UP_BULLET;
+  SpriteBase::GetInstance()->Get(spriteID)->Render(m_X, m_Y);
 }

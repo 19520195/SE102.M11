@@ -17,12 +17,15 @@ public:
   SceneParser() = delete;
   SceneParser(const std::string& filename);
 
-  std::vector<Object*> GetObjects() const;
-  size_t               GetTextureID(const std::string& name) const;
-  size_t               GetSpriteID(const std::string& name) const;
-  size_t               GetAnimationID(const std::string& name) const;
+  Object*               GetPlayer() const;
+  std::vector<Object*>  GetObjects() const;
+  KeyboardEvent*        GetKeyboardEvent() const;
 
-  int GetHeader(const std::string& header); 
+  size_t GetTextureID(const std::string& name) const;
+  size_t GetSpriteID(const std::string& name) const;
+  size_t GetAnimationID(const std::string& name) const;
+
+  int GetHeader(const std::string& header);
 
   bool Parse();
   void PrintDebugInfo() const;
@@ -36,6 +39,8 @@ private:
   std::string m_Filename;
   bool        m_IsParsed;
 
+  Object*              m_Player;
+  KeyboardEvent*       m_Keyboard;
   std::vector<Object*> m_Objects; 
 
   size_t m_TextureCount;

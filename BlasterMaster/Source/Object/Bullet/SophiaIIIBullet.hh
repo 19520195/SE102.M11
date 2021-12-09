@@ -7,7 +7,7 @@ constexpr float S3BULLET_SPEED =  0.3f;
 
 constexpr float S3_BULLET_TIMEOUT = 666; // ms
 constexpr float S3_BULLET_DELTA   =  66; // ms
-constexpr float S3_BULLET_MAX     =   3; // bullets
+constexpr float S3_BULLET_MAX     = 666; // bullets
 
 class SophiaIIIBullet : public Bullet
 {

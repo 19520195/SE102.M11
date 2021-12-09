@@ -59,8 +59,8 @@ void PlayScene::Update(TimeStep elapsed)
 void PlayScene::Render(TimeStep elapsed)
 {
   #ifdef _DEBUG
-  Texture* DEBUG_RED_BBOX  = TextureBase::GetInstance()->Get(TEXID_RED_BBOX);
-  Texture* DEBUG_BLUE_BBOX = TextureBase::GetInstance()->Get(TEXID_BLUE_BBOX);
+  Texture* DEBUG_RED_BBOX  = nullptr; // TextureBase::GetInstance()->Get(TEXID_RED_BBOX);
+  Texture* DEBUG_BLUE_BBOX = nullptr; // TextureBase::GetInstance()->Get(TEXID_BLUE_BBOX);
   #endif // _DEBUG
 
   // Draw background
@@ -81,13 +81,6 @@ void PlayScene::Render(TimeStep elapsed)
     }
   }
 
-  m_Player->Render(elapsed);
-
-  #ifdef _DEBUG
-  Sprite sprite(0, 0, 0, m_Player->GetHeight(), m_Player->GetWidth(), DEBUG_BLUE_BBOX);
-  Renderer::DrawSprite(m_Player->GetX(), m_Player->GetY(), &sprite);
-  #endif // _DEBUG
-
   for (const auto& bullet : (static_cast<SophiaIII*>(m_Player))->GetBullets())
   {
     if (bullet->IsDied() == false)
@@ -101,4 +94,10 @@ void PlayScene::Render(TimeStep elapsed)
       #endif // _DEBUG
     }
   }
+
+  m_Player->Render(elapsed);
+  #ifdef _DEBUG
+  Sprite sprite(0, 0, 0, m_Player->GetHeight(), m_Player->GetWidth(), DEBUG_BLUE_BBOX);
+  Renderer::DrawSprite(m_Player->GetX(), m_Player->GetY(), &sprite);
+  #endif // _DEBUG
 }

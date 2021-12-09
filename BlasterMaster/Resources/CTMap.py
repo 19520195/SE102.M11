@@ -10,7 +10,7 @@ with open('Area3.2.ini', 'w') as conf:
   print('[OBJECTS]', file=conf)
   print('#', 'X', 'Y', 'WIDTH', 'HEIGHT', sep='\t', file=conf)
 
-  for object_name in ['Brick', 'Ball Carry', 'Ballbot', 'Eyelet', 'Interrupt', 'Stuka']:
+  for object_name in ['SophiaIII', 'Brick', 'Ball Carry', 'Ballbot', 'Eyelet', 'Interrupt', 'Stuka']:
     game_object = _map.find_all('object', attrs={'name': object_name})
     game_object = map(lambda object: tuple(map(int, [
       object['x'], object['y'],

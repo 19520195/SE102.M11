@@ -12,8 +12,6 @@ SophiaIII::SophiaIII()
   m_LWheel = std::make_unique<SophiaIIIWheel>();
   m_RWheel = std::make_unique<SophiaIIIWheel>();
 
-  m_Barrel->SetID(SPRID_S3_BARREL_0);
-  m_Hammer->SetID(SPRID_S3_LEFT_HAMMER);
   m_Grip  ->SetID(SPRID_S3_GRIP_HRZ);
   m_LWheel->SetID(ANMID_S3_LEFT_WHEEL);
   m_RWheel->SetID(ANMID_S3_RIGHT_WHEEL);
@@ -68,6 +66,43 @@ void SophiaIII::SetState(int state)
 void SophiaIII::AddBullet(SophiaIIIBullet* bullet)
 {
   m_Bullets.emplace_back(bullet);
+}
+
+SophiaIIIBullet* SophiaIII::CreateBullet()
+{
+  TimeStep lastFrameTime = Game::GetInstance()->GetLastFrameTime();
+  TimeStep lastBulletTime = this->GetLastBulletTime();
+  TimeStep elapsed = lastFrameTime - lastBulletTime;
+
+  if (elapsed < S3_BULLET_DELTA || this->GetBullets().size() >= S3_BULLET_MAX)
+    return nullptr;
+  
+  SophiaIIIBullet* bullet = new SophiaIIIBullet(SD_IS_UP(m_State));
+  bullet->SetArriveTime(lastFrameTime);
+  this->AddBullet(bullet);
+
+  if (SD_IS_UP(m_State))
+  {
+    bullet->SetX(this->GetLeft() + (this->GetWidth() - bullet->GetWidth()) / 2);
+    bullet->SetY(this->GetTop() - bullet->GetHeight() / 2);
+    bullet->SetSpeed(0, S3BULLET_SPEED);
+  }
+  else
+  {
+    bullet->SetY(this->GetY() + (this->GetHeight() - bullet->GetHeight()));
+    if (SD_IS_RIGHT(GetState()))
+    {
+      bullet->SetX(GetLeft() + bullet->GetWidth() / 2);
+      bullet->SetSpeed(S3BULLET_SPEED, 0);
+    }
+    else
+    {
+      bullet->SetX(GetLeft() - bullet->GetWidth() / 2);
+      bullet->SetSpeed(-S3BULLET_SPEED, 0);
+    }
+  }
+
+  return bullet;
 }
 
 void SophiaIII::Update(TimeStep elapsed, std::vector<Object*> objects)
@@ -126,7 +161,7 @@ void SophiaIII::Render(TimeStep elapsed)
     m_Barrel->SetXY(m_X    , m_Y + 10);
     m_Hammer->SetXY(m_X + 8, m_Y + 10);
     m_Grip  ->SetXY(m_X + 8, m_Y +  2);
-    m_Barrel->SetID(SPRID_S3_BARREL_0);
+    m_Barrel->SetID(SPRID_S3_LEFT_BARREL);
     m_Hammer->SetID(SPRID_S3_LEFT_HAMMER);
   }
 
@@ -135,8 +170,16 @@ void SophiaIII::Render(TimeStep elapsed)
     m_Barrel->SetXY(m_X + 16, m_Y + 10);
     m_Hammer->SetXY(m_X     , m_Y + 10);
     m_Grip  ->SetXY(m_X +  8, m_Y +  2);
-    m_Barrel->SetID(SPRID_S3_BARREL_4);
+    m_Barrel->SetID(SPRID_S3_RIGHT_BARREL);
     m_Hammer->SetID(SPRID_S3_RIGHT_HAMMER);
+  }
+
+  if (SD_IS_UP(m_State))
+  {
+    m_Barrel->SetID(SPRID_S3_UP_BARREL);
+    m_Barrel->SetXY(m_X + (m_Width - 8) / 2, m_Y + m_Height + 4);
+    m_Hammer->SetID(SD_IS_LEFT(m_State) ? SPRID_S3_UPLEFT_HAMMER : SPRID_S3_UPRIGHT_HAMMER);
+    m_Hammer->SetXY(SD_IS_LEFT(m_State) ? m_X + 9 : m_X, m_Y + 6);
   }
 
   if (SM_IS_IDLE(m_State)) elapsed = 0;
@@ -153,45 +196,14 @@ void SophiaIII::Render(TimeStep elapsed)
   m_RWheel->Render(elapsed);
 }
 
-/// DEBUG /// 
-#include "Engine/Core/Game.hh"
-#include "Scene/PlayScene.hh"
-
 void SophiaIIIKeyboardEvent::KeyState(BYTE* keyboard)
 {
-  int currentState = m_SophiaIII->GetState(); 
-
-  if (IS_KEYDOWN(keyboard, DIK_C))
-  {
-    TimeStep lastFrameTime = Game::GetInstance()->GetLastFrameTime();
-    TimeStep lastBulletTime = m_SophiaIII->GetLastBulletTime();
-    if (lastFrameTime - lastBulletTime >= S3_BULLET_DELTA && m_SophiaIII->GetBullets().size() < S3_BULLET_MAX)
-    {
-      // Handle shoot event
-      bool isVertical = false; 
-      SophiaIIIBullet* bullet = new SophiaIIIBullet(isVertical);
-      bullet->SetArriveTime(lastFrameTime);
-      m_SophiaIII->AddBullet(bullet);
-      if (isVertical)
-      {
-        // 
-      }
-      else
-      {
-        bullet->SetX(m_SophiaIII->GetX() + m_SophiaIII->GetWidth());
-        bullet->SetY(m_SophiaIII->GetY() + (m_SophiaIII->GetHeight() - bullet->GetHeight()));
-        if (SD_IS_LEFT(m_SophiaIII->GetState()))
-        {
-          bullet->SetX(m_SophiaIII->GetX() - bullet->GetWidth());
-          bullet->SetSpeed(-bullet->GetSpeedX(), 0);
-        }
-      }
-    }
-  }
+  SophiaIII* pS3 = static_cast<SophiaIII*>(m_Player);
+  int currentState = pS3->GetState(); 
 
   // MOVE: Jump
-  if (IS_KEYDOWN(keyboard, DIK_X) && SM_IS_FALL(m_SophiaIII->GetState()))
-    if (!m_SophiaIII->GetSpeedY())
+  if (IS_KEYDOWN(keyboard, DIK_X) && SM_IS_FALL(pS3->GetState()))
+    if (!pS3->GetSpeedY())
       SM_SET_JUMP(currentState); 
 
   // MOVE: Left / Right / Idle
@@ -206,8 +218,15 @@ void SophiaIIIKeyboardEvent::KeyState(BYTE* keyboard)
     SM_SET_IDLE(currentState);
   }
 
+  if (IS_KEYDOWN(keyboard, DIK_UP))
+    SD_SET_UP(currentState);
+  else SD_SET_DOWN(currentState); 
+
   // Set state
-  m_SophiaIII->SetState(currentState);
+  pS3->SetState(currentState);
+
+  if (IS_KEYDOWN(keyboard, DIK_C))
+    pS3->CreateBullet();
 }
 
 void SophiaIIIKeyboardEvent::OnKeyUp(int code) 
