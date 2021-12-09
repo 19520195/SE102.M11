@@ -30,6 +30,7 @@ void SophiaIIIBullet::SetArriveTime(TimeStep arrive)
 
 void SophiaIIIBullet::Update(TimeStep elapsed, std::vector<Object*> objects)
 {
+  if (this->IsDied()) return;
   std::sort(objects.begin(), objects.end(), [](Object* shl, Object* shr) {
     return shl->GetX() < shr->GetX();
   });
@@ -51,6 +52,7 @@ void SophiaIIIBullet::Update(TimeStep elapsed, std::vector<Object*> objects)
         this->Die();
         if (dynamic_cast<Enemy*>(object))
           object->Die();
+        else DEBUG_COLLISION[i] = true;
         return;
       }
     }

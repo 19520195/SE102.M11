@@ -2,7 +2,7 @@
 #include "Engine/Core/Game.hh"
 #include "Engine/Renderer/Animation.hh"
 
-std::vector<bool> DEBUG_Collision;
+std::vector<bool> DEBUG_COLLISION;
 
 SophiaIII::SophiaIII()
 {
@@ -76,7 +76,7 @@ void SophiaIII::Update(TimeStep elapsed, std::vector<Object*> objects)
   float deltaTimeX = static_cast<float>(elapsed);
   float deltaTimeY = static_cast<float>(elapsed);
   
-  DEBUG_Collision = std::vector<bool>(objects.size()); 
+  DEBUG_COLLISION = std::vector<bool>(objects.size()); 
   for (size_t i = 0; i < objects.size(); ++i)
   {
     if (dynamic_cast<Brick*>(objects[i]))
@@ -85,7 +85,7 @@ void SophiaIII::Update(TimeStep elapsed, std::vector<Object*> objects)
       float deltaTime = Collision::SweptAABB(*this, *object);
       if (0 <= deltaTime && deltaTime <= elapsed)
       {
-        DEBUG_Collision[i] = true;
+        DEBUG_COLLISION[i] = true;
         float remainTime = (float)elapsed - deltaTime;
         float deltaY = deltaTime * this->GetSpeedY();
 

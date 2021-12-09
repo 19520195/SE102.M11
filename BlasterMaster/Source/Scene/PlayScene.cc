@@ -1,5 +1,4 @@
 #include "PlayScene.hh"
-#include "../Object/Player/SophiaIII.hh"
 
 PlayScene::PlayScene()
 {
@@ -48,11 +47,11 @@ void PlayScene::Update(TimeStep elapsed)
   for (const auto& bullet : s3->GetBullets())
     bullet->Update(elapsed, m_Objects);
 
-  int counter = 0;
+  size_t numberEnemies = 0;
   for (auto& object : m_Objects)
     if (dynamic_cast<Enemy*>(object))
-      ++counter;
-  DEBUG_MSG(L"Number of Enemies: %d\n", counter);
+      numberEnemies += !object->IsDied();
+  DEBUG_MSG(L"Number of alive enemies: %d\n", numberEnemies);
 
   for (auto& object : m_Objects)
     if (object->IsDied() == false)
@@ -61,38 +60,47 @@ void PlayScene::Update(TimeStep elapsed)
 
 void PlayScene::Render(TimeStep elapsed)
 {
+  #ifdef _DEBUG
+  Texture* DEBUG_RED_BBOX  = TextureBase::GetInstance()->Get(TEXID_RED_BBOX);
+  Texture* DEBUG_BLUE_BBOX = TextureBase::GetInstance()->Get(TEXID_BLUE_BBOX);
+  #endif // _DEBUG
+
   // Draw background
   SpriteBase::GetInstance()->Get(m_BackgroundID)->Render(0, 0);
 
-  #ifdef _DEBUG
-  Texture* blueBox = TextureBase::GetInstance()->Get(1);
-  Texture* redBox = TextureBase::GetInstance()->Get(2);
-  for (size_t i = 0; i < DEBUG_Collision.size(); ++i)
+  for (size_t i = 0; i < DEBUG_COLLISION.size(); ++i)
   {
     const auto& object = m_Objects[i];
     if (!object->IsDied())
     {
-      Texture* bbox = (DEBUG_Collision[i] ? redBox : blueBox); 
+      #ifdef _DEBUG
+      Texture* bbox = (DEBUG_COLLISION[i] ? DEBUG_RED_BBOX : DEBUG_BLUE_BBOX); 
       Sprite sprite(0, 0, 0, (size_t)object->GetHeight(), (size_t)object->GetWidth(), bbox);
-      // Renderer::DrawSprite(object->GetX(), object->GetY(), &sprite);
+      Renderer::DrawSprite(object->GetX(), object->GetY(), &sprite);
+      #endif // _DEBUG
+
       object->Render(elapsed);
     }
   }
 
-  Sprite sprite(0, 0, 0, (size_t)m_Player->GetHeight(), (size_t)m_Player->GetWidth(), blueBox);
-  // Renderer::DrawSprite(m_Player->GetX(), m_Player->GetY(), &sprite);
+  m_Player->Render(elapsed);
+
+  #ifdef _DEBUG
+  Sprite sprite(0, 0, 0, (size_t)m_Player->GetHeight(), (size_t)m_Player->GetWidth(), DEBUG_BLUE_BBOX);
+  Renderer::DrawSprite(m_Player->GetX(), m_Player->GetY(), &sprite);
   #endif // _DEBUG
 
-  m_Player->Render(elapsed);
-  SophiaIII* s3 = dynamic_cast<SophiaIII*>(m_Player);
-  for (const auto& bullet : s3->GetBullets())
+  for (const auto& bullet : (static_cast<SophiaIII*>(m_Player))->GetBullets())
   {
     if (bullet->IsDied() == false)
     {
       const auto& object = bullet;
-      Sprite sprite(0, 0, 0, (size_t)object->GetHeight(), (size_t)object->GetWidth(), blueBox);
-      // Renderer::DrawSprite(object->GetX(), object->GetY(), &sprite);
       object->Render(elapsed);
+
+      #ifdef _DEBUG
+      Sprite sprite(0, 0, 0, (size_t)object->GetHeight(), (size_t)object->GetWidth(), DEBUG_BLUE_BBOX);
+      Renderer::DrawSprite(object->GetX(), object->GetY(), &sprite);
+      #endif // _DEBUG
     }
   }
 }

@@ -9,7 +9,7 @@
 #include <deque>
 #include <memory>
 
-extern std::vector<bool> DEBUG_Collision;
+extern std::vector<bool> DEBUG_COLLISION;
 
 constexpr float SOPHIAIII_SPEEDX  = 0.2f;
 constexpr float SOPHIAIII_SPEEDY  = 0.6f;
