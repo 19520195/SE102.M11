@@ -61,8 +61,8 @@ void Game::Run()
     {
       if (m_Scene)
       {
-        m_Scene->Update(elapsed);
         Input::GetInstance()->ProcKeyboard();
+        m_Scene->Update(elapsed);
         Renderer::Render(elapsed);
       }
     }
