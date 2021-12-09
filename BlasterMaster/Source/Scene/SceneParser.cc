@@ -82,13 +82,13 @@ void SceneParser::PrintDebugInfo() const
 {
   DEBUG_MSG(L"[TEXTURES]\n");
   for (const auto& detail : m_TextureID)
-    DEBUG_MSG(L"%d\t-> %s\n", detail.second, TO_LPSTR(detail.first));
+    DEBUG_MSG(L"%d\t-> %s\n", detail.second, TO_LPWSTR(detail.first));
   DEBUG_MSG(L"[SPRITES]\n");
   for (const auto& detail : m_SpriteID)
-    DEBUG_MSG(L"%d\t-> %s\n", detail.second, TO_LPSTR(detail.first));
+    DEBUG_MSG(L"%d\t-> %s\n", detail.second, TO_LPWSTR(detail.first));
   DEBUG_MSG(L"[ANIMATIONS]\n");
   for (const auto& detail : m_AnimationID)
-    DEBUG_MSG(L"%d\t-> %s\n", detail.second, TO_LPSTR(detail.first));
+    DEBUG_MSG(L"%d\t-> %s\n", detail.second, TO_LPWSTR(detail.first));
 }
 
 std::vector<std::string> Split(std::string string, std::string delimeter)
@@ -132,14 +132,14 @@ Object* SceneParser::ParseObject(const std::string& detail)
 
 Texture* SceneParser::ParseTexture(const std::string& detail)
 {
-  std::vector<std::string> args = Split(detail, "\t");
-  if (args.size() != 5) return nullptr;
+  std::vector<std::string> tokens = Split(detail, "\t");
+  if (tokens.size() != 5) return nullptr;
 
-  std::string  name = args[0];
-  std::wstring path = std::wstring(args[1].begin(), args[1].end());
-  unsigned     R    = std::stoul(args[2]);
-  unsigned     G    = std::stoul(args[3]);
-  unsigned     B    = std::stoul(args[4]);
+  std::string name = tokens[0];
+  std::wstring path = TO_WSTR(tokens[1]);
+  unsigned R = std::stoul(tokens[2]);
+  unsigned G = std::stoul(tokens[3]);
+  unsigned B = std::stoul(tokens[4]);
 
   m_TextureID[name] = ++m_TextureCount;
   return TextureBase::GetInstance()->Add(m_TextureCount, path.c_str(), D3DCOLOR_XRGB(R, G, B));
@@ -147,15 +147,15 @@ Texture* SceneParser::ParseTexture(const std::string& detail)
 
 Sprite* SceneParser::ParseSprite(const std::string& detail)
 {
-  std::vector<std::string> args = Split(detail, "\t");
-  if (args.size() != 6) return nullptr;
+  std::vector<std::string> tokens = Split(detail, "\t");
+  if (tokens.size() != 6) return nullptr;
 
-  std::string name   = args[0];
-  std::string tname  = args[1];
-  size_t      top    = std::stoul(args[2]);
-  size_t      left   = std::stoul(args[3]);
-  size_t      bottom = std::stoul(args[4]);
-  size_t      right  = std::stoul(args[5]);
+  std::string name = tokens[0];
+  std::string tname = tokens[1];
+  float top = std::stof(tokens[2]);
+  float left = std::stof(tokens[3]);
+  float bottom = std::stof(tokens[4]);
+  float right = std::stof(tokens[5]);
 
   m_SpriteID[name] = ++m_SpriteCount;
   Texture* texture = TextureBase::GetInstance()->Get(GetTextureID(tname));
@@ -164,15 +164,15 @@ Sprite* SceneParser::ParseSprite(const std::string& detail)
 
 Animation* SceneParser::ParseAnimation(const std::string& detail)
 {
-  std::vector<std::string> args = Split(detail, "\t");
-  if (args.size() < 4) return nullptr;
+  std::vector<std::string> tokens = Split(detail, "\t");
+  if (tokens.size() < 4) return nullptr;
 
-  std::string name      = args[0];
-  size_t      frameTime = std::stoul(args[1]);
+  std::string name      = tokens[0];
+  size_t      frameTime = std::stoul(tokens[1]);
 
   Animation* animation = new Animation(frameTime); 
-  for (size_t i = 2; i < args.size(); ++i)
-    animation->Add(GetSpriteID(args[i]));
+  for (size_t i = 2; i < tokens.size(); ++i)
+    animation->Add(GetSpriteID(tokens[i]));
   m_AnimationID[name] = ++m_AnimationCount;
   return AnimationBase::GetInstance()->Add(m_AnimationCount, animation);
 }

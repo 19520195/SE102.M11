@@ -75,7 +75,7 @@ void PlayScene::Render(TimeStep elapsed)
 
       #ifdef _DEBUG
       Texture* bbox = (DEBUG_COLLISION[i] ? DEBUG_RED_BBOX : DEBUG_BLUE_BBOX); 
-      Sprite sprite(0, 0, 0, (size_t)object->GetHeight(), (size_t)object->GetWidth(), bbox);
+      Sprite sprite(0, 0, 0, object->GetHeight(), object->GetWidth(), bbox);
       Renderer::DrawSprite(object->GetX(), object->GetY(), &sprite);
       #endif // _DEBUG
     }
@@ -84,7 +84,7 @@ void PlayScene::Render(TimeStep elapsed)
   m_Player->Render(elapsed);
 
   #ifdef _DEBUG
-  Sprite sprite(0, 0, 0, (size_t)m_Player->GetHeight(), (size_t)m_Player->GetWidth(), DEBUG_BLUE_BBOX);
+  Sprite sprite(0, 0, 0, m_Player->GetHeight(), m_Player->GetWidth(), DEBUG_BLUE_BBOX);
   Renderer::DrawSprite(m_Player->GetX(), m_Player->GetY(), &sprite);
   #endif // _DEBUG
 
@@ -96,7 +96,7 @@ void PlayScene::Render(TimeStep elapsed)
       object->Render(elapsed);
 
       #ifdef _DEBUG
-      Sprite sprite(0, 0, 0, (size_t)object->GetHeight(), (size_t)object->GetWidth(), DEBUG_BLUE_BBOX);
+      Sprite sprite(0, 0, 0, object->GetHeight(), object->GetWidth(), DEBUG_BLUE_BBOX);
       Renderer::DrawSprite(object->GetX(), object->GetY(), &sprite);
       #endif // _DEBUG
     }

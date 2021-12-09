@@ -6,7 +6,7 @@
 #undef min
 
 #define TO_WSTR(str) std::wstring(str.begin(), str.end())
-#define TO_LPSTR(str) TO_WSTR(str).c_str()
+#define TO_LPWSTR(str) TO_WSTR(str).c_str()
 
 constexpr int DEBUG_MSG_BUFFER_SIZE = 2048;
 

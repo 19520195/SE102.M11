@@ -12,7 +12,7 @@ TextureBase::~TextureBase()
   m_Textures.clear();
 }
 
-Texture* TextureBase::Add(int ID, LPCWSTR path, D3DCOLOR trans)
+Texture* TextureBase::Add(size_t ID, LPCWSTR path, D3DCOLOR trans)
 {
   D3DXIMAGE_INFO info;
   HRESULT result = D3DXGetImageInfoFromFile(path, &info);

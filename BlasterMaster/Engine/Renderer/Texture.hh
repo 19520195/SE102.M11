@@ -13,7 +13,7 @@ public:
 	TextureBase() = default;
 	~TextureBase();
 
-	Texture* Add(int ID, LPCWSTR path, D3DCOLOR trans);
+	Texture* Add(size_t ID, LPCWSTR path, D3DCOLOR trans);
 	Texture* Get(size_t ID);
 
 	static TextureBase* GetInstance();

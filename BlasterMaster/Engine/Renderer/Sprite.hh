@@ -9,7 +9,7 @@
 class Sprite
 {
 public:
-  Sprite(size_t ID, size_t top, size_t left, size_t bottom, size_t right, Texture* texture);
+  Sprite(size_t ID, float top, float left, float bottom, float right, Texture* texture);
   
   RECT* GetRect();
   Texture* GetTexture();
@@ -24,7 +24,7 @@ private:
 class SpriteBase
 {
 public:
-  Sprite* Add(size_t ID, size_t top, size_t left, size_t bottom, size_t right, Texture* texture);
+  Sprite* Add(size_t ID, float top, float left, float bottom, float right, Texture* texture);
   Sprite* Get(size_t ID);
 
   static SpriteBase* GetInstance(); 

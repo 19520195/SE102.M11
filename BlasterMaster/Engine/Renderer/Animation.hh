@@ -23,7 +23,7 @@ class Animation
 public:
   Animation(TimeStep defaultTime);
 
-  void Add(int spriteID, TimeStep time = 0);
+  void Add(size_t spriteID, TimeStep time = 0);
   void Render(float X, float Y, TimeStep elapsed);
 
 private:

@@ -17,9 +17,9 @@ INT APIENTRY wWinMain(_In_     HINSTANCE hInstance,
     hInstance, nCmdShow);
   
   SophiaIII __SophiaIII;
-  __SophiaIII.SetXY(1250, 390);
+  __SophiaIII.SetXY(1160, 480);
   int state = __SophiaIII.GetState();
-  __SophiaIII.SetState(SD_SET_RIGHT(state));
+  // __SophiaIII.SetState(SD_SET_RIGHT(state));
 
   std::shared_ptr<PlayScene> scene(new PlayScene);
   {

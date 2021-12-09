@@ -27,7 +27,7 @@ Animation::Animation(TimeStep defaultTime)
 	m_TimeStep = 0;
 }
 
-void Animation::Add(int spriteID, TimeStep time)
+void Animation::Add(size_t spriteID, TimeStep time)
 {
   if (time == 0) time = this->m_DefaultTime;
   Sprite* sprite = SpriteBase::GetInstance()->Get(spriteID);
