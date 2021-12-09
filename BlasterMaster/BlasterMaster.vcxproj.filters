@@ -25,6 +25,10 @@
     <ClCompile Include="Source\Object\Bullet\Bullet.cc" />
     <ClCompile Include="Source\Object\Enemy\Interrupt.cc" />
     <ClCompile Include="Source\Object\Enemy\Enemy.cc" />
+    <ClCompile Include="Source\Object\Enemy\Ballbot.cc" />
+    <ClCompile Include="Source\Object\Enemy\Stuka.cc" />
+    <ClCompile Include="Source\Object\Enemy\Eyelet.cc" />
+    <ClCompile Include="Source\Object\Enemy\BallCarry.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Core\Window.hh" />
@@ -58,6 +62,10 @@
     <ClInclude Include="Source\Object\Enemy\Enemy.hh" />
     <ClInclude Include="Source\Object\Brick.hh" />
     <ClInclude Include="Resources\Resources.hh" />
+    <ClInclude Include="Source\Object\Enemy\Ballbot.hh" />
+    <ClInclude Include="Source\Object\Enemy\Stuka.hh" />
+    <ClInclude Include="Source\Object\Enemy\Eyelet.hh" />
+    <ClInclude Include="Source\Object\Enemy\BallCarry.hh" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\SophiaIII.png" />

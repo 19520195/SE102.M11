@@ -25,7 +25,26 @@
 #define SPRID_S3_LEFT_BULLET  15
 #define SPRID_S3_RIGHT_BULLET 16
 #define SPRID_INTERRUPT_IDLE  17
+#define SPRID_BALLBOT_0       18
+#define SPRID_BALLBOT_1       19
+#define SPRID_BALLBOT_2       20
+#define SPRID_STUKA_0         21
+#define SPRID_STUKA_1         22
+#define SPRID_STUKA_2         23
+#define SPRID_STUKA_3         24
+#define SPRID_EYELET_0        25
+#define SPRID_EYELET_1        26
+#define SPRID_EYELET_2        27
+#define SPRID_EYELET_3        28
+#define SPRID_BALL_CARRY_0    29
+#define SPRID_BALL_CARRY_1    30
+#define SPRID_BALL_CARRY_2    31
+#define SPRID_BALL_CARRY_3    32
 
 /* ANIMATIONS ID */
 #define ANMID_S3_LEFT_WHEEL    1
 #define ANMID_S3_RIGHT_WHEEL   2
+#define ANMID_BALLBOT          3
+#define ANMID_STUKA            4
+#define ANMID_EYELET           5
+#define ANMID_BALL_CARRY       6

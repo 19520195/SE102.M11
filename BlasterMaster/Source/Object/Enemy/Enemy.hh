@@ -2,8 +2,6 @@
 
 #include "Engine/Core/Object.hh"
 
-class Interrupt;
-
 class Enemy : public Object 
 {
 public:
@@ -11,3 +9,7 @@ public:
 };
 
 #include "Interrupt.hh"
+#include "Ballbot.hh"
+#include "Stuka.hh"
+#include "Eyelet.hh"
+#include "BallCarry.hh"

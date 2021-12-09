@@ -61,8 +61,8 @@ void PlayScene::Update(TimeStep elapsed)
 void PlayScene::Render(TimeStep elapsed)
 {
   #ifdef _DEBUG
-  Texture* DEBUG_RED_BBOX  = TextureBase::GetInstance()->Get(TEXID_RED_BBOX);
-  Texture* DEBUG_BLUE_BBOX = TextureBase::GetInstance()->Get(TEXID_BLUE_BBOX);
+  Texture* DEBUG_RED_BBOX  = nullptr; // TextureBase::GetInstance()->Get(TEXID_RED_BBOX);
+  Texture* DEBUG_BLUE_BBOX = nullptr; // TextureBase::GetInstance()->Get(TEXID_BLUE_BBOX);
   #endif // _DEBUG
 
   // Draw background
@@ -73,13 +73,13 @@ void PlayScene::Render(TimeStep elapsed)
     const auto& object = m_Objects[i];
     if (!object->IsDied())
     {
+      object->Render(elapsed);
+
       #ifdef _DEBUG
       Texture* bbox = (DEBUG_COLLISION[i] ? DEBUG_RED_BBOX : DEBUG_BLUE_BBOX); 
       Sprite sprite(0, 0, 0, (size_t)object->GetHeight(), (size_t)object->GetWidth(), bbox);
       Renderer::DrawSprite(object->GetX(), object->GetY(), &sprite);
       #endif // _DEBUG
-
-      object->Render(elapsed);
     }
   }
 
