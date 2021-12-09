@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Object/Object.hh"
+#include "Object/Object.hh"
 #include "Engine/Scene/Scene.hh"
 
 class PlayScene : public Scene

@@ -8,5 +8,3 @@ class Bullet : public Object
 public:
   virtual void Update(TimeStep elapsed);
 };
-
-#include "SophiaIIIBullet.hh"

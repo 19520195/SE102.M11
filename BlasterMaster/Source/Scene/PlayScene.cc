@@ -3,8 +3,6 @@
 PlayScene::PlayScene()
 {
   m_Player = nullptr; 
-  m_Camera.SetXY(1344, 544);
-
   m_BackgroundID = 0;
 }
 
@@ -61,8 +59,8 @@ void PlayScene::Update(TimeStep elapsed)
 void PlayScene::Render(TimeStep elapsed)
 {
   #ifdef _DEBUG
-  Texture* DEBUG_RED_BBOX  = nullptr; // TextureBase::GetInstance()->Get(TEXID_RED_BBOX);
-  Texture* DEBUG_BLUE_BBOX = nullptr; // TextureBase::GetInstance()->Get(TEXID_BLUE_BBOX);
+  Texture* DEBUG_RED_BBOX  = TextureBase::GetInstance()->Get(TEXID_RED_BBOX);
+  Texture* DEBUG_BLUE_BBOX = TextureBase::GetInstance()->Get(TEXID_BLUE_BBOX);
   #endif // _DEBUG
 
   // Draw background

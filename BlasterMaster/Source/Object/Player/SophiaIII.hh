@@ -1,7 +1,8 @@
 #pragma once
 
 #include "Object/Object.hh"
-#include "Resources/Resources.hh"
+#include "Object/Bullet/SophiaIIIBullet.hh"
+
 #include "Engine/Core/Input.hh"
 #include "Engine/Renderer/Animation.hh"
 #include "Engine/Renderer/Renderer.hh"

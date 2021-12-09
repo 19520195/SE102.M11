@@ -52,7 +52,7 @@ void Renderer::CleanDirectX3D()
   if (G_SpriteHandler != NULL) G_SpriteHandler->Release();
 }
 
-void Renderer::Render(const TimeStep& step)
+void Renderer::Render(const TimeStep& elapsed)
 {
   if (G_Device->BeginScene() == S_OK)
   {
@@ -60,7 +60,7 @@ void Renderer::Render(const TimeStep& step)
     G_SpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
     // Render objects in current scene
-    Game::GetInstance()->GetScene()->Render(step); 
+    Game::GetInstance()->GetScene()->Render(elapsed); 
 
     G_SpriteHandler->End();
     G_Device->EndScene();

@@ -5,8 +5,9 @@ constexpr float S3BULLET_SIZE0 =  8.0f;
 constexpr float S3BULLET_SIZE1 = 24.0f;
 constexpr float S3BULLET_SPEED =  0.3f;
 
-constexpr float S3_BULLET_TIMEOUT = 1000; // ms
-constexpr float S3_BULLET_T3MP    =  100; // ms
+constexpr float S3_BULLET_TIMEOUT = 666; // ms
+constexpr float S3_BULLET_DELTA   =  66; // ms
+constexpr float S3_BULLET_MAX     =   3; // bullets
 
 class SophiaIIIBullet : public Bullet
 {

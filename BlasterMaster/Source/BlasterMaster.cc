@@ -3,17 +3,18 @@
 #include "Engine/Renderer/Texture.hh"
 #include "Engine/Renderer/Sprite.hh"
 #include "Engine/Renderer/Animation.hh"
-
 #include "Scene/SceneParser.hh"
-#include "Object/Object.hh"
-#include "Resources/Resources.hh"
 
 INT APIENTRY wWinMain(_In_     HINSTANCE hInstance,
                       _In_opt_ HINSTANCE hPrevInstance,
                       _In_     LPWSTR    lpCmdLine,
                       _In_     int       nCmdShow)
 {
-  Game::GetInstance()->Create(SCREEN_WIDTH, SCREEN_HEIGHT, L"Blaster Master", hInstance, nCmdShow);
+  Game::GetInstance()->Create(
+    SCREEN_WIDTH,
+    SCREEN_HEIGHT,
+    SCREEN_TITLE,
+    hInstance, nCmdShow);
   
   SophiaIII __SophiaIII;
   __SophiaIII.SetXY(1250, 390);

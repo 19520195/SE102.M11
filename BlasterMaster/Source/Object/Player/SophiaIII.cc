@@ -165,7 +165,7 @@ void SophiaIIIKeyboardEvent::KeyState(BYTE* keyboard)
   {
     TimeStep lastFrameTime = Game::GetInstance()->GetLastFrameTime();
     TimeStep lastBulletTime = m_SophiaIII->GetLastBulletTime();
-    if (lastFrameTime - lastBulletTime >= S3_BULLET_T3MP)
+    if (lastFrameTime - lastBulletTime >= S3_BULLET_DELTA && m_SophiaIII->GetBullets().size() < S3_BULLET_MAX)
     {
       // Handle shoot event
       bool isVertical = false; 
