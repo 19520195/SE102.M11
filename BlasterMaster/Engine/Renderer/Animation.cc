@@ -34,28 +34,6 @@ void Animation::Add(int spriteID, TimeStep time)
   m_Frames.push_back(std::make_shared<Frame>(sprite, time));
 }
 
-void Animation::Render(float X, float Y)
-{
-	TimeStep currentFrameTime = GetTickCount64();
-	if (m_CurrentFrame == -1)
-	{
-		m_CurrentFrame = 0;
-		m_LastFrameTime = currentFrameTime;
-	}
-	else
-	{
-		TimeStep t = m_Frames[m_CurrentFrame]->GetTime(); 
-		if (currentFrameTime - m_LastFrameTime > t)
-		{
-			m_CurrentFrame++;
-			m_LastFrameTime = currentFrameTime;
-			if (m_CurrentFrame == m_Frames.size()) m_CurrentFrame = 0;
-		}
-	}
-
-	m_Frames[m_CurrentFrame]->GetSprite()->Render(X, Y);
-}
-
 void Animation::Render(float X, float Y, TimeStep elapsed)
 {
 	TimeStep offset = m_Frames.size() * m_DefaultTime;

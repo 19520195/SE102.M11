@@ -24,7 +24,6 @@ public:
   Animation(TimeStep defaultTime);
 
   void Add(int spriteID, TimeStep time = 0);
-  void Render(float X, float Y);
   void Render(float X, float Y, TimeStep elapsed);
 
 private:
