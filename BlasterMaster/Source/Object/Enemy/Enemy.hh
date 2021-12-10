@@ -6,7 +6,12 @@
 class Enemy : public Object 
 {
 public:
+  virtual void SetStartPoint(const Vector2D& point);
+
   static Enemy* Create(const std::string& name);
+
+protected:
+  Vector2D m_StartPoint;
 };
 
 #include "Interrupt.hh"

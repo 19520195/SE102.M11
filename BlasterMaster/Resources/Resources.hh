@@ -44,14 +44,18 @@
 #define SPRID_STUKA_1             33
 #define SPRID_STUKA_2             34
 #define SPRID_STUKA_3             35
-#define SPRID_EYELET_0            36
-#define SPRID_EYELET_1            37
-#define SPRID_EYELET_2            38
-#define SPRID_EYELET_3            39
-#define SPRID_BALL_CARRY_0        40
-#define SPRID_BALL_CARRY_1        41
-#define SPRID_BALL_CARRY_2        42
-#define SPRID_BALL_CARRY_3        43
+#define SPRID_EYELET_RIGHT_0      36
+#define SPRID_EYELET_RIGHT_1      37
+#define SPRID_EYELET_RIGHT_2      38
+#define SPRID_EYELET_RIGHT_3      39
+#define SPRID_EYELET_LEFT_0       40
+#define SPRID_EYELET_LEFT_1       41
+#define SPRID_EYELET_LEFT_2       42
+#define SPRID_EYELET_LEFT_3       43
+#define SPRID_BALL_CARRY_0        44
+#define SPRID_BALL_CARRY_1        45
+#define SPRID_BALL_CARRY_2        46
+#define SPRID_BALL_CARRY_3        47
 
 /* ANIMATIONS ID */
 #define ANMID_S3_LEFT_WHEEL        1
@@ -60,5 +64,6 @@
 #define ANMID_JASON_WALK_RIGHT     4
 #define ANMID_BALLBOT              5
 #define ANMID_STUKA                6
-#define ANMID_EYELET               7
-#define ANMID_BALL_CARRY           8
+#define ANMID_EYELET_LEFT          7
+#define ANMID_EYELET_RIGHT         8
+#define ANMID_BALL_CARRY           9

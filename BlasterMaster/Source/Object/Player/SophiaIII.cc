@@ -16,8 +16,8 @@ SophiaIII::SophiaIII()
   m_LWheel->SetID(ANMID_S3_LEFT_WHEEL);
   m_RWheel->SetID(ANMID_S3_RIGHT_WHEEL);
 
-  m_Width = 24;
-  m_Height = 18;
+  m_Width = SOPHIAIII_WIDTH;
+  m_Height = SOPHIAIII_HEIGHT;
 
   SM_SET_IDLE(m_State);
   SD_SET_LEFT(m_State);
@@ -52,13 +52,13 @@ void SophiaIII::SetState(int state)
   else
   {
     // MOVE: left / right
-    if (SD_IS_LEFT(m_State)) m_SpeedX = -SOPHIAIII_SPEEDX;
-    if (SD_IS_RIGHT(m_State)) m_SpeedX = SOPHIAIII_SPEEDX;
+    if (SD_IS_LEFT(m_State)) m_SpeedX = -SOPHIAIII_SPEED;
+    if (SD_IS_RIGHT(m_State)) m_SpeedX = SOPHIAIII_SPEED;
   }
   
   if (SM_IS_JUMP(m_State))
   {
-    m_SpeedY = SOPHIAIII_SPEEDY;
+    m_SpeedY = SOPHIAIII_JUMPSPEED;
     SM_SET_FALL(m_State); 
   }
 }
@@ -142,12 +142,13 @@ void SophiaIII::Update(TimeStep elapsed, std::vector<Object*> objects)
     }
   }
 
-  m_X += m_SpeedX * std::max(0.f, deltaTimeX);
-  m_Y += m_SpeedY * std::max(0.f, deltaTimeY);
+  m_X += m_SpeedX * deltaTimeX;
+  m_Y += m_SpeedY * deltaTimeY;
   
   if (deltaTimeX < elapsed) m_SpeedX = 0;
   if (deltaTimeY < elapsed) m_SpeedY = 0;
-  DEBUG_MSG(L"X = %.2f Y = %.2f\n", m_X, m_Y);
+
+  DEBUG_MSG(L"Sophia III X = %.2f, Y = %.2f\n", m_X, m_Y);
 }
 
 void SophiaIII::Render(TimeStep elapsed)

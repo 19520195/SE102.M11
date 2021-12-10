@@ -1,5 +1,12 @@
 #include "Enemy.hh"
 
+void Enemy::SetStartPoint(const Vector2D& point)
+{
+  m_StartPoint = point;
+  m_X = point.GetX();
+  m_Y = point.GetY();
+}
+
 Enemy* Enemy::Create(const std::string& name)
 {
   if (name == "Interrupt" ) return new Interrupt();

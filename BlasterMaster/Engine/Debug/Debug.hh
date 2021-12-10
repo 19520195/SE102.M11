@@ -16,4 +16,8 @@ public:
   static void Print(const wchar_t* fmt, ...);
 };
 
+#ifdef NDEBUG
+#define DEBUG_MSG(...)
+#else // NDEBUG
 #define DEBUG_MSG(...) Debug::Print(__VA_ARGS__)
+#endif // NDEBUG

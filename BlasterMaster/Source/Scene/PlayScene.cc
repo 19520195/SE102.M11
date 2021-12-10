@@ -45,12 +45,6 @@ void PlayScene::Update(TimeStep elapsed)
   for (const auto& bullet : s3->GetBullets())
     bullet->Update(elapsed, m_Objects);
 
-  size_t numberEnemies = 0;
-  for (auto& object : m_Objects)
-    if (dynamic_cast<Enemy*>(object))
-      numberEnemies += !object->IsDied();
-  DEBUG_MSG(L"Number of alive enemies: %d\n", numberEnemies);
-
   for (auto& object : m_Objects)
     if (object->IsDied() == false)
       object->Update(elapsed);
@@ -59,8 +53,8 @@ void PlayScene::Update(TimeStep elapsed)
 void PlayScene::Render(TimeStep elapsed)
 {
   #ifdef _DEBUG
-  Texture* DEBUG_RED_BBOX  = nullptr; // TextureBase::GetInstance()->Get(TEXID_RED_BBOX);
-  Texture* DEBUG_BLUE_BBOX = nullptr; // TextureBase::GetInstance()->Get(TEXID_BLUE_BBOX);
+  Texture* DEBUG_RED_BBOX  = TextureBase::GetInstance()->Get(TEXID_RED_BBOX);
+  Texture* DEBUG_BLUE_BBOX = TextureBase::GetInstance()->Get(TEXID_BLUE_BBOX);
   #endif // _DEBUG
 
   // Draw background

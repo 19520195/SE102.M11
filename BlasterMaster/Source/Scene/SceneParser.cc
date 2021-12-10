@@ -139,6 +139,9 @@ Object* SceneParser::ParseObject(const std::string& detail)
   }
 
   object->SetXY(X, Y);
+  Enemy* enemy = dynamic_cast<Enemy*>(object);
+  if (enemy != nullptr) enemy->SetStartPoint({ X, Y });
+
   if (name == "SophiaIII")
   {
     m_Keyboard = new SophiaIIIKeyboardEvent();

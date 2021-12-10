@@ -12,9 +12,13 @@
 
 extern std::vector<bool> DEBUG_COLLISION;
 
-constexpr float SOPHIAIII_SPEEDX  = 0.2f;
-constexpr float SOPHIAIII_SPEEDY  = 0.6f;
-constexpr float SOPHIAIII_GRAVITY = 0.002f;
+constexpr float SOPHIAIII_WIDTH  = 24.f;
+constexpr float SOPHIAIII_HEIGHT = 18.f;
+
+constexpr float SOPHIAIII_SPEED     = 0.1500f;
+constexpr float SOPHIAIII_JUMPSPEED = 0.2585f;
+constexpr float SOPHIAIII_GRAVITY   = 0.0005f;
+
 
 typedef RenderableObject  SophiaIIIComponent;
 typedef SpriteObject      SophiaIIIBodyPart;
