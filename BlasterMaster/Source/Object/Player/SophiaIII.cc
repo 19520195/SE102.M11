@@ -210,13 +210,11 @@ void SophiaIIIKeyboardEvent::KeyState(BYTE* keyboard)
   if (IS_KEYDOWN(keyboard, DIK_RIGHT) || IS_KEYDOWN(keyboard, DIK_LEFT))
   {
     SM_SET_WALK(currentState);
-    IS_KEYDOWN(keyboard, DIK_LEFT) ?
-      SD_SET_LEFT(currentState) : SD_SET_RIGHT(currentState);
+    if (IS_KEYDOWN(keyboard, DIK_LEFT))
+      SD_SET_LEFT(currentState);
+    else SD_SET_RIGHT(currentState);
   }
-  else
-  {
-    SM_SET_IDLE(currentState);
-  }
+  else SM_SET_IDLE(currentState);
 
   if (IS_KEYDOWN(keyboard, DIK_UP))
     SD_SET_UP(currentState);
