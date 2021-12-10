@@ -1,5 +1,5 @@
 #pragma once
-#include "Object/Object.hh"
+#include "Enemy.hh"
 
 constexpr float INTERRUPT_WIDTH  = 22;
 constexpr float INTERRUPT_HEIGHT = 18;

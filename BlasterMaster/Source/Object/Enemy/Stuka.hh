@@ -1,5 +1,5 @@
 #pragma once
-#include "Object/Object.hh"
+#include "Enemy.hh"
 
 class Stuka : public Enemy
 {

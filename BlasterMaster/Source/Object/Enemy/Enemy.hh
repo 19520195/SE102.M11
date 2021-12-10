@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Engine/Core/Object.hh"
+#include "Resources/Resources.hh"
 
 class Enemy : public Object 
 {
