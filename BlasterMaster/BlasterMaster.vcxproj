@@ -28,6 +28,8 @@
     <ClCompile Include="Source\Object\Bullet\Bullet.cc" />
     <ClCompile Include="Source\Object\Bullet\SophiaIIIBullet.cc" />
     <ClCompile Include="Source\Object\Enemy\Stuka.cc" />
+    <ClCompile Include="Source\Object\Player\JasonS.cc" />
+    <ClCompile Include="Source\Object\Player\Player.cc" />
     <ClCompile Include="Source\Scene\SceneParser.cc" />
     <ClCompile Include="Engine\Debug\Debug.cc" />
     <ClCompile Include="Engine\Core\Input.cc" />
@@ -60,6 +62,7 @@
     <ClInclude Include="Source\Object\Bullet\Bullet.hh" />
     <ClInclude Include="Source\Object\Bullet\SophiaIIIBullet.hh" />
     <ClInclude Include="Source\Object\Enemy\Stuka.hh" />
+    <ClInclude Include="Source\Object\Player\JasonS.hh" />
     <ClInclude Include="Source\Object\Player\Player.hh" />
     <ClInclude Include="Source\Scene\SceneParser.hh" />
     <ClInclude Include="Engine\Debug\Debug.hh" />

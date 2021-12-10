@@ -32,8 +32,13 @@ PlayScene* GetSceneFromFile(const std::string& filename)
   PlayScene* scene = new PlayScene();
   for (auto object : parser.GetObjects())
     scene->AddObject(object);
-  scene->SetPlayer((Player*)parser.GetPlayer());
-  scene->SetKeyboardHandler(parser.GetKeyboardEvent());
+  // scene->SetPlayer((Player*)parser.GetPlayer());
+  // scene->SetKeyboardHandler(parser.GetKeyboardEvent());
   scene->SetBackground(SPRID_BACKGROUND);
+
+  JasonS* jason = new JasonS();
+  scene->SetPlayer(jason);
+  scene->SetKeyboardHandler(jason->GetKeyboard());
+
   return scene;
 }

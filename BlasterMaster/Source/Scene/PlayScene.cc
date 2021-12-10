@@ -41,9 +41,9 @@ void PlayScene::Update(TimeStep elapsed)
   if (m_Camera.GetX() > 1344) m_Camera.SetX(1344);
   if (m_Camera.GetY() > 560) m_Camera.SetY(560);
 
-  SophiaIII* s3 = dynamic_cast<SophiaIII*>(m_Player);
-  for (const auto& bullet : s3->GetBullets())
-    bullet->Update(elapsed, m_Objects);
+  // SophiaIII* s3 = dynamic_cast<SophiaIII*>(m_Player);
+  // for (const auto& bullet : s3->GetBullets())
+  //   bullet->Update(elapsed, m_Objects);
 
   size_t numberEnemies = 0;
   for (auto& object : m_Objects)
@@ -81,19 +81,19 @@ void PlayScene::Render(TimeStep elapsed)
     }
   }
 
-  for (const auto& bullet : (static_cast<SophiaIII*>(m_Player))->GetBullets())
-  {
-    if (bullet->IsDied() == false)
-    {
-      const auto& object = bullet;
-      object->Render(elapsed);
-
-      #ifdef _DEBUG
-      Sprite sprite(0, 0, 0, object->GetHeight(), object->GetWidth(), DEBUG_BLUE_BBOX);
-      Renderer::DrawSprite(object->GetX(), object->GetY(), &sprite);
-      #endif // _DEBUG
-    }
-  }
+  // for (const auto& bullet : (static_cast<SophiaIII*>(m_Player))->GetBullets())
+  // {
+  //   if (bullet->IsDied() == false)
+  //   {
+  //     const auto& object = bullet;
+  //     object->Render(elapsed);
+  // 
+  //     #ifdef _DEBUG
+  //     Sprite sprite(0, 0, 0, object->GetHeight(), object->GetWidth(), DEBUG_BLUE_BBOX);
+  //     Renderer::DrawSprite(object->GetX(), object->GetY(), &sprite);
+  //     #endif // _DEBUG
+  //   }
+  // }
 
   m_Player->Render(elapsed);
   #ifdef _DEBUG

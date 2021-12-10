@@ -37,12 +37,13 @@ bool Object::IsDied() const
 
 void Object::Update(TimeStep elapsed)
 {
-  //
+  m_X += m_SpeedX * elapsed;
+  m_Y += m_SpeedY * elapsed;
 }
 
 void Object::Update(TimeStep elapsed, std::vector<Object*> objects)
 {
-  //
+  Update(elapsed);
 }
 
 void Object::Render(TimeStep elapsed)
