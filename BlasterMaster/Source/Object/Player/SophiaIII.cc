@@ -127,17 +127,11 @@ void SophiaIII::Update(TimeStep elapsed, std::vector<Object*> objects)
         Movable movedThis(this->m_SpeedX, this->m_SpeedY, this->m_X, this->m_Y, this->m_Width, this->m_Height);
         movedThis.Move(deltaTime);
 
-        if (Collision::IsCollideY(movedThis, *object))
-        {
-          deltaTimeX = std::min(deltaTimeX, deltaTime + remainTime);
-          deltaTimeY = std::min(deltaTimeY, deltaTime);
-        }
-
+        deltaTime = std::max(deltaTime, deltaTime - 0.1f);
         if (Collision::IsCollideX(movedThis, *object))
-        {
           deltaTimeX = std::min(deltaTimeX, deltaTime);
-          deltaTimeY = std::min(deltaTimeY, deltaTime + remainTime);
-        }
+        if (Collision::IsCollideY(movedThis, *object))
+          deltaTimeY = std::min(deltaTimeY, deltaTime);
       }
     }
   }
