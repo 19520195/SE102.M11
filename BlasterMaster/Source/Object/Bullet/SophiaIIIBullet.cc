@@ -1,5 +1,6 @@
 #include "SophiaIIIBullet.hh"
-#include "Object/Object.hh"
+#include "Object/Enemy/Enemy.hh"
+#include "Object/Player/SophiaIII.hh"
 #include <algorithm>
 
 SophiaIIIBullet::SophiaIIIBullet(bool isVertical)
