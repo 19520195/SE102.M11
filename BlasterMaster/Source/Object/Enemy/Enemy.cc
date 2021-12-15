@@ -7,6 +7,11 @@ void Enemy::SetStartPoint(const Vector2F& point)
   m_Y = point.GetY();
 }
 
+void Enemy::SetActiveZone(const Box2F& activeZone)
+{
+  m_ActiveZone = activeZone; 
+}
+
 Enemy* Enemy::Create(const std::string& name)
 {
   if (name == "Interrupt" ) return new Interrupt();
