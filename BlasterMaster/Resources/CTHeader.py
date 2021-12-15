@@ -21,17 +21,18 @@ if __name__ == '__main__':
         pref = ALIASES[HEADERS.index(header)]
         definers.append((f"{pref}ID_{name}", counters[header]))
 
-  max_header_len = (max(map(lambda _: len(_[0]), definers)) + 2) // 2 * 2
+  max_header_len = max(map(lambda _: len(_[0]), definers)) // 2 * 2 + 1
   with open('Resources.hh', 'w') as header_file:
     print("#pragma once", file=header_file)
+    print("#include <cstdint>", file=header_file)
     prev_constant = "NONES"
     for constant, index in definers:
       if prev_constant[:2] != constant[:2]:
         print(file=header_file)
-        print(f"/* {HEADERS[ALIASES.index(constant[:3])]} ID */", file=header_file)
+        print(f"/{'*' * 16} {HEADERS[ALIASES.index(constant[:3])]} ID {'*' * 16}/", file=header_file)
       prev_constant = constant
 
       index = str(index)
       index = ' ' * (2 - len(index)) + index
 
-      print(f"#define {constant}{' ' * (max_header_len - len(constant))}{index}", file=header_file)
+      print(f"constexpr uint32_t {constant} {' ' * (max_header_len - len(constant))} = {index};", file=header_file)

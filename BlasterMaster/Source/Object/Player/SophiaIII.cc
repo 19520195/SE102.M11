@@ -147,31 +147,29 @@ void SophiaIII::Update(TimeStep elapsed, std::vector<Object*> objects)
 
 void SophiaIII::Render(TimeStep elapsed)
 {
-  m_LWheel->SetXY(m_X     , m_Y     ); 
-  m_RWheel->SetXY(m_X + 16, m_Y     );
+  m_LWheel->SetXY(m_X     , m_Y); 
+  m_RWheel->SetXY(m_X + 16, m_Y);
+  m_Grip  ->SetXY(m_X +  8, m_Y);
 
   // Assemble Sophia III
   if (SD_IS_LEFT(m_State))
   {
-    m_Barrel->SetXY(m_X    , m_Y + 10);
-    m_Hammer->SetXY(m_X + 8, m_Y + 10);
-    m_Grip  ->SetXY(m_X + 8, m_Y +  2);
-    m_Barrel->SetID(SPRID_S3_LEFT_BARREL);
+    m_Barrel->SetXY(m_X    , m_Y + 8);
+    m_Hammer->SetXY(m_X + 8, m_Y + 8);
+    m_Barrel->SetID(SPRID_S3_BARREL_LEFT);
     m_Hammer->SetID(SPRID_S3_LEFT_HAMMER);
   }
 
   if (SD_IS_RIGHT(m_State))
   {
-    m_Barrel->SetXY(m_X + 16, m_Y + 10);
-    m_Hammer->SetXY(m_X     , m_Y + 10);
-    m_Grip  ->SetXY(m_X +  8, m_Y +  2);
-    m_Barrel->SetID(SPRID_S3_RIGHT_BARREL);
+    m_Barrel->SetXY(m_X + 16, m_Y + 8);
+    m_Hammer->SetXY(m_X     , m_Y + 8);
+    m_Barrel->SetID(SPRID_S3_BARREL_RIGHT);
     m_Hammer->SetID(SPRID_S3_RIGHT_HAMMER);
   }
 
   if (SD_IS_UP(m_State))
   {
-    m_Barrel->SetID(SPRID_S3_UP_BARREL);
     m_Barrel->SetXY(m_X + (m_Width - 8) / 2, m_Y + m_Height + 4);
     m_Hammer->SetID(SD_IS_LEFT(m_State) ? SPRID_S3_UPLEFT_HAMMER : SPRID_S3_UPRIGHT_HAMMER);
     m_Hammer->SetXY(SD_IS_LEFT(m_State) ? m_X + 9 : m_X, m_Y + 6);
@@ -182,6 +180,34 @@ void SophiaIII::Render(TimeStep elapsed)
   {
     if (SD_IS_LEFT(m_State))
       elapsed = -elapsed;
+  }
+
+  if (SD_IS_UP(m_State))
+  {
+    // m_Width = 26;
+    // m_Height = 32;
+    m_Barrel->SetXY(m_X + 9, m_Y + 24);
+    if (SD_IS_LEFT(m_State))
+    {
+      m_Barrel->SetID(SPRID_S3_BARREL_LEFT_90DEG);
+      m_LWheel->SetXY(m_X     , m_Y     );
+      m_RWheel->SetXY(m_X + 12, m_Y     );
+      m_Grip  ->SetXY(m_X +  6, m_Y +  7);
+      m_Hammer->SetXY(m_X + 10, m_Y +  9);
+    }
+    else
+    {
+      m_Barrel->SetID(SPRID_S3_BARREL_RIGHT_90DEG);
+      m_LWheel->SetXY(m_X +  6, m_Y     );
+      m_RWheel->SetXY(m_X + 18, m_Y     );
+      m_Grip  ->SetXY(m_X + 12, m_Y +  7);
+      m_Hammer->SetXY(m_X     , m_Y +  9);
+    }
+  }
+  else
+  {
+    m_Width  = SOPHIAIII_WIDTH;
+    m_Height = SOPHIAIII_HEIGHT;
   }
 
   m_Barrel->Render(elapsed);
