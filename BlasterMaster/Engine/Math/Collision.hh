@@ -8,7 +8,7 @@ class Movable : public Box2F
 {
 public:
   Movable(float speedX, float speedY, float X, float Y, float width, float height);
-  Movable(float speedX = 0, float speedY = 0, Box2F bounding = Box2F(0, 0, 0, 0));
+  Movable(Vector2F speed = Vector2F(0, 0), Box2F bounding = Box2F(0, 0, 0, 0));
 
   float GetSpeedX() const;
   float GetSpeedY() const;

@@ -8,10 +8,10 @@ Movable::Movable(float speedX, float speedY, float X, float Y, float width, floa
   m_SpeedY = speedY;
 }
 
-Movable::Movable(float speedX, float speedY, Box2F bounding) : Box2F(bounding)
+Movable::Movable(Vector2F speed, Box2F bounding) : Box2F(bounding)
 {
-  m_SpeedX = speedX;
-  m_SpeedY = speedY;
+  m_SpeedX = speed.GetX();
+  m_SpeedY = speed.GetY();
 }
 
 float Movable::GetSpeedX() const
