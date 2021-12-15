@@ -17,8 +17,8 @@ HWND Window::Create(int width, int height, std::wstring title, HINSTANCE hInstan
 		WINDOW_CLASSNAME,
 		m_Title.c_str(),
 		WS_OVERLAPPEDWINDOW,
-		CW_USEDEFAULT,
-		CW_USEDEFAULT,
+		WINDOW_LOCATION_X,
+		WINDOW_LOCATION_Y,
 		m_Width,
 		m_Height,
 		NULL,
@@ -32,9 +32,6 @@ HWND Window::Create(int width, int height, std::wstring title, HINSTANCE hInstan
 		DWORD ErrCode = GetLastError();
 		return NULL;
 	}
-
-	//ShowWindow(hWnd, nCmdShow);
-	//UpdateWindow(hWnd);
 
 	return m_HWindow;
 }

@@ -8,7 +8,7 @@
 #include "Input.hh"
 #include <memory>
 
-constexpr int OX_SCREEN_ZOOM = 3;
+constexpr int ENGINE_SCREEN_ZOOM =  4;
 
 constexpr TimeStep ENGINE_FPS        = 120;
 constexpr TimeStep ENGINE_FRAME_STEP = 1000 / ENGINE_FPS;

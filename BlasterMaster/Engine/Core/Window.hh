@@ -3,7 +3,9 @@
 #include <Windows.h>
 #include <string>
 
-#define WINDOW_CLASSNAME L"ONYX_ENGINE_CLASS"
+constexpr int      WINDOW_LOCATION_X  = 8;
+constexpr int      WINDOW_LOCATION_Y  = 8;
+constexpr wchar_t  WINDOW_CLASSNAME[] = (L"ONYX_ENGINE_CLASS");
 
 class Window
 {
