@@ -31,6 +31,7 @@
     <ClCompile Include="Source\Object\Enemy\BallCarry.cc" />
     <ClCompile Include="Source\Object\Player\JasonS.cc" />
     <ClCompile Include="Source\Object\Player\Player.cc" />
+    <ClCompile Include="Engine\Math\Box.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Core\Window.hh" />
@@ -69,6 +70,7 @@
     <ClInclude Include="Source\Object\Enemy\Eyelet.hh" />
     <ClInclude Include="Source\Object\Enemy\BallCarry.hh" />
     <ClInclude Include="Source\Object\Player\JasonS.hh" />
+    <ClInclude Include="Engine\Math\Box.hh" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\SophiaIII.png" />

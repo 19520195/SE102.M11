@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Engine\Math\Box.cc" />
     <ClCompile Include="Engine\Math\Collision.cc" />
     <ClCompile Include="Source\Object\Enemy\Ballbot.cc" />
     <ClCompile Include="Source\Object\Enemy\BallCarry.cc" />
@@ -51,6 +52,7 @@
     <ClCompile Include="Engine\Math\Vector.cc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Engine\Math\Box.hh" />
     <ClInclude Include="Engine\Math\Collision.hh" />
     <ClInclude Include="Resources\Resources.hh" />
     <ClInclude Include="Source\Object\Brick.hh" />
