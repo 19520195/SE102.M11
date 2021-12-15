@@ -5,7 +5,7 @@ Eyelet::Eyelet()
   //
 }
 
-void Eyelet::SetStartPoint(const Vector2D& point)
+void Eyelet::SetStartPoint(const Vector2F& point)
 {
   m_StartPoint.SetX(point.GetX());
   m_StartPoint.SetY(point.GetY() - EYELET_RANGE);

@@ -4,10 +4,10 @@
 #include "Engine/Core/TimeStep.hh"
 #include "Vector.hh"
 
-class Box : public Vector2D
+class Box2F : public Vector2F
 {
 public:
-  Box(float X = 0, float Y = 0, float width = 0, float height = 0); 
+  Box2F(float X = 0, float Y = 0, float width = 0, float height = 0); 
 
   float GetWidth() const;
   float GetHeight() const;
@@ -25,7 +25,7 @@ protected:
   float m_Height;
 };
 
-class Movable : public Box
+class Movable : public Box2F
 {
 public:
   Movable(float speedX = 0, float speedY = 0, float X = 0, float Y = 0, float width = 0, float height = 0);

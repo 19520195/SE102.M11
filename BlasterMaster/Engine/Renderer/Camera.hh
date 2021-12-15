@@ -2,7 +2,7 @@
 
 #include "Engine/Math/Math.hh"
 
-class Camera : public Vector2D
+class Camera : public Vector2F
 {
 public:
 };

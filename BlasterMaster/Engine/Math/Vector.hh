@@ -1,9 +1,9 @@
 #pragma once
 
-class Vector2D
+class Vector2F
 {
 public:
-  Vector2D(float X = 0, float Y = 0);
+  Vector2F(float X = 0, float Y = 0);
   
   void SetX(float X); 
   void SetY(float Y); 
@@ -12,8 +12,8 @@ public:
   float GetX() const;
   float GetY() const;
 
-  friend Vector2D operator+(const Vector2D& shl, const Vector2D& shr);
-  friend bool operator!=(const Vector2D& shl, const Vector2D& shr);
+  friend Vector2F operator+(const Vector2F& shl, const Vector2F& shr);
+  friend bool operator!=(const Vector2F& shl, const Vector2F& shr);
 
 protected:
   float m_X;

@@ -1,43 +1,43 @@
 #include "Vector.hh"
 
-Vector2D::Vector2D(float X, float Y)
+Vector2F::Vector2F(float X, float Y)
 {
   m_X = X;
   m_Y = Y;
 }
 
-void Vector2D::SetX(float X)
+void Vector2F::SetX(float X)
 {
   m_X = X;
 }
 
-void Vector2D::SetY(float Y)
+void Vector2F::SetY(float Y)
 {
   m_Y = Y;
 }
 
-void Vector2D::SetXY(float X, float Y)
+void Vector2F::SetXY(float X, float Y)
 {
   m_X = X;
   m_Y = Y;
 }
 
-float Vector2D::GetX() const
+float Vector2F::GetX() const
 {
   return m_X;
 }
 
-float Vector2D::GetY() const
+float Vector2F::GetY() const
 {
   return m_Y;
 }
 
-Vector2D operator+(const Vector2D& shl, const Vector2D& shr)
+Vector2F operator+(const Vector2F& shl, const Vector2F& shr)
 {
-  return Vector2D(shl.m_X + shr.m_X, shl.m_Y + shr.m_Y);
+  return Vector2F(shl.m_X + shr.m_X, shl.m_Y + shr.m_Y);
 }
 
-bool operator!=(const Vector2D& shl, const Vector2D& shr)
+bool operator!=(const Vector2F& shl, const Vector2F& shr)
 {
   return shl.m_X != shr.m_X && shl.m_Y != shr.m_Y;
 }

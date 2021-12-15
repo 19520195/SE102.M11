@@ -2,53 +2,53 @@
 #include <algorithm>
 #include <limits>
 
-Box::Box(float X, float Y, float width, float height) : Vector2D(X, Y)
+Box2F::Box2F(float X, float Y, float width, float height) : Vector2F(X, Y)
 {
   m_Width = width;
   m_Height = height; 
 }
 
-float Box::GetLeft() const
+float Box2F::GetLeft() const
 {
   return m_X;
 }
 
-float Box::GetBottom() const
+float Box2F::GetBottom() const
 {
   return m_Y;
 }
 
-float Box::GetRight() const
+float Box2F::GetRight() const
 {
   return m_X + m_Width;
 }
 
-float Box::GetTop() const
+float Box2F::GetTop() const
 {
   return m_Y + m_Height;
 }
 
-float Box::GetWidth() const
+float Box2F::GetWidth() const
 {
   return m_Width;
 }
 
-float Box::GetHeight() const
+float Box2F::GetHeight() const
 {
   return m_Height;
 }
 
-void Box::SetWidth(const float& width)
+void Box2F::SetWidth(const float& width)
 {
   m_Width = width; 
 }
 
-void Box::SetHeight(const float& hegiht)
+void Box2F::SetHeight(const float& hegiht)
 {
   m_Height = hegiht; 
 }
 
-Movable::Movable(float speedX, float speedY, float X, float Y, float width, float height) : Box(X, Y, width, height)
+Movable::Movable(float speedX, float speedY, float X, float Y, float width, float height) : Box2F(X, Y, width, height)
 {
   m_SpeedX = speedX;
   m_SpeedY = speedY;

@@ -9,7 +9,7 @@ class Eyelet : public Enemy
 public:
   Eyelet();
   
-  void SetStartPoint(const Vector2D& point);
+  void SetStartPoint(const Vector2F& point);
  
   void Update(TimeStep elasped);
   void Render(TimeStep elapsed);

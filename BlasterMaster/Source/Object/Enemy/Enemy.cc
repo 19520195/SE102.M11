@@ -1,6 +1,6 @@
 #include "Enemy.hh"
 
-void Enemy::SetStartPoint(const Vector2D& point)
+void Enemy::SetStartPoint(const Vector2F& point)
 {
   m_StartPoint = point;
   m_X = point.GetX();
