@@ -12,7 +12,6 @@ SophiaIII::SophiaIII()
   m_LWheel = std::make_unique<SophiaIIIWheel>();
   m_RWheel = std::make_unique<SophiaIIIWheel>();
 
-  m_Grip  ->SetID(SPRID_S3_GRIP_HRZ);
   m_LWheel->SetID(ANMID_S3_LEFT_WHEEL);
   m_RWheel->SetID(ANMID_S3_RIGHT_WHEEL);
 
@@ -141,8 +140,6 @@ void SophiaIII::Update(TimeStep elapsed, std::vector<Object*> objects)
   
   if (deltaTimeX < elapsed) m_SpeedX = 0;
   if (deltaTimeY < elapsed) m_SpeedY = 0;
-
-  DEBUG_MSG(L"Sophia III X = %.2f, Y = %.2f\n", m_X, m_Y);
 }
 
 void SophiaIII::Render(TimeStep elapsed)
@@ -156,6 +153,8 @@ void SophiaIII::Render(TimeStep elapsed)
   {
     m_Barrel->SetXY(m_X    , m_Y + 8);
     m_Hammer->SetXY(m_X + 8, m_Y + 8);
+
+    m_Grip  ->SetID(SPRID_S3_GRIP_LEFT);
     m_Barrel->SetID(SPRID_S3_BARREL_LEFT);
     m_Hammer->SetID(SPRID_S3_LEFT_HAMMER);
   }
@@ -164,6 +163,7 @@ void SophiaIII::Render(TimeStep elapsed)
   {
     m_Barrel->SetXY(m_X + 16, m_Y + 8);
     m_Hammer->SetXY(m_X     , m_Y + 8);
+    m_Grip  ->SetID(SPRID_S3_GRIP_RIGHT);
     m_Barrel->SetID(SPRID_S3_BARREL_RIGHT);
     m_Hammer->SetID(SPRID_S3_RIGHT_HAMMER);
   }
