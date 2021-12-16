@@ -28,6 +28,7 @@
     <ClCompile Include="Source\Object\Enemy\Interrupt.cc" />
     <ClCompile Include="Source\Object\Bullet\Bullet.cc" />
     <ClCompile Include="Source\Object\Bullet\SophiaIIIBullet.cc" />
+    <ClCompile Include="Source\Object\Enemy\Neoworm.cc" />
     <ClCompile Include="Source\Object\Enemy\Stuka.cc" />
     <ClCompile Include="Source\Object\Player\JasonS.cc" />
     <ClCompile Include="Source\Object\Player\Player.cc" />
@@ -64,6 +65,7 @@
     <ClInclude Include="Source\Object\Enemy\Interrupt.hh" />
     <ClInclude Include="Source\Object\Bullet\Bullet.hh" />
     <ClInclude Include="Source\Object\Bullet\SophiaIIIBullet.hh" />
+    <ClInclude Include="Source\Object\Enemy\Neoworm.hh" />
     <ClInclude Include="Source\Object\Enemy\Stuka.hh" />
     <ClInclude Include="Source\Object\Player\JasonS.hh" />
     <ClInclude Include="Source\Object\Player\Player.hh" />
