@@ -12,10 +12,10 @@ public:
 
   void SetSpeed(float speedX, float speedY);
   void SetState(int state);
-  void Die();
+  virtual void Die();
 
   int GetState();
-  bool IsDied() const;
+  virtual bool IsDied() const;
 
   virtual void Update(TimeStep elapsed);
   virtual void Update(TimeStep elapsed, std::vector<Object*> objects);

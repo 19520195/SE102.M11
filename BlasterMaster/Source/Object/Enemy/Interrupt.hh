@@ -8,7 +8,11 @@ class Interrupt : public Enemy
 {
 public:
   Interrupt();
+
+  void Activate();
+
   void Render(TimeStep elapsed);
 
 private:
+  uint32_t m_SpriteID;
 };

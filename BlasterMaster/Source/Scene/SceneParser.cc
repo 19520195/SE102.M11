@@ -114,33 +114,41 @@ std::vector<std::string> Split(std::string string, std::string delimeter)
 Object* SceneParser::ParseObject(const std::string& detail)
 {
   std::vector<std::string> tokens = Split(detail, "\t");
-  if (tokens.size() != 3 && tokens.size() != 5)
+  if (tokens.size() != 5 && tokens.size() != 9)
     return nullptr;
 
-  std::string name = tokens[0];
-  float X = std::stof(tokens[1]);
-  float Y = std::stof(tokens[2]);
-
   Object* object = nullptr;
+  std::string name = tokens[0];
   if (name == "Brick")
     object = new Brick();
   else if (name == "SophiaIII")
     object = new SophiaIII();
   else object = Enemy::Create(name);
-
   if (object == nullptr) return nullptr;
 
-  if (tokens.size() == 5)
-  {
-    float width = std::stof(tokens[3]);
-    float height = std::stof(tokens[4]);
-    object->SetWidth(width);
-    object->SetHeight(height);
-  }
-
+  float X = std::stof(tokens[1]);
+  float Y = std::stof(tokens[2]);
+  float width = std::stof(tokens[3]);
+  float height = std::stof(tokens[4]);
+  
   object->SetXY(X, Y);
+  object->SetWidth(width);
+  object->SetHeight(height);
+
   Enemy* enemy = dynamic_cast<Enemy*>(object);
-  if (enemy != nullptr) enemy->SetStartPoint({ X, Y });
+  if (enemy != nullptr)
+  {
+    enemy->SetStartPoint(Vector2F(X, Y));
+    if (tokens.size() == 9)
+    {
+      Trigger* trigger = new Trigger(enemy);
+      trigger->SetX(std::stof(tokens[5]));
+      trigger->SetY(std::stof(tokens[6]));
+      trigger->SetWidth(std::stof(tokens[7]));
+      trigger->SetHeight(std::stof(tokens[8]));
+      m_Objects.emplace_back(trigger);
+    }
+  }
 
   if (name == "SophiaIII")
   {

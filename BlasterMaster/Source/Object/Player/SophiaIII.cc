@@ -106,40 +106,46 @@ SophiaIIIBullet* SophiaIII::CreateBullet()
 
 void SophiaIII::Update(TimeStep elapsed, std::vector<Object*> objects)
 {
+  DEBUG_COLLISION = std::vector<bool>(objects.size());
+
   m_SpeedY -= SOPHIAIII_GRAVITY * elapsed;
-  float deltaTimeX = static_cast<float>(elapsed);
-  float deltaTimeY = static_cast<float>(elapsed);
-  
-  DEBUG_COLLISION = std::vector<bool>(objects.size()); 
+  Vector2F deltaTime(static_cast<float>(elapsed), static_cast<float>(elapsed));
   for (size_t i = 0; i < objects.size(); ++i)
   {
-    if (dynamic_cast<Brick*>(objects[i]))
+    Vector2F deltaMove = Vector2F::Infinity();
+    float deltaCollide = Collision::SweptAABB(*this, *objects[i]);
+
+    if (Trigger* trigger = dynamic_cast<Trigger*>(objects[i]))
+      if (0 <= deltaCollide && deltaCollide <= elapsed)
+        trigger->Start();
+
+    if (Brick* brick = dynamic_cast<Brick*>(objects[i]))
     {
-      auto object = objects[i];
-      float deltaTime = Collision::SweptAABB(*this, *object);
-      if (0 <= deltaTime && deltaTime <= elapsed)
+      if (0 <= deltaCollide && deltaCollide <= elapsed)
       {
         DEBUG_COLLISION[i] = true;
-        float remainTime = (float)elapsed - deltaTime;
-        float deltaY = deltaTime * this->GetSpeedY();
-
-        Movable movedThis(this->m_SpeedX, this->m_SpeedY, this->m_X, this->m_Y, this->m_Width, this->m_Height);
-        movedThis.Move(deltaTime);
-
-        deltaTime = std::max(deltaTime, deltaTime - 0.1f);
-        if (Collision::IsCollideX(movedThis, *object))
-          deltaTimeX = std::min(deltaTimeX, deltaTime);
-        if (Collision::IsCollideY(movedThis, *object))
-          deltaTimeY = std::min(deltaTimeY, deltaTime);
+        deltaMove = CollideWithBrick(brick, deltaCollide);
       }
     }
+    else if (Enemy* enemy = dynamic_cast<Enemy*>(objects[i]))
+    {
+      if (enemy->IsActivated())
+      {
+        if ((0 <= deltaCollide && deltaCollide <= elapsed) || Collision::AABB(*this, *objects[i]))
+        {
+          DEBUG_COLLISION[i] = true;
+        }
+      }
+    }
+
+    deltaTime.SetX(std::min(deltaTime.GetX(), deltaMove.GetX()));
+    deltaTime.SetY(std::min(deltaTime.GetY(), deltaMove.GetY()));
   }
 
-  m_X += m_SpeedX * deltaTimeX;
-  m_Y += m_SpeedY * deltaTimeY;
-  
-  if (deltaTimeX < elapsed) m_SpeedX = 0;
-  if (deltaTimeY < elapsed) m_SpeedY = 0;
+  m_X += m_SpeedX * deltaTime.GetX();
+  m_Y += m_SpeedY * deltaTime.GetY();
+  if (deltaTime.GetX() < elapsed) m_SpeedX = 0;
+  if (deltaTime.GetY() < elapsed) m_SpeedY = 0;
 }
 
 void SophiaIII::Render(TimeStep elapsed)
@@ -215,6 +221,23 @@ void SophiaIII::Render(TimeStep elapsed)
   m_Grip  ->Render(elapsed);
   m_LWheel->Render(elapsed);
   m_RWheel->Render(elapsed);
+}
+
+Vector2F SophiaIII::CollideWithBrick(Brick* brick, float deltaCollide)
+{
+  Movable movedThis(
+    this->m_SpeedX, this->m_SpeedY,
+    this->m_X, this->m_Y,
+    this->m_Width, this->m_Height);
+  movedThis.Move(deltaCollide);
+
+  Vector2F delta(
+    std::numeric_limits<float>::infinity(),
+    std::numeric_limits<float>::infinity());
+  deltaCollide = std::max(deltaCollide, deltaCollide - 0.1f);
+  if (Collision::IsCollideX(movedThis, *brick)) delta.SetX(deltaCollide);
+  if (Collision::IsCollideY(movedThis, *brick)) delta.SetY(deltaCollide);
+  return delta;
 }
 
 void SophiaIIIKeyboardEvent::KeyState(BYTE* keyboard)

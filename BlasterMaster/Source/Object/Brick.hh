@@ -4,5 +4,9 @@
 
 class Brick : public Object 
 {
-  //
+public:
+  void Die() override
+  {
+    //
+  }
 };

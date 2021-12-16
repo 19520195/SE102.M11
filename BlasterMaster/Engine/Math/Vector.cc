@@ -1,4 +1,5 @@
 #include "Vector.hh"
+#include <numeric>
 
 Vector2F::Vector2F(float X, float Y)
 {
@@ -30,6 +31,13 @@ float Vector2F::GetX() const
 float Vector2F::GetY() const
 {
   return m_Y;
+}
+
+Vector2F Vector2F::Infinity()
+{
+  return Vector2F(
+    std::numeric_limits<float>::infinity(),
+    std::numeric_limits<float>::infinity());
 }
 
 Vector2F operator+(const Vector2F& shl, const Vector2F& shr)

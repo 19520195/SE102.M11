@@ -1,5 +1,15 @@
 #include "Enemy.hh"
 
+Box2F Enemy::GetActiveZone() const
+{
+  return m_ActiveZone;
+}
+
+bool Enemy::IsActivated() const
+{
+  return m_IsActived;
+}
+
 void Enemy::SetStartPoint(const Vector2F& point)
 {
   m_StartPoint = point;
@@ -10,6 +20,16 @@ void Enemy::SetStartPoint(const Vector2F& point)
 void Enemy::SetActiveZone(const Box2F& activeZone)
 {
   m_ActiveZone = activeZone; 
+}
+
+void Enemy::Activate()
+{
+  m_IsActived = true;
+}
+
+void Enemy::Deactivate()
+{
+  m_IsActived = false;
 }
 
 Enemy* Enemy::Create(const std::string& name)

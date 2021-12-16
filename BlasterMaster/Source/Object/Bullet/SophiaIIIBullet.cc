@@ -42,11 +42,18 @@ void SophiaIIIBullet::Update(TimeStep elapsed, std::vector<Object*> objects)
 
       if (killed)
       {
-        this->Die();
-        if (dynamic_cast<Enemy*>(object))
-          object->Die();
-        else DEBUG_COLLISION[i] = true;
-        return;
+        if (dynamic_cast<Brick*>(object))
+          return this->Die();
+        
+        if (Enemy* enemy = dynamic_cast<Enemy*>(object))
+        {
+          if (enemy->IsActivated())
+          {
+            object->Die();
+            this->Die();
+            return;
+          }
+        }
       }
     }
   }

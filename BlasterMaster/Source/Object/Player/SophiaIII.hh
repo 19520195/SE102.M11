@@ -41,6 +41,9 @@ public:
   virtual void Update(TimeStep elapsed, std::vector<Object*> objects);
   virtual void Render(TimeStep elapsed);
 
+private:
+  Vector2F CollideWithBrick(Brick* brick, float deltaCollide);
+
 private: 
   std::unique_ptr<SophiaIIIComponent> m_Barrel;
   std::unique_ptr<SophiaIIIComponent> m_Hammer;

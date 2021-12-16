@@ -15,6 +15,8 @@ public:
   friend Vector2F operator+(const Vector2F& shl, const Vector2F& shr);
   friend bool operator!=(const Vector2F& shl, const Vector2F& shr);
 
+  static Vector2F Infinity();
+
 protected:
   float m_X;
   float m_Y;
