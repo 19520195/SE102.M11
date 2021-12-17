@@ -1,4 +1,5 @@
 #include "SceneParser.hh"
+#include "Utility/Strings.hh"
 #include <fstream>
 #include <string>
 
@@ -101,19 +102,9 @@ void SceneParser::PrintDebugInfo() const
     DEBUG_MSG(L"%d\t-> %s\n", detail.second, TO_LPWSTR(detail.first));
 }
 
-std::vector<std::string> Split(std::string string, std::string delimeter)
-{
-  std::vector<std::string> tokens;
-  size_t last = 0; size_t next = 0;
-  for (; (next = string.find(delimeter, last)) != std::string::npos; last = next + 1)
-    tokens.emplace_back(string.substr(last, next - last));
-  tokens.emplace_back(string.substr(last));
-  return tokens;
-}
-
 Object* SceneParser::ParseObject(const std::string& detail)
 {
-  std::vector<std::string> tokens = Split(detail, "\t");
+  std::vector<std::string> tokens = Strings::Split(detail, "\t");
   if (tokens.size() != 5 && tokens.size() != 9)
     return nullptr;
 
@@ -161,7 +152,7 @@ Object* SceneParser::ParseObject(const std::string& detail)
 
 Texture* SceneParser::ParseTexture(const std::string& detail)
 {
-  std::vector<std::string> tokens = Split(detail, "\t");
+  std::vector<std::string> tokens = Strings::Split(detail, "\t");
   if (tokens.size() != 5) return nullptr;
 
   std::string name = tokens[0];
@@ -176,7 +167,7 @@ Texture* SceneParser::ParseTexture(const std::string& detail)
 
 Sprite* SceneParser::ParseSprite(const std::string& detail)
 {
-  std::vector<std::string> tokens = Split(detail, "\t");
+  std::vector<std::string> tokens = Strings::Split(detail, "\t");
   if (tokens.size() != 6) return nullptr;
 
   std::string name = tokens[0];
@@ -193,7 +184,7 @@ Sprite* SceneParser::ParseSprite(const std::string& detail)
 
 Animation* SceneParser::ParseAnimation(const std::string& detail)
 {
-  std::vector<std::string> tokens = Split(detail, "\t");
+  std::vector<std::string> tokens = Strings::Split(detail, "\t");
   if (tokens.size() < 4) return nullptr;
 
   std::string name      = tokens[0];
