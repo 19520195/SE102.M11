@@ -11,6 +11,11 @@ Player* PlayScene::GetPlayer() const
   return m_Player;
 }
 
+std::vector<Object*> PlayScene::GetObjects() const
+{
+  return m_Objects;
+}
+
 void PlayScene::SetBackground(size_t ID)
 {
   m_BackgroundID = ID; 
@@ -53,8 +58,8 @@ void PlayScene::Update(TimeStep elapsed)
 void PlayScene::Render(TimeStep elapsed)
 {
   #ifdef _DEBUG
-  Texture* DEBUG_RED_BBOX  = TextureBase::GetInstance()->Get(TEXID_RED_BBOX);
-  Texture* DEBUG_BLUE_BBOX = TextureBase::GetInstance()->Get(TEXID_BLUE_BBOX);
+  Texture* DEBUG_RED_BBOX  = nullptr; // TextureBase::GetInstance()->Get(TEXID_RED_BBOX);
+  Texture* DEBUG_BLUE_BBOX = nullptr; // TextureBase::GetInstance()->Get(TEXID_BLUE_BBOX);
   #endif // _DEBUG
 
   // Draw background

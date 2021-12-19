@@ -3,6 +3,7 @@
 #include "Engine/Debug/Debug.hh"
 #include "Engine/Core/TimeStep.hh"
 #include "Box.hh"
+#include <cstdint>
 
 class Movable : public Box2F
 {
@@ -12,6 +13,8 @@ public:
 
   float GetSpeedX() const;
   float GetSpeedY() const;
+  Vector2F GetVelocity() const;
+  Movable GetMove(float delta) const;
 
   void Move(float delta);
 
@@ -22,6 +25,16 @@ protected:
 
 class Collision
 {
+public:
+  enum class Direction : uint8_t
+  {
+    DIRECT_NONE,
+    DIRECT_EAST,
+    DIRECT_WEST,
+    DIRECT_SOUTH,
+    DIRECT_NORTH,
+  };
+
 public:
   static bool IsCollideX(const Movable& object, const Movable& other);
   static bool IsCollideY(const Movable& object, const Movable& other);

@@ -24,6 +24,21 @@ float Movable::GetSpeedY() const
   return m_SpeedY;
 }
 
+Vector2F Movable::GetVelocity() const
+{
+  return Vector2F(m_SpeedX, m_SpeedY);
+}
+
+Movable Movable::GetMove(float delta) const
+{
+  Vector2F velocity = GetVelocity();
+  return Movable(velocity,
+                 Box2F(m_X + velocity.GetX() * delta,
+                       m_Y + velocity.GetY() * delta,
+                       m_Width,
+                       m_Height));
+}
+
 void Movable::Move(float delta)
 {
   m_X += m_SpeedX * delta; 

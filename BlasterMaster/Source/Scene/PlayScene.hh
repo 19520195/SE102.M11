@@ -9,6 +9,7 @@ public:
   PlayScene();
 
   Player* GetPlayer() const;
+  std::vector<Object*> GetObjects() const;
 
   void SetBackground(size_t ID); 
   void SetPlayer(Player* player);

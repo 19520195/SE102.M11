@@ -1,4 +1,6 @@
 #include "Neoworm.hh"
+#include "Engine/Core/Game.hh"
+#include "Scene/PlayScene.hh"
 
 Neoworm::Neoworm(Vector2F p)
 {
@@ -8,9 +10,58 @@ Neoworm::Neoworm(Vector2F p)
   m_Width = NEOWORMFALL_WIDTH;
   m_Height = NEOWORMFALL_HEIGHT;
   m_SpriteID = SPRID_NEOWORM_FALL;
+  m_IsActived = false;
+}
+
+void Neoworm::CollideWithBrick(Brick* brick, TimeStep elapsed, Vector2F& deltaTime)
+{
+  if (brick == nullptr) return (void)(false);
+  float collideTime = Collision::SweptAABB(*this, *brick);
+  if (0 <= collideTime && collideTime <= elapsed)
+  {
+    Movable _o = this->GetMove(collideTime);
+
+    if (Collision::IsCollideX(_o, *brick))
+      deltaTime.SetX(std::min(deltaTime.GetX(), collideTime));
+    if (Collision::IsCollideY(_o, *brick))
+      deltaTime.SetY(std::min(deltaTime.GetY(), collideTime));
+    this->Activate();
+  }
+}
+
+void Neoworm::Activate()
+{
+  if (m_IsActived)
+    return;
+  Enemy::Activate();
+
+  m_SpriteID = ANMID_NEOWORM_WALK_LEFT;
+  SetSpeed(-0.01f, NEOWORMFALL_JUMPSPEED);
+
+  m_Width = NEOWORM_WIDTH;
+  m_Height = NEOWORM_HEIGHT;
+}
+
+void Neoworm::Update(TimeStep elapsed)
+{
+  Vector2F deltaTime(
+    static_cast<float>(elapsed),
+    static_cast<float>(elapsed));
+  SetSpeed(GetSpeedX(), GetSpeedY() - NEOWORMFALL_GRAVITY * elapsed);
+
+  PlayScene* scene = dynamic_cast<PlayScene*>(Game::GetInstance()->GetScene());
+  std::vector<Object*> objects = scene->GetObjects();
+  for (const auto& object : objects)
+    CollideWithBrick(dynamic_cast<Brick*>(object), elapsed, deltaTime);
+
+  m_X += GetSpeedX() * deltaTime.GetX();
+  m_Y += GetSpeedY() * deltaTime.GetY();
+  if (deltaTime.GetY() == 0) SetSpeed(GetSpeedX(), 0);
 }
 
 void Neoworm::Render(TimeStep elapsed)
 {
-  SpriteBase::GetInstance()->Get(m_SpriteID)->Render(m_X, m_Y);
+  if (!m_IsActived)
+    return SpriteBase::GetInstance()->Get(m_SpriteID)->Render(m_X, m_Y);
+  AnimationBase::GetInstance()->Get(m_SpriteID)->Render(m_X, m_Y, elapsed);
 }
