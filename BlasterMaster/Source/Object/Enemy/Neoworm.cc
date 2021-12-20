@@ -13,20 +13,24 @@ Neoworm::Neoworm(Vector2F p)
   m_IsActived = false;
 }
 
-void Neoworm::CollideWithBrick(Brick* brick, TimeStep elapsed, Vector2F& deltaTime)
+void Neoworm::SetState(int state)
 {
-  if (brick == nullptr) return (void)(false);
-  float collideTime = Collision::SweptAABB(*this, *brick);
-  if (0 <= collideTime && collideTime <= elapsed)
+  Enemy::SetState(state);
+  float velocity = 0;
+  switch ((bool)SD_IS_LEFT(state))
   {
-    Movable _o = this->GetMove(collideTime);
+  case true: // LEFT
+    velocity = -NEOWORMFALL_SPEED;
+    m_SpriteID = ANMID_NEOWORM_WALK_LEFT;
+    break;
 
-    if (Collision::IsCollideX(_o, *brick))
-      deltaTime.SetX(std::min(deltaTime.GetX(), collideTime));
-    if (Collision::IsCollideY(_o, *brick))
-      deltaTime.SetY(std::min(deltaTime.GetY(), collideTime));
-    this->Activate();
+  case false: // RIGHT
+    velocity = NEOWORMFALL_SPEED;
+    m_SpriteID = ANMID_NEOWORM_WALK_RIGHT;
+    break;
   }
+
+  SetSpeed(velocity, GetSpeedY());
 }
 
 void Neoworm::Activate()
@@ -35,8 +39,8 @@ void Neoworm::Activate()
     return;
   Enemy::Activate();
 
-  m_SpriteID = ANMID_NEOWORM_WALK_LEFT;
-  SetSpeed(-0.01f, NEOWORMFALL_JUMPSPEED);
+  SetSpeed(GetSpeedX(), NEOWORMFALL_JUMPSPEED);
+  SetState(m_State = SD_SET_RIGHT(m_State));
 
   m_Width = NEOWORM_WIDTH;
   m_Height = NEOWORM_HEIGHT;
@@ -64,4 +68,28 @@ void Neoworm::Render(TimeStep elapsed)
   if (!m_IsActived)
     return SpriteBase::GetInstance()->Get(m_SpriteID)->Render(m_X, m_Y);
   AnimationBase::GetInstance()->Get(m_SpriteID)->Render(m_X, m_Y, elapsed);
+}
+
+void Neoworm::CollideWithBrick(Brick* brick, TimeStep elapsed, Vector2F& deltaTime)
+{
+  if (brick == nullptr) return;
+  float collideTime = Collision::SweptAABB(*this, *brick);
+  if (0 <= collideTime && collideTime <= elapsed)
+  {
+    Movable _o = this->GetMove(collideTime);
+    if (Collision::IsCollideX(_o, *brick))
+    {
+      deltaTime.SetX(std::min(deltaTime.GetX(), collideTime));
+
+      auto currentState = this->GetState();
+      if (_o.GetRight() == brick->GetLeft())
+        SD_SET_LEFT(currentState);
+      else SD_SET_RIGHT(currentState);
+      this->SetState(currentState);
+    }
+
+    if (Collision::IsCollideY(_o, *brick))
+      deltaTime.SetY(std::min(deltaTime.GetY(), collideTime));
+    this->Activate();
+  }
 }
