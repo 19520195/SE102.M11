@@ -1,9 +1,30 @@
 #include "PlayScene.hh"
+#include "SceneParser.hh"
 
 PlayScene::PlayScene()
 {
   m_Player = nullptr; 
   m_BackgroundID = 0;
+}
+
+PlayScene::PlayScene(const std::string& conf)
+{
+  SceneParser parser(conf);
+  if (!parser.Parse())
+  {
+    m_Player = nullptr;
+    m_BackgroundID = 0;
+    DEBUG_MSG(L"Can not parse file %s\n", TO_LPWSTR(conf));
+  }
+  else
+  {
+    parser.PrintDebugInfo();
+    for (auto object : parser.GetObjects())
+      this->AddObject(object);
+    this->SetPlayer((Player*)parser.GetPlayer());
+    this->SetKeyboardHandler(parser.GetKeyboardEvent());
+    this->SetBackground(SPRID_BACKGROUND);
+  }
 }
 
 Player* PlayScene::GetPlayer() const

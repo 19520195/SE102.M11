@@ -7,6 +7,7 @@ class PlayScene : public Scene
 {
 public:
   PlayScene();
+  PlayScene(const std::string& conf);
 
   Player* GetPlayer() const;
   std::vector<Object*> GetObjects() const;
