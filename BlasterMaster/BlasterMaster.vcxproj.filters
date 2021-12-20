@@ -14,7 +14,7 @@
     <ClCompile Include="Engine\Math\Vector.cc" />
     <ClCompile Include="Engine\Event\KeyboardEvent.cc" />
     <ClCompile Include="Engine\Scene\Scene.cc" />
-    <ClCompile Include="Engine\DataStructure\QuadTree.cc" />
+    <ClCompile Include="Source\Utility\QuadTree.cc" />
     <ClCompile Include="Engine\Renderer\Renderable.cc" />
     <ClCompile Include="Engine\Core\Input.cc" />
     <ClCompile Include="Engine\Debug\Debug.cc" />
@@ -51,7 +51,7 @@
     <ClInclude Include="Engine\Math\Math.hh" />
     <ClInclude Include="Engine\Event\KeyboardEvent.hh" />
     <ClInclude Include="Engine\Scene\Scene.hh" />
-    <ClInclude Include="Engine\DataStructure\QuadTree.hh" />
+    <ClInclude Include="Source\Utility\QuadTree.hh" />
     <ClInclude Include="Source\BlasterMaster.hh" />
     <ClInclude Include="Engine\Renderer\Renderable.hh" />
     <ClInclude Include="Engine\Core\Input.hh" />

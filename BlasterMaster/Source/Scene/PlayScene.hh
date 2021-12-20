@@ -1,7 +1,8 @@
 #pragma once
 
-#include "Object/Object.hh"
 #include "Engine/Scene/Scene.hh"
+#include "Object/Object.hh"
+#include "Utility/QuadTree.hh"
 
 class PlayScene : public Scene
 {
@@ -22,8 +23,9 @@ public:
   virtual void Render(TimeStep elapsed);
 
 private:
-  Player*              m_Player;
-  std::vector<Object*> m_Objects;
+  Player*                   m_Player;
+  std::vector<Object*>      m_Objects;
+  std::unique_ptr<QuadTree> m_QuadTree;
 
   size_t m_BackgroundID;
 };

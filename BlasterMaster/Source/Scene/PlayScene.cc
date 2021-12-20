@@ -19,9 +19,11 @@ PlayScene::PlayScene(const std::string& conf)
   else
   {
     parser.PrintDebugInfo();
+    m_QuadTree = std::make_unique<QuadTree>();
     for (auto object : parser.GetObjects())
-      this->AddObject(object);
-    this->SetPlayer((Player*)parser.GetPlayer());
+      m_QuadTree->Insert(object);
+
+    this->SetPlayer(static_cast<Player*>(parser.GetPlayer()));
     this->SetKeyboardHandler(parser.GetKeyboardEvent());
     this->SetBackground(SPRID_BACKGROUND);
   }
@@ -34,7 +36,7 @@ Player* PlayScene::GetPlayer() const
 
 std::vector<Object*> PlayScene::GetObjects() const
 {
-  return m_Objects;
+  return m_QuadTree->Retrieve(Box2F());
 }
 
 void PlayScene::SetBackground(size_t ID)
@@ -54,11 +56,12 @@ void PlayScene::SetKeyboardHandler(KeyboardEvent* handler)
 
 void PlayScene::AddObject(Object* object)
 {
-  m_Objects.emplace_back(object);
+  m_QuadTree->Insert(object);
 }
 
 void PlayScene::Update(TimeStep elapsed)
 {
+  m_Objects = m_QuadTree->Retrieve(Box2F());
   m_Player->Update(elapsed, m_Objects);
 
   m_Camera.SetXY(m_Player->GetX() - 100, m_Player->GetY() - 100);
