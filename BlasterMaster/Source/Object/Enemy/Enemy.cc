@@ -1,14 +1,19 @@
 #include "Enemy.hh"
 #include "Utility/Strings.hh"
 
-Enemy::Enemy() : m_IsActived(false), m_StartPoint(0, 0)
+Enemy::Enemy() : m_IsActivated(true), m_IsTriggered(false), m_StartPoint(0, 0)
 {
   // 
 }
 
 bool Enemy::IsActivated() const
 {
-  return m_IsActived;
+  return m_IsActivated;
+}
+
+bool Enemy::IsTriggered() const
+{
+  return m_IsTriggered;
 }
 
 void Enemy::SetStartPoint(const Vector2F& point)
@@ -25,12 +30,13 @@ Trigger* Enemy::CreateTrigger()
 
 void Enemy::Activate()
 {
-  m_IsActived = true;
+  m_IsTriggered = true;
+  m_IsActivated = true;
 }
 
-void Enemy::Deactivate()
+void Enemy::ResetTrigger()
 {
-  m_IsActived = false;
+  m_IsTriggered = false;
 }
 
 Enemy* Enemy::Create(const std::string& name)

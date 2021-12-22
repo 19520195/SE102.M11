@@ -8,7 +8,7 @@ Interrupt::Interrupt()
   m_Width = INTERRUPT_WIDTH;
   m_Height = INTERRUPT_HEIGHT;
 
-  m_IsActived = false;
+  m_IsTriggered = false;
   m_SpriteID = SPRID_INTERRUPT_IDLE;
 }
 

@@ -5,6 +5,7 @@ constexpr float EYELET_TRIGGER_HEIGHT = SCREEN_HEIGHT;
 
 Eyelet::Eyelet()
 {
+  m_IsActivated = false;
   m_RenderID = 0;
 }
 
@@ -42,7 +43,7 @@ void Eyelet::SetStartPoint(const Vector2F& point)
 
 void Eyelet::Update(TimeStep elasped)
 {
-  if (m_IsActived)
+  if (m_IsTriggered)
   {
     m_X += elasped * GetSpeedX();
     float deltaX = m_X - m_StartPoint.GetX() + acos(1.f) / 2 * EYELET_RANGE;
@@ -52,7 +53,7 @@ void Eyelet::Update(TimeStep elasped)
 
 void Eyelet::Render(TimeStep elapsed)
 {
-  if (m_IsActived)
+  if (m_IsTriggered)
     AnimationBase::GetInstance()
       ->Get(m_RenderID)
       ->Render(m_X, m_Y, elapsed);

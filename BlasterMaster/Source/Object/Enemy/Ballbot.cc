@@ -25,7 +25,7 @@ Trigger* Ballbot::CreateTrigger()
 
 void Ballbot::Activate()
 {
-  m_IsActived = true;
+  m_IsTriggered = true;
   auto player = static_cast<PlayScene*>(Game::GetInstance()->GetScene())->GetPlayer();
   m_SpeedX = (player->GetX() - m_X > 0 ? BALLBOT_WALKSPEED : -BALLBOT_WALKSPEED);
   m_SpeedY = BALLBOT_JUMPSPEED;
@@ -33,7 +33,7 @@ void Ballbot::Activate()
 
 void Ballbot::Update(TimeStep elapsed)
 {
-  if (m_IsActived)
+  if (m_IsTriggered)
   {
     float beginVelocityY = m_SpeedY;
     float endVelocityY = m_SpeedY + BALLBOT_GRAVITY * elapsed;
@@ -71,7 +71,7 @@ void Ballbot::Update(TimeStep elapsed)
       if (ceiled)
       {
         m_SpeedX = 0;
-        this->Deactivate();
+        this->ResetTrigger();
         currentScene->AddObject(CreateTrigger());
       }
     }

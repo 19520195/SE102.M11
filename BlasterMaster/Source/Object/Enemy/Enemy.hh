@@ -11,18 +11,20 @@ class Enemy : public Object
 public:
   Enemy();
   bool IsActivated() const;
+  bool IsTriggered() const;
 
   virtual void SetStartPoint(const Vector2F& point);
   virtual Trigger* CreateTrigger();
 
   virtual void Activate();
-  virtual void Deactivate();
+  virtual void ResetTrigger();
 
   static Enemy* Create(const std::string& name);
 
 protected:
   Vector2F m_StartPoint;
-  bool     m_IsActived;
+  bool     m_IsActivated;
+  bool     m_IsTriggered;
 };
 
 class Trigger : public Object
