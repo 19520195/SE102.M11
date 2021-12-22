@@ -38,9 +38,43 @@ void Ballbot::Update(TimeStep elapsed)
     float beginVelocityY = m_SpeedY;
     float endVelocityY = m_SpeedY + BALLBOT_GRAVITY * elapsed;
     m_SpeedY = (beginVelocityY + endVelocityY) / 2;
+    
+    float deltaTimeX = static_cast<float>(elapsed);
+    float deltaTimeY = static_cast<float>(elapsed);
+
+    bool ceiled = false;
+    auto currentScene = static_cast<PlayScene*>(Game::GetInstance()->GetScene());
+    auto objects = currentScene->GetObjects();
+    for (const auto& object : objects)
+    {
+      if (dynamic_cast<Brick*>(object))
+      {
+        if (float deltaTime = Collision::SweptAABB(*this, *object); 0 <= deltaTime && deltaTime <= elapsed)
+        {
+          auto moved = this->GetMove(deltaTime);
+          if (Collision::IsCollideX(moved, *object)) deltaTimeX = std::min(deltaTimeX, deltaTime);
+          if (Collision::IsCollideY(moved, *object))
+          {
+            if ((moved.GetTop() - object->GetBottom()) < TIME_EPSILON)
+              ceiled = true;
+            deltaTimeY = std::min(deltaTimeY, deltaTime);
+          }
+        }
+      }
+    }
   
-    m_X += m_SpeedX * elapsed;
-    m_Y += m_SpeedY * elapsed;
+    m_X += m_SpeedX * deltaTimeX;
+    m_Y += m_SpeedY * deltaTimeY;
+    if (deltaTimeY == 0)
+    {
+      m_SpeedY = 0; 
+      if (ceiled)
+      {
+        m_SpeedX = 0;
+        this->Deactivate();
+        currentScene->AddObject(CreateTrigger());
+      }
+    }
   }
 }
 
