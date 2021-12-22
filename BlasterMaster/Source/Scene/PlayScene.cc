@@ -25,6 +25,7 @@ PlayScene::PlayScene(const std::string& conf)
 
     this->SetPlayer(static_cast<Player*>(parser.GetPlayer()));
     this->SetKeyboardHandler(parser.GetKeyboardEvent());
+    this->SetForeground(SPRID_FOREGROUND);
     this->SetBackground(SPRID_BACKGROUND);
   }
 }
@@ -40,7 +41,12 @@ std::vector<Object*> PlayScene::GetObjects() const
   return m_QuadTree->Retrieve(viewport);
 }
 
-void PlayScene::SetBackground(size_t ID)
+void PlayScene::SetForeground(uint32_t ID)
+{
+  m_ForegroundID = ID;
+}
+
+void PlayScene::SetBackground(uint32_t ID)
 {
   m_BackgroundID = ID; 
 }
@@ -124,4 +130,6 @@ void PlayScene::Render(TimeStep elapsed)
   Sprite sprite(0, 0, 0, m_Player->GetHeight(), m_Player->GetWidth(), DEBUG_BLUE_BBOX);
   Renderer::DrawSprite(m_Player->GetX(), m_Player->GetY(), &sprite);
   #endif // _DEBUG
+
+  SpriteBase::GetInstance()->Get(m_ForegroundID)->Render(0, 0);
 }

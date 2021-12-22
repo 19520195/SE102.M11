@@ -13,7 +13,8 @@ public:
   Player* GetPlayer() const;
   std::vector<Object*> GetObjects() const;
 
-  void SetBackground(size_t ID); 
+  void SetForeground(uint32_t ID);
+  void SetBackground(uint32_t ID);
   void SetPlayer(Player* player);
   void SetKeyboardHandler(KeyboardEvent* handler);
 
@@ -27,5 +28,6 @@ private:
   std::vector<Object*>      m_Objects;
   std::unique_ptr<QuadTree> m_QuadTree;
 
-  size_t m_BackgroundID;
+  uint32_t m_ForegroundID;
+  uint32_t m_BackgroundID;
 };
