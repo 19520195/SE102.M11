@@ -41,12 +41,6 @@ float Box2F::GetHeight() const
   return m_Height;
 }
 
-void Box2F::SetLocation(float X, float Y)
-{
-  m_X = X;
-  m_Y = Y;
-}
-
 void Box2F::SetWidth(const float& width)
 {
   m_Width = width;
@@ -55,4 +49,16 @@ void Box2F::SetWidth(const float& width)
 void Box2F::SetHeight(const float& hegiht)
 {
   m_Height = hegiht;
+}
+
+void Box2F::SetLocation(float X, float Y)
+{
+  m_X = X;
+  m_Y = Y;
+}
+
+void Box2F::SetSize(float width, float height)
+{
+  m_Width = width;
+  m_Height = height;
 }

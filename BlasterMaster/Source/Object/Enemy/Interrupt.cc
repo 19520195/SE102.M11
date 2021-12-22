@@ -12,6 +12,16 @@ Interrupt::Interrupt()
   m_SpriteID = SPRID_INTERRUPT_IDLE;
 }
 
+Trigger* Interrupt::CreateTrigger()
+{
+  Trigger* trigger = new Trigger(this);
+  trigger->SetLocation(
+    m_X + (m_Width - INTERRUPT_TRIGGER_WIDTH) / 2, 
+    m_Y - INTERRUPT_TRIGGER_HEIGHT);
+  trigger->SetSize(INTERRUPT_TRIGGER_WIDTH, INTERRUPT_TRIGGER_HEIGHT);
+  return trigger;
+}
+
 void Interrupt::Activate()
 {
   Enemy::Activate();

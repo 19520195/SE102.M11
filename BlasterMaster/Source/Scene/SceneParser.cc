@@ -130,15 +130,8 @@ Object* SceneParser::ParseObject(const std::string& detail)
   if (enemy != nullptr)
   {
     enemy->SetStartPoint(Vector2F(X, Y));
-    if (tokens.size() == 9)
-    {
-      Trigger* trigger = new Trigger(enemy);
-      trigger->SetX(std::stof(tokens[5]));
-      trigger->SetY(std::stof(tokens[6]));
-      trigger->SetWidth(std::stof(tokens[7]));
-      trigger->SetHeight(std::stof(tokens[8]));
+    if (Trigger* trigger = enemy->CreateTrigger())
       m_Objects.emplace_back(trigger);
-    }
   }
 
   if (name == "SophiaIII")

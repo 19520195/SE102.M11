@@ -11,7 +11,7 @@ public:
   ~Object() = default;
 
   void SetSpeed(float speedX, float speedY);
-  void SetState(int state);
+  virtual void SetState(int state);
   virtual void Die();
 
   int GetState();
