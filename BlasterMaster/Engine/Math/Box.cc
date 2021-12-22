@@ -6,6 +6,11 @@ Box2F::Box2F(float X, float Y, float width, float height) : Vector2F(X, Y)
   m_Height = height;
 }
 
+Box2F::Box2F(Vector2F location, float width, float height)
+  : Vector2F(location), m_Width(width), m_Height(height)
+{
+}
+
 float Box2F::GetLeft() const
 {
   return m_X;

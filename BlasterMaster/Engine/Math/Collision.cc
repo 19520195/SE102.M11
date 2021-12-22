@@ -45,21 +45,21 @@ void Movable::Move(float delta)
   m_Y += m_SpeedY * delta; 
 }
 
-bool Collision::IsCollideX(const Movable& object, const Movable& other)
+bool Collision::IsCollideX(const Box2F& object, const Box2F& other)
 {
   return
     std::abs(object.GetLeft() - other.GetRight()) < TIME_EPSILON ||
     std::abs(object.GetRight() - other.GetLeft()) < TIME_EPSILON;
 }
 
-bool Collision::IsCollideY(const Movable& object, const Movable& other)
+bool Collision::IsCollideY(const Box2F& object, const Box2F& other)
 {
   return
     std::abs(object.GetBottom() - other.GetTop()) < TIME_EPSILON ||
     std::abs(object.GetTop() - other.GetBottom()) < TIME_EPSILON;
 }
 
-bool Collision::AABB(const Movable& object, const Movable& other)
+bool Collision::AABB(const Box2F& object, const Box2F& other)
 {
   return other.GetLeft  () <= object.GetRight () &&
          other.GetRight () >= object.GetLeft  () &&

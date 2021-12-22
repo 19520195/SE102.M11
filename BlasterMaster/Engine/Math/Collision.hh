@@ -36,8 +36,9 @@ public:
   };
 
 public:
-  static bool IsCollideX(const Movable& object, const Movable& other);
-  static bool IsCollideY(const Movable& object, const Movable& other);
-  static bool AABB(const Movable& object, const Movable& other);
+  static bool IsCollideX(const Box2F& object, const Box2F& other);
+  static bool IsCollideY(const Box2F& object, const Box2F& other);
+
+  static bool AABB(const Box2F& object, const Box2F& other);
   static float SweptAABB(const Movable& object, const Movable& other);
 };

@@ -5,6 +5,7 @@ class Box2F : public Vector2F
 {
 public:
   Box2F(float X = 0, float Y = 0, float width = 0, float height = 0);
+  Box2F(Vector2F location, float width, float height);
 
   float GetWidth() const;
   float GetHeight() const;
