@@ -23,22 +23,38 @@ protected:
   float m_SpeedY;
 };
 
-class Collision
+class Collider
 {
+  friend class Collision;
+
 public:
   enum class Direction : uint8_t
   {
-    DIRECT_NONE,
-    DIRECT_EAST,
-    DIRECT_WEST,
-    DIRECT_SOUTH,
-    DIRECT_NORTH,
+    None,
+    Top,
+    Left,
+    Right,
+    Bottom,
   };
 
+public:
+  Vector2F GetDeltaTime() const;
+  Direction GetDirection() const;
+
+  float GetCollisionTime() const;
+
+protected:
+  Vector2F  m_DeltaTime;
+  Direction m_Direction;
+};
+
+class Collision
+{
 public:
   static bool IsCollideX(const Box2F& object, const Box2F& other);
   static bool IsCollideY(const Box2F& object, const Box2F& other);
 
   static bool AABB(const Box2F& object, const Box2F& other);
   static float SweptAABB(const Movable& object, const Movable& other);
+  static Collider SweptAABBx(const Movable& object, const Box2F& other);
 };

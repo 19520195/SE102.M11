@@ -1,6 +1,10 @@
 #include "Vector.hh"
 #include <numeric>
 
+Vector2F::Vector2F(float V) : m_X(V), m_Y(V)
+{
+}
+
 Vector2F::Vector2F(float X, float Y)
 {
   m_X = X;
@@ -40,9 +44,29 @@ Vector2F Vector2F::Infinity()
     std::numeric_limits<float>::infinity());
 }
 
+Vector2F Vector2F::Min(const Vector2F& shl, const Vector2F& shr)
+{
+  return Vector2F(std::min(shl.m_X, shr.m_X), std::min(shl.m_Y, shr.m_Y));
+}
+
+Vector2F Vector2F::Max(const Vector2F& shl, const Vector2F& shr)
+{
+  return Vector2F(std::max(shl.m_X, shr.m_X), std::max(shl.m_Y, shr.m_Y));
+}
+
 Vector2F operator+(const Vector2F& shl, const Vector2F& shr)
 {
   return Vector2F(shl.m_X + shr.m_X, shl.m_Y + shr.m_Y);
+}
+
+Vector2F operator*(const Vector2F& shl, const Vector2F& shr)
+{
+  return Vector2F(shl.m_X * shr.m_X, shl.m_Y * shr.m_Y);
+}
+
+Vector2F operator/(const Vector2F& shl, const Vector2F& shr)
+{
+  return Vector2F(shl.m_X / shr.m_X, shl.m_Y / shr.m_Y);
 }
 
 bool operator!=(const Vector2F& shl, const Vector2F& shr)

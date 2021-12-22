@@ -69,6 +69,11 @@ bool Collision::AABB(const Box2F& object, const Box2F& other)
 
 float Collision::SweptAABB(const Movable& object, const Movable& other)
 {
+  return SweptAABBx(object, other).GetCollisionTime();
+}
+
+Collider Collision::SweptAABBx(const Movable& object, const Box2F& other)
+{
   // Delta of ENTRY and EXIT
   float entryDeltaX, exitDeltaX;
   float entryDeltaY, exitDeltaY;
@@ -122,15 +127,38 @@ float Collision::SweptAABB(const Movable& object, const Movable& other)
   }
 
   float entryTime = std::max(entryTimeX, entryTimeY);
-  float exitTime  = std::min(exitTimeX , exitTimeY );
+  float exitTime = std::min(exitTimeX, exitTimeY);
+
+  Collider collider;
+  collider.m_DeltaTime = -1.f;
+  collider.m_Direction = Collider::Direction::None;
 
   if (entryTime > exitTime || entryTime < 0.0f)
-    return -1.0f;
+    return collider;
 
   Movable moved(object);
   moved.Move(entryTime);
   if (!AABB(moved, other))
-    return -1.0f;
+    return collider;
 
-  return entryTime; 
+  collider.m_DeltaTime = Vector2F(entryTimeX, entryTimeY);
+  if (entryTime == entryTimeX)
+    collider.m_Direction = (object.GetSpeedX() > 0 ? Collider::Direction::Right : Collider::Direction::Left);  
+  else collider.m_Direction = (object.GetSpeedY() > 0 ? Collider::Direction::Top : Collider::Direction::Bottom);  
+  return collider;
+}
+
+Vector2F Collider::GetDeltaTime() const
+{
+  return m_DeltaTime;
+}
+
+Collider::Direction Collider::GetDirection() const
+{
+  return m_Direction;
+}
+
+float Collider::GetCollisionTime() const
+{
+  return std::max(m_DeltaTime.GetX(), m_DeltaTime.GetY());
 }
