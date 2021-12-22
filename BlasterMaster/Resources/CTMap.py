@@ -11,13 +11,10 @@ def ReCoord(coord):
   X, Y, Width, Height = coord
   return X, MAP_HEIGHT - Y - Height, Width, Height
 
-def GetRefer(GameObject: bs4.element.Tag):
-  Refer = GameObject.find('property', attrs={'name': 'Trigger'})
-  if str(Refer) == 'None': return None
-  ID = Refer['value']
-
-  Refer = WorldMap.find('object', attrs={'id': ID})
-  return ReCoord(tuple(map(int, (Refer['x'], Refer['y'], Refer['width'], Refer['height']))))
+def GetDirect(GameObject: bs4.element.Tag):
+  Direct = GameObject.find('property', attrs={'name': 'Direct'})
+  if str(Direct) == 'None': return ""
+  return ".{}".format(Direct["value"])
 
 with open('Area3.2.ini', 'w') as conf:
   print('[OBJECTS]', file=conf)
@@ -27,10 +24,9 @@ with open('Area3.2.ini', 'w') as conf:
     GameObjects = WorldMap.find_all('object', attrs={'name': ObjectName})
     GameObjects = map(lambda GameObject: [*ReCoord(list(map(int, [
       GameObject['x'], GameObject['y'],
-      GameObject['width'], GameObject['height']]))), GetRefer(GameObject)], GameObjects)
+      GameObject['width'], GameObject['height']]))), GetDirect(GameObject)], GameObjects)
     GameObjects = sorted(GameObjects)
 
     ObjectName = ObjectName.replace(' ', '-')
-    for X, Y, Width, Height, Refer in GameObjects:
-      Refer = '{}\t{}\t{}\t{}'.format(*Refer) if Refer else ''
-      print(ObjectName, X, Y, Width, Height, Refer, sep='\t', file=conf)
+    for X, Y, Width, Height, Direct in GameObjects:
+      print(ObjectName + Direct, X, Y, Width, Height, sep='\t', file=conf)
