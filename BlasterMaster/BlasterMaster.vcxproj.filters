@@ -32,7 +32,6 @@
     <ClCompile Include="Source\Object\Player\JasonS.cc" />
     <ClCompile Include="Source\Object\Player\Player.cc" />
     <ClCompile Include="Engine\Math\Box.cc" />
-    <ClCompile Include="Source\Object\Enemy\Trigger.cc" />
     <ClCompile Include="Source\Object\Enemy\Neoworm.cc" />
     <ClCompile Include="Source\Utility\Strings.cc" />
   </ItemGroup>
@@ -74,7 +73,6 @@
     <ClInclude Include="Source\Object\Enemy\BallCarry.hh" />
     <ClInclude Include="Source\Object\Player\JasonS.hh" />
     <ClInclude Include="Engine\Math\Box.hh" />
-    <ClInclude Include="Source\Object\Enemy\Trigger.hh" />
     <ClInclude Include="Source\Object\Enemy\Neoworm.hh" />
     <ClInclude Include="Source\Utility\Strings.hh" />
     <ClInclude Include="Engine\Core\Base.hh" />

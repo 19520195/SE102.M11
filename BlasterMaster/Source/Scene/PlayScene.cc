@@ -19,7 +19,7 @@ PlayScene::PlayScene(const std::string& conf)
   else
   {
     parser.PrintDebugInfo();
-    m_QuadTree = std::make_unique<QuadTree>();
+    m_QuadTree = CreateScope<QuadTree>(1600.f, 784.f);
     for (auto object : parser.GetObjects())
       m_QuadTree->Insert(object);
 
@@ -36,7 +36,8 @@ Player* PlayScene::GetPlayer() const
 
 std::vector<Object*> PlayScene::GetObjects() const
 {
-  return m_QuadTree->Retrieve(Box2F());
+  Box2F viewport(m_Camera, SCREEN_WIDTH, SCREEN_HEIGHT);
+  return m_QuadTree->Retrieve(viewport);
 }
 
 void PlayScene::SetBackground(size_t ID)
@@ -61,7 +62,7 @@ void PlayScene::AddObject(Object* object)
 
 void PlayScene::Update(TimeStep elapsed)
 {
-  m_Objects = m_QuadTree->Retrieve(Box2F());
+  m_Objects = this->GetObjects();
   m_Player->Update(elapsed, m_Objects);
 
   m_Camera.SetXY(m_Player->GetX() - 100, m_Player->GetY() - 100);
@@ -82,8 +83,8 @@ void PlayScene::Update(TimeStep elapsed)
 void PlayScene::Render(TimeStep elapsed)
 {
   #ifdef _DEBUG
-  Texture* DEBUG_RED_BBOX  = nullptr; // TextureBase::GetInstance()->Get(TEXID_RED_BBOX);
-  Texture* DEBUG_BLUE_BBOX = nullptr; // TextureBase::GetInstance()->Get(TEXID_BLUE_BBOX);
+  Texture* DEBUG_RED_BBOX  = TextureBase::GetInstance()->Get(TEXID_RED_BBOX);
+  Texture* DEBUG_BLUE_BBOX = TextureBase::GetInstance()->Get(TEXID_BLUE_BBOX);
   #endif // _DEBUG
 
   // Draw background

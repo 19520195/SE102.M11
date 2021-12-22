@@ -51,7 +51,6 @@
     <ClCompile Include="Engine\Renderer\Sprite.cc" />
     <ClCompile Include="Engine\Renderer\Texture.cc" />
     <ClCompile Include="Engine\Math\Vector.cc" />
-    <ClCompile Include="Source\Object\Enemy\Trigger.cc" />
     <ClCompile Include="Source\Utility\Strings.cc" />
   </ItemGroup>
   <ItemGroup>
@@ -94,7 +93,6 @@
     <ClInclude Include="Engine\Renderer\Texture.hh" />
     <ClInclude Include="Engine\Math\Vector.hh" />
     <ClInclude Include="Source\Object\State.hh" />
-    <ClInclude Include="Source\Object\Enemy\Trigger.hh" />
     <ClInclude Include="Source\Utility\Strings.hh" />
   </ItemGroup>
   <ItemGroup>
