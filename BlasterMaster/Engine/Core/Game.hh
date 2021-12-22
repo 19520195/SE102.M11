@@ -1,8 +1,8 @@
 #pragma once
-
 #include "Engine/Debug/Debug.hh"
 #include "Engine/Scene/Scene.hh"
 #include "Engine/Renderer/Renderer.hh"
+#include "Base.hh"
 #include "Window.hh"
 #include "TimeStep.hh"
 #include "Input.hh"

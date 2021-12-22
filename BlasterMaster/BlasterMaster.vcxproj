@@ -55,6 +55,7 @@
     <ClCompile Include="Source\Utility\Strings.cc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Engine\Core\Base.hh" />
     <ClInclude Include="Engine\Math\Box.hh" />
     <ClInclude Include="Engine\Math\Collision.hh" />
     <ClInclude Include="Resources\Resources.hh" />

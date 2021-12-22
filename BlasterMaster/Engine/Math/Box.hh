@@ -14,6 +14,7 @@ public:
   float GetRight() const;
   float GetTop() const;
 
+  void SetLocation(float X, float Y);
   void SetWidth(const float& width);
   void SetHeight(const float& hegiht);
 
