@@ -1,4 +1,5 @@
 #include "Eyelet.hh"
+#include "Engine/Core/Game.hh"
 
 constexpr float EYELET_TRIGGER_WITDH  = 16.f;
 constexpr float EYELET_TRIGGER_HEIGHT = SCREEN_HEIGHT;
@@ -35,10 +36,10 @@ void Eyelet::SetState(int state)
   }
 }
 
-void Eyelet::SetStartPoint(const Vector2F& point)
+void Eyelet::SetLocation(float X, float Y)
 {
-  m_StartPoint.SetX(point.GetX());
-  m_StartPoint.SetY(point.GetY() - EYELET_RANGE);
+  Box2F::SetLocation(X, Y);
+  m_SpecialY = Y;
 }
 
 void Eyelet::Update(TimeStep elasped)
@@ -46,8 +47,8 @@ void Eyelet::Update(TimeStep elasped)
   if (m_IsTriggered)
   {
     m_X += elasped * GetSpeedX();
-    float deltaX = m_X - m_StartPoint.GetX() + acos(1.f) / 2 * EYELET_RANGE;
-    m_Y = m_StartPoint.GetY() + EYELET_RANGE * std::sin(deltaX / EYELET_RANGE);
+    float deltaX = static_cast<float>(Game::GetInstance()->GetLastFrameTime() * m_SpeedX);
+    m_Y = m_SpecialY + EYELET_RANGE * std::sin(deltaX / EYELET_RANGE);
   }
 }
 

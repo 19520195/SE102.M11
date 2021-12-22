@@ -11,11 +11,12 @@ public:
   Trigger* CreateTrigger();
   
   void SetState(int state);
-  void SetStartPoint(const Vector2F& point);
+  void SetLocation(float X, float Y);
  
   void Update(TimeStep elasped);
   void Render(TimeStep elapsed);
 
 private:
   uint32_t m_RenderID;
+  float    m_SpecialY;
 };

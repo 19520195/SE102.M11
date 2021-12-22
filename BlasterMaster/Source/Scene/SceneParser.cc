@@ -122,14 +122,13 @@ Object* SceneParser::ParseObject(const std::string& detail)
   float width = std::stof(tokens[3]);
   float height = std::stof(tokens[4]);
   
-  object->SetXY(X, Y);
+  object->SetLocation(X, Y);
   object->SetWidth(width);
   object->SetHeight(height);
 
   Enemy* enemy = dynamic_cast<Enemy*>(object);
   if (enemy != nullptr)
   {
-    enemy->SetStartPoint(Vector2F(X, Y));
     if (Trigger* trigger = enemy->CreateTrigger())
       m_Objects.emplace_back(trigger);
   }

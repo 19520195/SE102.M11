@@ -1,7 +1,7 @@
 #include "Enemy.hh"
 #include "Utility/Strings.hh"
 
-Enemy::Enemy() : m_IsActivated(true), m_IsTriggered(false), m_StartPoint(0, 0)
+Enemy::Enemy() : m_IsActivated(true), m_IsTriggered(false)
 {
   // 
 }
@@ -16,16 +16,9 @@ bool Enemy::IsTriggered() const
   return m_IsTriggered;
 }
 
-void Enemy::SetStartPoint(const Vector2F& point)
-{
-  m_StartPoint = point;
-  m_X = point.GetX();
-  m_Y = point.GetY();
-}
-
 Trigger* Enemy::CreateTrigger()
 {
-  return nullptr;
+  return nullptr; 
 }
 
 void Enemy::Activate()

@@ -18,8 +18,8 @@ public:
   void SetWidth(const float& width);
   void SetHeight(const float& hegiht);
 
-  void SetLocation(float X, float Y);
-  void SetSize(float width, float height);
+  virtual void SetLocation(float X, float Y);
+  virtual void SetSize(float width, float height);
 
 protected:
   float m_Width;
