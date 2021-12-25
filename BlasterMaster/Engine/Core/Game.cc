@@ -7,13 +7,13 @@ Game::~Game()
   Renderer::CleanDirectX3D();
 }
 
-void Game::SetScene(Scene* scene)
+void Game::SetScene(Ref<Scene> scene)
 {
   if ((m_Scene = scene) != nullptr)
     Input::GetInstance()->SetKeyHandler(m_Scene->GetKeyboardHandler());
 }
 
-Scene* Game::GetScene() const
+Ref<Scene> Game::GetScene() const
 {
   return m_Scene; 
 }

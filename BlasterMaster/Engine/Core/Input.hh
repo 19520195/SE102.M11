@@ -22,7 +22,7 @@ class Input
 public:
   Input() = default;
 
-  void SetKeyHandler(KeyboardEvent* handler);
+  void SetKeyHandler(Ref<KeyboardEvent> handler);
 
   void InitKeyboard(HWND hWnd);
   void ProcKeyboard();
@@ -37,7 +37,7 @@ private:
 
   BYTE               m_KeyStates[KEYSTATE_BUFFER_SIZE];
   DIDEVICEOBJECTDATA m_KeyEvents[KEYBOARD_BUFFER_SIZE];
-  KeyboardEvent*     m_KeyHandler;
+  Ref<KeyboardEvent> m_KeyHandler;
 
 private:
   static std::shared_ptr<Input> m_Instance;

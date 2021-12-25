@@ -19,10 +19,10 @@ public:
   Game() = default;
   ~Game();
 
-  void SetScene(Scene* scene); 
-
-  Scene* GetScene() const;
+  Ref<Scene> GetScene() const;
   TimeStep GetLastFrameTime() const;
+
+  void SetScene(Ref<Scene> scene);
 
   void Create(int width, int height, std::wstring title, HINSTANCE hInstance, int nCmdShow);
 
@@ -33,7 +33,7 @@ public:
 private:
   std::unique_ptr<Window> m_Window;
   
-  Scene*   m_Scene         = nullptr;
+  Ref<Scene> m_Scene;
   bool     m_Running       = true;
   TimeStep m_LastFrameTime = 0;
 

@@ -18,6 +18,9 @@ SophiaIII::SophiaIII()
   m_Width = SOPHIAIII_WIDTH;
   m_Height = SOPHIAIII_HEIGHT;
 
+  m_Keyboard = CreateRef<SophiaIIIKeyboardEvent>();
+  m_Keyboard->SetPlayer(this);
+
   SM_SET_IDLE(m_State);
   SD_SET_LEFT(m_State);
 }

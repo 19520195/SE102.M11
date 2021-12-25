@@ -10,7 +10,7 @@ Camera Scene::GetCamera() const
   return m_Camera; 
 }
 
-KeyboardEvent* Scene::GetKeyboardHandler() const
+Ref<KeyboardEvent> Scene::GetKeyboardHandler() const
 {
   return m_KeyboardHandler;
 }

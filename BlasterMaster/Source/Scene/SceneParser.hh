@@ -19,7 +19,7 @@ public:
 
   Object*               GetPlayer() const;
   std::vector<Object*>  GetObjects() const;
-  KeyboardEvent*        GetKeyboardEvent() const;
+  Ref<KeyboardEvent>    GetKeyboardEvent() const;
 
   size_t GetTextureID(const std::string& name) const;
   size_t GetSpriteID(const std::string& name) const;
@@ -39,8 +39,8 @@ private:
   std::string m_Filename;
   bool        m_IsParsed;
 
-  Object*              m_Player;
-  KeyboardEvent*       m_Keyboard;
+  Player*              m_Player;
+  Ref<KeyboardEvent>   m_Keyboard;
   std::vector<Object*> m_Objects; 
 
   size_t m_TextureCount;

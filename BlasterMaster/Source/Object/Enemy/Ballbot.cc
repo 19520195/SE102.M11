@@ -26,7 +26,7 @@ Trigger* Ballbot::CreateTrigger()
 void Ballbot::Activate()
 {
   m_IsTriggered = true;
-  auto player = static_cast<PlayScene*>(Game::GetInstance()->GetScene())->GetPlayer();
+  auto player = std::static_pointer_cast<PlayScene>(Game::GetInstance()->GetScene())->GetPlayer();
   m_SpeedX = (player->GetX() - m_X > 0 ? BALLBOT_WALKSPEED : -BALLBOT_WALKSPEED);
   m_SpeedY = BALLBOT_JUMPSPEED;
 }
@@ -42,7 +42,7 @@ void Ballbot::Update(TimeStep elapsed)
     Vector2F deltaTime = static_cast<float>(elapsed);
 
     bool ceiled = false;
-    auto currentScene = static_cast<PlayScene*>(Game::GetInstance()->GetScene());
+    auto currentScene = std::static_pointer_cast<PlayScene>(Game::GetInstance()->GetScene());
     auto objects = currentScene->GetObjects();
     for (const auto& object : objects)
     {

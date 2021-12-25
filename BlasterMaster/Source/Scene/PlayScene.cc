@@ -24,7 +24,7 @@ PlayScene::PlayScene(const std::string& conf)
       m_QuadTree->Insert(object);
 
     this->SetPlayer(static_cast<Player*>(parser.GetPlayer()));
-    this->SetKeyboardHandler(parser.GetKeyboardEvent());
+    this->SetKeyboardHandler(std::move(parser.GetKeyboardEvent()));
     this->SetForeground(SPRID_FOREGROUND);
     this->SetBackground(SPRID_BACKGROUND);
   }
@@ -56,7 +56,7 @@ void PlayScene::SetPlayer(Player* player)
   m_Player = player;
 }
 
-void PlayScene::SetKeyboardHandler(KeyboardEvent* handler)
+void PlayScene::SetKeyboardHandler(Ref<KeyboardEvent> handler)
 {
   m_KeyboardHandler = handler;
 }
@@ -89,8 +89,8 @@ void PlayScene::Update(TimeStep elapsed)
 void PlayScene::Render(TimeStep elapsed)
 {
   #ifdef _DEBUG
-  Texture* DEBUG_RED_BBOX  = TextureBase::GetInstance()->Get(TEXID_RED_BBOX);
-  Texture* DEBUG_BLUE_BBOX = TextureBase::GetInstance()->Get(TEXID_BLUE_BBOX);
+  Texture* DEBUG_RED_BBOX  = nullptr; // TextureBase::GetInstance()->Get(TEXID_RED_BBOX);
+  Texture* DEBUG_BLUE_BBOX = nullptr; // TextureBase::GetInstance()->Get(TEXID_BLUE_BBOX);
   #endif // _DEBUG
 
   // Draw background

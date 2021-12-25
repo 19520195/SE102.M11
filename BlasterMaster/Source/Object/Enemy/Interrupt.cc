@@ -31,7 +31,7 @@ void Interrupt::Activate()
   m_SpriteID = SPRID_INTERRUPT_ACTIVE;
 
   // Drop a Neoworm
-  PlayScene* scene = dynamic_cast<PlayScene*>(Game::GetInstance()->GetScene());
+  Ref<PlayScene> scene = std::static_pointer_cast<PlayScene>(Game::GetInstance()->GetScene());
   scene->AddObject(new Neoworm(Vector2F(m_X + 7, m_Y - 4)));
 }
 

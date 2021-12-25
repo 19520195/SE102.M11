@@ -2,7 +2,7 @@
 
 std::shared_ptr<Input> Input::m_Instance = std::make_shared<Input>();
 
-void Input::SetKeyHandler(KeyboardEvent* handler)
+void Input::SetKeyHandler(Ref<KeyboardEvent> handler)
 {
   m_KeyHandler = handler; 
 }

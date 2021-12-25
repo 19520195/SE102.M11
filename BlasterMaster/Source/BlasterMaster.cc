@@ -16,7 +16,7 @@ INT APIENTRY wWinMain(_In_     HINSTANCE hInstance,
     SCREEN_TITLE,
     hInstance, nCmdShow);
   std::shared_ptr<PlayScene> scene(new PlayScene("Resources/Area3.ini"));
-  Game::GetInstance()->SetScene(scene.get());
+  Game::GetInstance()->SetScene(scene);
   Game::GetInstance()->Run(); 
   return EXIT_SUCCESS;
 }

@@ -52,7 +52,7 @@ void Neoworm::Update(TimeStep elapsed)
     static_cast<float>(elapsed));
   SetSpeed(GetSpeedX(), GetSpeedY() - NEOWORMFALL_GRAVITY * elapsed);
 
-  PlayScene* scene = dynamic_cast<PlayScene*>(Game::GetInstance()->GetScene());
+  Ref<PlayScene> scene = std::static_pointer_cast<PlayScene>(Game::GetInstance()->GetScene());
   std::vector<Object*> objects = scene->GetObjects();
   for (const auto& object : objects)
     CollideWithBrick(dynamic_cast<Brick*>(object), elapsed, deltaTime);

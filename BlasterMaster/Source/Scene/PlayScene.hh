@@ -16,7 +16,7 @@ public:
   void SetForeground(uint32_t ID);
   void SetBackground(uint32_t ID);
   void SetPlayer(Player* player);
-  void SetKeyboardHandler(KeyboardEvent* handler);
+  void SetKeyboardHandler(Ref<KeyboardEvent> handler);
 
   void AddObject(Object* object); 
 

@@ -7,8 +7,8 @@ SceneParser::SceneParser(const std::string& filename)
 {
   m_Filename = filename;
   m_IsParsed = false;
-  m_TextureCount   = 0;
-  m_SpriteCount    = 0;
+  m_TextureCount = 0;
+  m_SpriteCount = 0;
   m_AnimationCount = 0;
 }
 
@@ -22,7 +22,7 @@ std::vector<Object*> SceneParser::GetObjects() const
   return m_Objects;
 }
 
-KeyboardEvent* SceneParser::GetKeyboardEvent() const
+Ref<KeyboardEvent> SceneParser::GetKeyboardEvent() const
 {
   return m_Keyboard;
 }
@@ -50,10 +50,10 @@ size_t SceneParser::GetAnimationID(const std::string& name) const
 
 int SceneParser::GetHeader(const std::string& header)
 {
-  if (header == "[TEXTURES]"  ) return SceneHeaderTextures  ;
-  if (header == "[SPRITES]"   ) return SceneHeaderSprites   ;
+  if (header == "[TEXTURES]") return SceneHeaderTextures;
+  if (header == "[SPRITES]") return SceneHeaderSprites;
   if (header == "[ANIMATIONS]") return SceneHeaderAnimations;
-  if (header == "[OBJECTS]"   ) return SceneHeaderObjects   ;
+  if (header == "[OBJECTS]") return SceneHeaderObjects;
   return SceneHeaderUnknow;
 }
 
@@ -77,10 +77,10 @@ bool SceneParser::Parse()
     default:
       switch (header)
       {
-        case SceneHeaderObjects   : ParseObject(buffer)   ; break;
-        case SceneHeaderTextures  : ParseTexture(buffer)  ; break;
-        case SceneHeaderSprites   : ParseSprite(buffer)   ; break;
-        case SceneHeaderAnimations: ParseAnimation(buffer); break;
+      case SceneHeaderObjects: ParseObject(buffer); break;
+      case SceneHeaderTextures: ParseTexture(buffer); break;
+      case SceneHeaderSprites: ParseSprite(buffer); break;
+      case SceneHeaderAnimations: ParseAnimation(buffer); break;
       }
     }
   }
@@ -121,7 +121,7 @@ Object* SceneParser::ParseObject(const std::string& detail)
   float Y = std::stof(tokens[2]);
   float width = std::stof(tokens[3]);
   float height = std::stof(tokens[4]);
-  
+
   object->SetLocation(X, Y);
   object->SetWidth(width);
   object->SetHeight(height);
@@ -135,8 +135,8 @@ Object* SceneParser::ParseObject(const std::string& detail)
 
   if (name == "SophiaIII")
   {
-    m_Keyboard = new SophiaIIIKeyboardEvent();
-    m_Keyboard->SetPlayer(m_Player = object);
+    m_Player = dynamic_cast<Player*>(object);
+    m_Keyboard = m_Player->GetKeyboard();
   }
   else m_Objects.push_back(object);
   return object;
@@ -179,10 +179,10 @@ Animation* SceneParser::ParseAnimation(const std::string& detail)
   std::vector<std::string> tokens = Strings::Split(detail, "\t");
   if (tokens.size() < 4) return nullptr;
 
-  std::string name      = tokens[0];
+  std::string name = tokens[0];
   size_t      frameTime = std::stoul(tokens[1]);
 
-  Animation* animation = new Animation(frameTime); 
+  Animation* animation = new Animation(frameTime);
   for (size_t i = 2; i < tokens.size(); ++i)
     animation->Add(GetSpriteID(tokens[i]));
   m_AnimationID[name] = ++m_AnimationCount;

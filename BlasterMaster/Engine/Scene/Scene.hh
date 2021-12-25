@@ -11,14 +11,14 @@ public:
 
   void SetCamera(Camera camera); 
 
-  Camera         GetCamera() const; 
-  KeyboardEvent* GetKeyboardHandler() const;
+  Camera             GetCamera() const; 
+  Ref<KeyboardEvent> GetKeyboardHandler() const;
 
   virtual void Update(TimeStep elapsed) = 0;
   virtual void Render(TimeStep elapsed) = 0;
 
 protected:
-  size_t          m_ID;
-  Camera          m_Camera;
-  KeyboardEvent*  m_KeyboardHandler;
+  size_t             m_ID;
+  Camera             m_Camera;
+  Ref<KeyboardEvent> m_KeyboardHandler;
 };
