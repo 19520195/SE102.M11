@@ -13,7 +13,11 @@ public:
   float GetX() const;
   float GetY() const;
 
+  float Abs() const;
+  Vector2F GetUnit() const;
+
   friend Vector2F operator+(const Vector2F& shl, const Vector2F& shr);
+  friend Vector2F operator-(const Vector2F& shl, const Vector2F& shr);
   friend Vector2F operator*(const Vector2F& shl, const Vector2F& shr);
   friend Vector2F operator/(const Vector2F& shl, const Vector2F& shr);
   friend bool operator!=(const Vector2F& shl, const Vector2F& shr);

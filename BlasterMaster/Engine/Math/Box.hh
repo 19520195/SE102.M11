@@ -15,6 +15,10 @@ public:
   float GetRight() const;
   float GetTop() const;
 
+  Vector2F GetCenter() const;
+  Vector2F GetLocation() const;
+  Vector2F GetSize() const;
+
   void SetWidth(const float& width);
   void SetHeight(const float& hegiht);
 

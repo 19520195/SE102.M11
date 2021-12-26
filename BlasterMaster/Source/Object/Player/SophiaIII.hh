@@ -26,6 +26,18 @@ typedef RenderableObject  SophiaIIIComponent;
 typedef SpriteObject      SophiaIIIBodyPart;
 typedef AnimationObject   SophiaIIIWheel;
 
+enum SophiaIIIKBS : uint32_t
+{
+  Open  = DIK_LSHIFT,
+  Jump  = DIK_X,
+  Shoot = DIK_C,
+
+  Up    = DIK_UP,
+  Left  = DIK_LEFT,
+  Down  = DIK_DOWN,
+  Right = DIK_RIGHT,
+};
+
 class SophiaIII : public Player
 {
 public:
@@ -60,7 +72,8 @@ private:
 class SophiaIIIKeyboardEvent : public KeyboardEvent
 {
 public:
-  SophiaIIIKeyboardEvent() = default;
+  SophiaIIIKeyboardEvent() = delete;
+  SophiaIIIKeyboardEvent(SophiaIII* player);
 
   virtual void KeyState(BYTE* state);
   virtual void OnKeyUp(int code);

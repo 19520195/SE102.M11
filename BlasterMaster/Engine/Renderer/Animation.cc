@@ -37,9 +37,11 @@ void Animation::Add(size_t spriteID, TimeStep time)
 void Animation::Render(float X, float Y, TimeStep elapsed)
 {
 	TimeStep offset = m_Frames.size() * m_DefaultTime;
-	m_TimeStep = (m_TimeStep + offset + elapsed) % (offset);
+	// m_TimeStep = (m_TimeStep + offset + elapsed) % (offset);
+	m_TimeStep = (m_TimeStep + offset + elapsed) / (offset);
+	m_TimeStep = (m_TimeStep - std::floor(m_TimeStep)) * offset;
 
-	size_t frameID = (size_t)(m_TimeStep / m_DefaultTime);
+	size_t frameID = static_cast<size_t>(m_TimeStep / m_DefaultTime);
 	m_Frames[frameID]->GetSprite()->Render(X, Y);
 }
 

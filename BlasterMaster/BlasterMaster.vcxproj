@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Engine\Physic\Collider2D.cc" />
     <ClCompile Include="Engine\Math\Box.cc" />
     <ClCompile Include="Engine\Math\Collision.cc" />
     <ClCompile Include="Engine\Math\Physic.cc" />
@@ -55,6 +56,7 @@
     <ClCompile Include="Source\Utility\Strings.cc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Engine\Physic\Collider2D.hh" />
     <ClInclude Include="Engine\Core\Base.hh" />
     <ClInclude Include="Engine\Math\Box.hh" />
     <ClInclude Include="Engine\Math\Collision.hh" />

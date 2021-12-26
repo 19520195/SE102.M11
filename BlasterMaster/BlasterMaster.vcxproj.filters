@@ -35,6 +35,7 @@
     <ClCompile Include="Source\Object\Enemy\Neoworm.cc" />
     <ClCompile Include="Source\Utility\Strings.cc" />
     <ClCompile Include="Engine\Math\Physic.cc" />
+    <ClCompile Include="Engine\Physic\Collider2D.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Core\Window.hh" />
@@ -78,6 +79,7 @@
     <ClInclude Include="Source\Utility\Strings.hh" />
     <ClInclude Include="Engine\Core\Base.hh" />
     <ClInclude Include="Engine\Math\Physic.hh" />
+    <ClInclude Include="Engine\Physic\Collider2D.hh" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\SophiaIII.png" />

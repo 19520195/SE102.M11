@@ -5,6 +5,7 @@ Object::Object()
 {
   m_State = 0;
   m_Died = false;
+  m_Collider = CreateRef<Collider2D>(this);
 }
 
 void Object::SetSpeed(float speedX, float speedY)
@@ -25,6 +26,11 @@ void Object::Die()
 int Object::GetState()
 {
   return m_State;
+}
+
+Ref<Collider2D> Object::GetCollider() const
+{
+  return m_Collider;
 }
 
 bool Object::IsDied() const

@@ -1,4 +1,5 @@
 #include "Vector.hh"
+#include <cmath>
 #include <numeric>
 
 Vector2F::Vector2F(float V) : m_X(V), m_Y(V)
@@ -37,6 +38,21 @@ float Vector2F::GetY() const
   return m_Y;
 }
 
+float Vector2F::Abs() const
+{
+  return std::sqrt(m_X * m_X + m_Y * m_Y);
+}
+
+Vector2F Vector2F::GetUnit() const
+{
+  Vector2F unit;
+  if (this->m_X > 0) unit.m_X = 1;
+  else if (this->m_X < 0) unit.m_X = -1;
+  if (this->m_Y > 0) unit.m_Y = 1;
+  else if (this->m_Y < 0) unit.m_Y = -1;
+  return unit;
+}
+
 Vector2F Vector2F::Infinity()
 {
   return Vector2F(
@@ -57,6 +73,11 @@ Vector2F Vector2F::Max(const Vector2F& shl, const Vector2F& shr)
 Vector2F operator+(const Vector2F& shl, const Vector2F& shr)
 {
   return Vector2F(shl.m_X + shr.m_X, shl.m_Y + shr.m_Y);
+}
+
+Vector2F operator-(const Vector2F& shl, const Vector2F& shr)
+{
+  return Vector2F(shl.m_X - shr.m_X, shl.m_Y - shr.m_Y);
 }
 
 Vector2F operator*(const Vector2F& shl, const Vector2F& shr)

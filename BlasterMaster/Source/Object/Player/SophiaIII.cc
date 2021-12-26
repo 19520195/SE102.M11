@@ -19,8 +19,7 @@ SophiaIII::SophiaIII()
   m_Width = SOPHIAIII_WIDTH;
   m_Height = SOPHIAIII_HEIGHT;
 
-  m_Keyboard = CreateRef<SophiaIIIKeyboardEvent>();
-  m_Keyboard->SetPlayer(this);
+  m_Keyboard = CreateRef<SophiaIIIKeyboardEvent>(this);
 
   SM_SET_IDLE(m_State);
   SD_SET_LEFT(m_State);
@@ -251,37 +250,44 @@ Vector2F SophiaIII::CollideWithBrick(Brick* brick, float deltaCollide)
   return delta;
 }
 
+SophiaIIIKeyboardEvent::SophiaIIIKeyboardEvent(SophiaIII* player)
+{
+  m_Player = player;
+}
+
 void SophiaIIIKeyboardEvent::KeyState(BYTE* keyboard)
 {
   SophiaIII* pS3 = static_cast<SophiaIII*>(m_Player);
-  int currentState = pS3->GetState(); 
+  int currentState = pS3->GetState();
+
+  
 
   // MOVE: Jump
-  if (IS_KEYDOWN(keyboard, DIK_X) && SM_IS_FALL(pS3->GetState()))
+  if (IS_KEYDOWN(keyboard, SophiaIIIKBS::Jump) && SM_IS_FALL(pS3->GetState()))
     if (!pS3->GetSpeedY())
       SM_SET_JUMP(currentState); 
 
   // MOVE: Left / Right / Idle
-  if (IS_KEYDOWN(keyboard, DIK_RIGHT) || IS_KEYDOWN(keyboard, DIK_LEFT))
+  if (IS_KEYDOWN(keyboard, SophiaIIIKBS::Right) || IS_KEYDOWN(keyboard, SophiaIIIKBS::Left))
   {
     SM_SET_WALK(currentState);
-    if (IS_KEYDOWN(keyboard, DIK_LEFT))
+    if (IS_KEYDOWN(keyboard, SophiaIIIKBS::Left))
       SD_SET_LEFT(currentState);
     else SD_SET_RIGHT(currentState);
   }
   else SM_SET_IDLE(currentState);
 
-  if (IS_KEYDOWN(keyboard, DIK_UP))
+  if (IS_KEYDOWN(keyboard, SophiaIIIKBS::Up))
     SD_SET_UP(currentState);
   else SD_SET_DOWN(currentState); 
 
   // Set state
   pS3->SetState(currentState);
 
-  if (IS_KEYDOWN(keyboard, DIK_C))
+  if (IS_KEYDOWN(keyboard, SophiaIIIKBS::Shoot))
     pS3->CreateBullet();
 
-  if (IS_KEYDOWN(keyboard, DIK_LSHIFT))
+  if (IS_KEYDOWN(keyboard, SophiaIIIKBS::Open))
   {
     auto jason = pS3->CreateJason();
     auto scene = std::static_pointer_cast<PlayScene>(Game::GetInstance()->GetScene());

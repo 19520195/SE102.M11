@@ -31,6 +31,21 @@ float Box2F::GetTop() const
   return m_Y + m_Height;
 }
 
+Vector2F Box2F::GetCenter() const
+{
+  return Vector2F(m_X + m_Width / 2, m_Y + m_Height / 2);
+}
+
+Vector2F Box2F::GetLocation() const
+{
+  return static_cast<Vector2F>(*this);
+}
+
+Vector2F Box2F::GetSize() const
+{
+  return Vector2F(m_Width, m_Height);
+}
+
 float Box2F::GetWidth() const
 {
   return m_Width;

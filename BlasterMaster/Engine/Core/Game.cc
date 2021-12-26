@@ -35,7 +35,7 @@ void Game::Create(int width, int height, std::wstring title, HINSTANCE hInstance
 
 void Game::Run()
 {
-  m_LastFrameTime = GetTickCount64();
+  m_LastFrameTime = static_cast<TimeStep>(GetTickCount64());
 
   MSG msg;
   while (m_Running)
@@ -52,7 +52,7 @@ void Game::Run()
       }
     }
 
-    TimeStep currentFrameTime = GetTickCount64();
+    TimeStep currentFrameTime = static_cast<TimeStep>(GetTickCount64());
     TimeStep elapsed = currentFrameTime - m_LastFrameTime;
     m_LastFrameTime = currentFrameTime;
 

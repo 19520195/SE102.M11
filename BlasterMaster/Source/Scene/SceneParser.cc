@@ -180,7 +180,7 @@ Animation* SceneParser::ParseAnimation(const std::string& detail)
   if (tokens.size() < 4) return nullptr;
 
   std::string name = tokens[0];
-  size_t      frameTime = std::stoul(tokens[1]);
+  float frameTime = std::stof(tokens[1]);
 
   Animation* animation = new Animation(frameTime);
   for (size_t i = 2; i < tokens.size(); ++i)

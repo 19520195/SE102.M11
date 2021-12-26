@@ -3,6 +3,9 @@
 #include "Engine/Core/TimeStep.hh"
 #include "Engine/Math/Math.hh"
 #include "Engine/Renderer/Renderable.hh"
+#include "Engine/Physic/Collider2D.hh"
+
+class Collider2D;
 
 class Object : public Movable
 {
@@ -15,6 +18,7 @@ public:
   virtual void Die();
 
   int GetState();
+  Ref<Collider2D> GetCollider() const;
   virtual bool IsDied() const;
 
   virtual void Update(TimeStep elapsed);
@@ -24,6 +28,7 @@ public:
 protected:
   int  m_State;
   bool m_Died;
+  Ref<Collider2D> m_Collider;
 };
 
 class RenderableObject : public Object, public Renderable

@@ -14,8 +14,10 @@ public:
   float GetSpeedX() const;
   float GetSpeedY() const;
   Vector2F GetVelocity() const;
-  Movable GetMove(float delta) const;
 
+  void SetVelocity(const Vector2F& velocity);
+
+  Movable GetMove(float delta) const;
   void Move(float delta);
 
 protected:
