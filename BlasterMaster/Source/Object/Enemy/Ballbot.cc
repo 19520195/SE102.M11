@@ -2,26 +2,19 @@
 #include "Engine/Core/Game.hh"
 #include "Scene/PlayScene.hh"
 
-constexpr float BALLBOT_TRIGGER_WITDH  =  48.f;
-constexpr float BALLBOT_TRIGGER_HEIGHT = 144.f;
-constexpr float BALLBOT_WALKSPEED =  0.025f;
-constexpr float BALLBOT_JUMPSPEED = -0.325f;
-constexpr float BALLBOT_GRAVITY   =  0.001f;
-
 Ballbot::Ballbot()
 {
-  // 
 }
 
-Trigger* Ballbot::CreateTrigger()
-{
-  Trigger* trigger = new Trigger(this);
-  trigger->SetLocation(m_X, m_Y);
-  trigger->SetX(m_X + (m_Width - BALLBOT_TRIGGER_WITDH) / 2);
-  trigger->SetY(m_Y + (m_Height - BALLBOT_TRIGGER_HEIGHT));
-  trigger->SetSize(BALLBOT_TRIGGER_WITDH, BALLBOT_TRIGGER_HEIGHT);
-  return trigger;
-}
+// Trigger* Ballbot::CreateTrigger()
+// {
+//   Trigger* trigger = new Trigger(this);
+//   trigger->SetLocation(m_X, m_Y);
+//   trigger->SetX(m_X + (m_Width - BALLBOT_TRIGGER_WITDH) / 2);
+//   trigger->SetY(m_Y + (m_Height - BALLBOT_TRIGGER_HEIGHT));
+//   trigger->SetSize(BALLBOT_TRIGGER_WITDH, BALLBOT_TRIGGER_HEIGHT);
+//   return trigger;
+// }
 
 void Ballbot::Activate()
 {
@@ -71,8 +64,19 @@ void Ballbot::Update(TimeStep elapsed)
       {
         m_Velocity.SetX(0);
         this->ResetTrigger();
-        currentScene->AddObject(CreateTrigger());
       }
+    }
+  }
+  else
+  {
+    auto player = std::static_pointer_cast<PlayScene>(
+      Game::GetInstance()->GetScene())->GetPlayer();
+    Vector2F direct = this->GetCenter() - player->GetCenter();
+    if (IN_RANGE(direct.GetX(), -BALLBOT_TRIGGER_WITDH, BALLBOT_TRIGGER_WITDH) &&
+      IN_RANGE(direct.GetY(), 0, BALLBOT_TRIGGER_HEIGHT))
+    {
+      DEBUG_MSG(L"X = %.2f, Y = %.2f\n", direct.GetX(), direct.GetY());
+      this->Activate();
     }
   }
 }
