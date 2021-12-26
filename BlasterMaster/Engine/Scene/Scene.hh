@@ -20,5 +20,5 @@ public:
 protected:
   size_t             m_ID;
   Camera             m_Camera;
-  Ref<KeyboardEvent> m_KeyboardHandler;
+  Ref<KeyboardEvent> m_Keyboard;
 };

@@ -34,6 +34,7 @@
     <ClCompile Include="Engine\Math\Box.cc" />
     <ClCompile Include="Source\Object\Enemy\Neoworm.cc" />
     <ClCompile Include="Source\Utility\Strings.cc" />
+    <ClCompile Include="Engine\Math\Physic.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Core\Window.hh" />
@@ -76,6 +77,7 @@
     <ClInclude Include="Source\Object\Enemy\Neoworm.hh" />
     <ClInclude Include="Source\Utility\Strings.hh" />
     <ClInclude Include="Engine\Core\Base.hh" />
+    <ClInclude Include="Engine\Math\Physic.hh" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\SophiaIII.png" />

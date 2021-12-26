@@ -19,8 +19,8 @@ public:
   void Move(float delta);
 
 protected:
-  float m_SpeedX;
-  float m_SpeedY;
+  Vector2F m_Velocity;
+  Vector2F m_Acceleration;
 };
 
 class Collider

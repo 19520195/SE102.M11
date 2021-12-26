@@ -1,18 +1,15 @@
 #include "Object.hh"
+#include "Engine/Math/Physic.hh"
 
 Object::Object()
 {
-  m_SpeedX = 0;
-  m_SpeedY = 0;
-
   m_State = 0;
   m_Died = false;
 }
 
 void Object::SetSpeed(float speedX, float speedY)
 {
-  m_SpeedX = speedX;
-  m_SpeedY = speedY;
+  m_Velocity = Vector2F(speedX, speedY);
 }
 
 void Object::SetState(int state)
@@ -37,8 +34,18 @@ bool Object::IsDied() const
 
 void Object::Update(TimeStep elapsed)
 {
-  m_X += m_SpeedX * elapsed;
-  m_Y += m_SpeedY * elapsed;
+  // Calculate displacement based on velocity and acceleration
+  Vector2F deltaDisplacement = Physic::CalculateDisplacement(
+    static_cast<float>(elapsed),
+    m_Velocity,
+    m_Acceleration);
+
+  // Update location with calculated displacement
+  Vector2F& location = (*static_cast<Vector2F*>(this));
+  location = location + deltaDisplacement;
+
+  // Dis-Comment
+  m_Velocity = m_Acceleration * static_cast<float>(elapsed);
 }
 
 void Object::Update(TimeStep elapsed, std::vector<Object*> objects)

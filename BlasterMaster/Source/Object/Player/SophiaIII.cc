@@ -1,4 +1,5 @@
 #include "SophiaIII.hh"
+#include "Scene/PlayScene.hh"
 #include "Engine/Core/Game.hh"
 #include "Engine/Renderer/Animation.hh"
 
@@ -50,17 +51,17 @@ void SophiaIII::SetState(int state)
 {
   Object::SetState(state);
 
-  if (SM_IS_IDLE(m_State)) m_SpeedX = 0; 
+  if (SM_IS_IDLE(m_State)) m_Velocity.SetX(0); 
   else
   {
     // MOVE: left / right
-    if (SD_IS_LEFT(m_State)) m_SpeedX = -SOPHIAIII_SPEED;
-    if (SD_IS_RIGHT(m_State)) m_SpeedX = SOPHIAIII_SPEED;
+    if (SD_IS_LEFT(m_State)) m_Velocity.SetX(-SOPHIAIII_SPEED);
+    if (SD_IS_RIGHT(m_State)) m_Velocity.SetX(SOPHIAIII_SPEED);
   }
   
   if (SM_IS_JUMP(m_State))
   {
-    m_SpeedY = SOPHIAIII_JUMPSPEED;
+    m_Velocity.SetY(SOPHIAIII_JUMPSPEED);
     SM_SET_FALL(m_State); 
   }
 }
@@ -107,11 +108,18 @@ SophiaIIIBullet* SophiaIII::CreateBullet()
   return bullet;
 }
 
+Scope<JasonS> SophiaIII::CreateJason()
+{
+  Scope<JasonS> jason = CreateScope<JasonS>();
+  jason->SetLocation(m_X, m_Y);
+  return jason;
+}
+
 void SophiaIII::Update(TimeStep elapsed, std::vector<Object*> objects)
 {
   DEBUG_COLLISION = std::vector<bool>(objects.size());
 
-  m_SpeedY -= SOPHIAIII_GRAVITY * elapsed;
+  m_Velocity.SetY(m_Velocity.GetY() - SOPHIAIII_GRAVITY * elapsed);
   Vector2F deltaTime(static_cast<float>(elapsed), static_cast<float>(elapsed));
   for (size_t i = 0; i < objects.size(); ++i)
   {
@@ -145,10 +153,10 @@ void SophiaIII::Update(TimeStep elapsed, std::vector<Object*> objects)
     deltaTime.SetY(std::min(deltaTime.GetY(), deltaMove.GetY()));
   }
 
-  m_X += m_SpeedX * deltaTime.GetX();
-  m_Y += m_SpeedY * deltaTime.GetY();
-  if (deltaTime.GetX() < elapsed) m_SpeedX = 0;
-  if (deltaTime.GetY() < elapsed) m_SpeedY = 0;
+  m_X += m_Velocity.GetX() * deltaTime.GetX();
+  m_Y += m_Velocity.GetY() * deltaTime.GetY();
+  if (deltaTime.GetX() < elapsed) m_Velocity.SetX(0);
+  if (deltaTime.GetY() < elapsed) m_Velocity.SetY(0);
 }
 
 void SophiaIII::Render(TimeStep elapsed)
@@ -229,7 +237,7 @@ void SophiaIII::Render(TimeStep elapsed)
 Vector2F SophiaIII::CollideWithBrick(Brick* brick, float deltaCollide)
 {
   Movable movedThis(
-    this->m_SpeedX, this->m_SpeedY,
+    this->m_Velocity.GetX(), this->m_Velocity.GetY(),
     this->m_X, this->m_Y,
     this->m_Width, this->m_Height);
   movedThis.Move(deltaCollide);
@@ -272,6 +280,13 @@ void SophiaIIIKeyboardEvent::KeyState(BYTE* keyboard)
 
   if (IS_KEYDOWN(keyboard, DIK_C))
     pS3->CreateBullet();
+
+  if (IS_KEYDOWN(keyboard, DIK_LSHIFT))
+  {
+    auto jason = pS3->CreateJason();
+    auto scene = std::static_pointer_cast<PlayScene>(Game::GetInstance()->GetScene());
+    scene->SetPlayer(std::move(jason));
+  }
 }
 
 void SophiaIIIKeyboardEvent::OnKeyUp(int code) 

@@ -2,31 +2,29 @@
 #include <algorithm>
 #include <limits>
 
-Movable::Movable(float speedX, float speedY, float X, float Y, float width, float height) : Box2F(X, Y, width, height)
+Movable::Movable(float speedX, float speedY, float X, float Y, float width, float height) : 
+  Box2F(X, Y, width, height), m_Velocity(speedX, speedY), m_Acceleration(0, 0)
 {
-  m_SpeedX = speedX;
-  m_SpeedY = speedY;
 }
 
-Movable::Movable(Vector2F speed, Box2F bounding) : Box2F(bounding)
+Movable::Movable(Vector2F speed, Box2F bounding) : 
+  Box2F(bounding), m_Velocity(speed), m_Acceleration(0, 0)
 {
-  m_SpeedX = speed.GetX();
-  m_SpeedY = speed.GetY();
 }
 
 float Movable::GetSpeedX() const
 {
-  return m_SpeedX;
+  return m_Velocity.GetX();
 }
 
 float Movable::GetSpeedY() const
 {
-  return m_SpeedY;
+  return m_Velocity.GetY();
 }
 
 Vector2F Movable::GetVelocity() const
 {
-  return Vector2F(m_SpeedX, m_SpeedY);
+  return Vector2F(m_Velocity.GetX(), m_Velocity.GetY());
 }
 
 Movable Movable::GetMove(float delta) const
@@ -41,8 +39,8 @@ Movable Movable::GetMove(float delta) const
 
 void Movable::Move(float delta)
 {
-  m_X += m_SpeedX * delta; 
-  m_Y += m_SpeedY * delta; 
+  m_X += m_Velocity.GetX() * delta; 
+  m_Y += m_Velocity.GetY() * delta; 
 }
 
 bool Collision::IsCollideX(const Box2F& object, const Box2F& other)

@@ -17,7 +17,7 @@ public:
   SceneParser() = delete;
   SceneParser(const std::string& filename);
 
-  Object*               GetPlayer() const;
+  Ref<Player>           GetPlayer() const;
   std::vector<Object*>  GetObjects() const;
   Ref<KeyboardEvent>    GetKeyboardEvent() const;
 
@@ -39,7 +39,7 @@ private:
   std::string m_Filename;
   bool        m_IsParsed;
 
-  Player*              m_Player;
+  Ref<Player>          m_Player;
   Ref<KeyboardEvent>   m_Keyboard;
   std::vector<Object*> m_Objects; 
 

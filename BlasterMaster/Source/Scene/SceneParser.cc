@@ -12,7 +12,7 @@ SceneParser::SceneParser(const std::string& filename)
   m_AnimationCount = 0;
 }
 
-Object* SceneParser::GetPlayer() const
+Ref<Player> SceneParser::GetPlayer() const
 {
   return m_Player;
 }
@@ -135,7 +135,7 @@ Object* SceneParser::ParseObject(const std::string& detail)
 
   if (name == "SophiaIII")
   {
-    m_Player = dynamic_cast<Player*>(object);
+    m_Player.reset(static_cast<Player*>(object));
     m_Keyboard = m_Player->GetKeyboard();
   }
   else m_Objects.push_back(object);

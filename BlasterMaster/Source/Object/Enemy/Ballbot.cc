@@ -27,17 +27,17 @@ void Ballbot::Activate()
 {
   m_IsTriggered = true;
   auto player = std::static_pointer_cast<PlayScene>(Game::GetInstance()->GetScene())->GetPlayer();
-  m_SpeedX = (player->GetX() - m_X > 0 ? BALLBOT_WALKSPEED : -BALLBOT_WALKSPEED);
-  m_SpeedY = BALLBOT_JUMPSPEED;
+  m_Velocity.SetX((player->GetX() - m_X > 0 ? BALLBOT_WALKSPEED : -BALLBOT_WALKSPEED));
+  m_Velocity.SetY(BALLBOT_JUMPSPEED);
 }
 
 void Ballbot::Update(TimeStep elapsed)
 {
   if (m_IsTriggered)
   {
-    float beginVelocityY = m_SpeedY;
-    float endVelocityY = m_SpeedY + BALLBOT_GRAVITY * elapsed;
-    m_SpeedY = (beginVelocityY + endVelocityY) / 2;
+    float beginVelocityY = m_Velocity.GetY();
+    float endVelocityY = m_Velocity.GetY() + BALLBOT_GRAVITY * elapsed;
+    m_Velocity.SetY((beginVelocityY + endVelocityY) / 2);
     
     Vector2F deltaTime = static_cast<float>(elapsed);
 
@@ -59,17 +59,17 @@ void Ballbot::Update(TimeStep elapsed)
     
     deltaTime = Vector2F::Max(deltaTime, 0);
 
-    Vector2F delta(m_SpeedX, m_SpeedY);
+    Vector2F delta(m_Velocity.GetX(), m_Velocity.GetY());
     delta = delta * deltaTime;
     
     *dynamic_cast<Vector2F*>(this) = (*this) + delta;
 
     if (delta.GetY() == 0)
     {
-      m_SpeedY = 0;
+      m_Velocity.SetY(0);
       if (ceiled)
       {
-        m_SpeedX = 0;
+        m_Velocity.SetX(0);
         this->ResetTrigger();
         currentScene->AddObject(CreateTrigger());
       }

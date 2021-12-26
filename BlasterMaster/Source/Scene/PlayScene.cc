@@ -1,5 +1,6 @@
 #include "PlayScene.hh"
 #include "SceneParser.hh"
+#include "Engine/Core/Input.hh"
 
 PlayScene::PlayScene()
 {
@@ -23,8 +24,8 @@ PlayScene::PlayScene(const std::string& conf)
     for (auto object : parser.GetObjects())
       m_QuadTree->Insert(object);
 
-    this->SetPlayer(static_cast<Player*>(parser.GetPlayer()));
-    this->SetKeyboardHandler(std::move(parser.GetKeyboardEvent()));
+    this->SetPlayer(parser.GetPlayer());
+    this->SetKeyboardHandler(parser.GetKeyboardEvent());
     this->SetForeground(SPRID_FOREGROUND);
     this->SetBackground(SPRID_BACKGROUND);
   }
@@ -32,7 +33,7 @@ PlayScene::PlayScene(const std::string& conf)
 
 Player* PlayScene::GetPlayer() const
 {
-  return m_Player;
+  return m_Player.get();
 }
 
 std::vector<Object*> PlayScene::GetObjects() const
@@ -51,14 +52,16 @@ void PlayScene::SetBackground(uint32_t ID)
   m_BackgroundID = ID; 
 }
 
-void PlayScene::SetPlayer(Player* player)
+void PlayScene::SetPlayer(Ref<Player> player)
 {
   m_Player = player;
+  SetKeyboardHandler(player->GetKeyboard());
 }
 
 void PlayScene::SetKeyboardHandler(Ref<KeyboardEvent> handler)
 {
-  m_KeyboardHandler = handler;
+  m_Keyboard = handler;
+  Input::GetInstance()->SetKeyHandler(m_Keyboard);
 }
 
 void PlayScene::AddObject(Object* object)
@@ -77,9 +80,9 @@ void PlayScene::Update(TimeStep elapsed)
   if (m_Camera.GetX() > 1344) m_Camera.SetX(1344);
   if (m_Camera.GetY() > 560) m_Camera.SetY(560);
 
-  SophiaIII* s3 = dynamic_cast<SophiaIII*>(m_Player);
-  for (const auto& bullet : s3->GetBullets())
-    bullet->Update(elapsed, m_Objects);
+  // SophiaIII* s3 = dynamic_cast<SophiaIII*>(m_Player);
+  // for (const auto& bullet : s3->GetBullets())
+  //   bullet->Update(elapsed, m_Objects);
 
   for (auto& object : m_Objects)
     if (object->IsDied() == false)
@@ -111,19 +114,19 @@ void PlayScene::Render(TimeStep elapsed)
     }
   }
 
-  for (const auto& bullet : (static_cast<SophiaIII*>(m_Player))->GetBullets())
-  {
-    if (bullet->IsDied() == false)
-    {
-      const auto& object = bullet;
-      object->Render(elapsed);
-  
-      #ifdef _DEBUG
-      Sprite sprite(0, 0, 0, object->GetHeight(), object->GetWidth(), DEBUG_BLUE_BBOX);
-      Renderer::DrawSprite(object->GetX(), object->GetY(), &sprite);
-      #endif // _DEBUG
-    }
-  }
+  // for (const auto& bullet : (static_cast<SophiaIII*>(m_Player))->GetBullets())
+  // {
+  //   if (bullet->IsDied() == false)
+  //   {
+  //     const auto& object = bullet;
+  //     object->Render(elapsed);
+  // 
+  //     #ifdef _DEBUG
+  //     Sprite sprite(0, 0, 0, object->GetHeight(), object->GetWidth(), DEBUG_BLUE_BBOX);
+  //     Renderer::DrawSprite(object->GetX(), object->GetY(), &sprite);
+  //     #endif // _DEBUG
+  //   }
+  // }
 
   m_Player->Render(elapsed);
   #ifdef _DEBUG

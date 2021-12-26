@@ -15,7 +15,7 @@ public:
 
   void SetForeground(uint32_t ID);
   void SetBackground(uint32_t ID);
-  void SetPlayer(Player* player);
+  void SetPlayer(Ref<Player> player);
   void SetKeyboardHandler(Ref<KeyboardEvent> handler);
 
   void AddObject(Object* object); 
@@ -24,7 +24,7 @@ public:
   virtual void Render(TimeStep elapsed);
 
 private:
-  Player*                   m_Player;
+  Ref<Player>               m_Player;
   std::vector<Object*>      m_Objects;
   std::unique_ptr<QuadTree> m_QuadTree;
 

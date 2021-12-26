@@ -26,12 +26,12 @@ void Eyelet::SetState(int state)
   Enemy::SetState(state);
   if (SD_IS_LEFT(m_State))
   {
-    m_SpeedX = -EYELET_SPEED;
+    m_Velocity.SetX(-EYELET_SPEED);
     m_RenderID = ANMID_EYELET_RIGHT;
   }
   else
   {
-    m_SpeedX = EYELET_SPEED;
+    m_Velocity.SetX(EYELET_SPEED);
     m_RenderID = ANMID_EYELET_LEFT;
   }
 }
@@ -47,7 +47,7 @@ void Eyelet::Update(TimeStep elasped)
   if (m_IsTriggered)
   {
     m_X += elasped * GetSpeedX();
-    float deltaX = static_cast<float>(Game::GetInstance()->GetLastFrameTime() * m_SpeedX);
+    float deltaX = static_cast<float>(Game::GetInstance()->GetLastFrameTime() * m_Velocity.GetX());
     m_Y = m_SpecialY + EYELET_RANGE * std::sin(deltaX / EYELET_RANGE);
   }
 }

@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="Engine\Math\Box.cc" />
     <ClCompile Include="Engine\Math\Collision.cc" />
+    <ClCompile Include="Engine\Math\Physic.cc" />
     <ClCompile Include="Source\Object\Enemy\Ballbot.cc" />
     <ClCompile Include="Source\Object\Enemy\BallCarry.cc" />
     <ClCompile Include="Source\Object\Enemy\Enemy.cc" />
@@ -57,6 +58,7 @@
     <ClInclude Include="Engine\Core\Base.hh" />
     <ClInclude Include="Engine\Math\Box.hh" />
     <ClInclude Include="Engine\Math\Collision.hh" />
+    <ClInclude Include="Engine\Math\Physic.hh" />
     <ClInclude Include="Resources\Resources.hh" />
     <ClInclude Include="Source\Object\Brick.hh" />
     <ClInclude Include="Source\Object\Enemy\Ballbot.hh" />

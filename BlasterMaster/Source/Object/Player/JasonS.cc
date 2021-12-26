@@ -13,13 +13,8 @@ void JasonS::SetState(int state)
 {
   Object::SetState(state);
   if (SM_IS_WALK(state))
-    m_SpeedX = (SD_IS_LEFT(m_State) ? -1 : 1) * JASONS_SPEED;
-  else m_SpeedX = 0; 
-}
-
-KeyboardEvent* JasonS::GetKeyboard()
-{
-  return m_Keyboard.get();
+    m_Velocity.SetX((SD_IS_LEFT(m_State) ? -1 : 1) * JASONS_SPEED);
+  else m_Velocity.SetX(0); 
 }
 
 void JasonS::Render(TimeStep elapsed)

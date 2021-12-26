@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Object/Object.hh"
+#include "Object/Player/JasonS.hh"
 #include "Object/Bullet/SophiaIIIBullet.hh"
 
 #include "Engine/Core/Input.hh"
@@ -19,6 +20,7 @@ constexpr float SOPHIAIII_SPEED     = 0.1500f;
 constexpr float SOPHIAIII_JUMPSPEED = 0.2585f;
 constexpr float SOPHIAIII_GRAVITY   = 0.0005f;
 
+class JasonS;
 
 typedef RenderableObject  SophiaIIIComponent;
 typedef SpriteObject      SophiaIIIBodyPart;
@@ -37,6 +39,7 @@ public:
   void AddBullet(SophiaIIIBullet* bullet);
   
   SophiaIIIBullet* CreateBullet();
+  Scope<JasonS> CreateJason();
 
   virtual void Update(TimeStep elapsed, std::vector<Object*> objects);
   virtual void Render(TimeStep elapsed);
@@ -44,14 +47,14 @@ public:
 private:
   Vector2F CollideWithBrick(Brick* brick, float deltaCollide);
 
-private: 
-  std::unique_ptr<SophiaIIIComponent> m_Barrel;
-  std::unique_ptr<SophiaIIIComponent> m_Hammer;
-  std::unique_ptr<SophiaIIIComponent> m_Grip;
-  std::unique_ptr<SophiaIIIComponent> m_LWheel;
-  std::unique_ptr<SophiaIIIComponent> m_RWheel;
+private:
+  Scope<SophiaIIIComponent> m_Barrel;
+  Scope<SophiaIIIComponent> m_Hammer;
+  Scope<SophiaIIIComponent> m_Grip;
+  Scope<SophiaIIIComponent> m_LWheel;
+  Scope<SophiaIIIComponent> m_RWheel;
 
-  std::deque<std::unique_ptr<SophiaIIIBullet>> m_Bullets;
+  std::deque<Scope<SophiaIIIBullet>> m_Bullets;
 };
 
 class SophiaIIIKeyboardEvent : public KeyboardEvent

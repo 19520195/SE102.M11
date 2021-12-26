@@ -64,8 +64,8 @@ void SophiaIIIBullet::Update(TimeStep elapsed, std::vector<Object*> objects)
 void SophiaIIIBullet::Render(TimeStep elapsed)
 {
   size_t spriteID = 0;
-  if (m_SpeedX)
-    spriteID = m_SpeedX < 0 ? SPRID_S3_LEFT_BULLET : SPRID_S3_RIGHT_BULLET;
+  if (m_Velocity.GetX())
+    spriteID = m_Velocity.GetX() < 0 ? SPRID_S3_LEFT_BULLET : SPRID_S3_RIGHT_BULLET;
   else spriteID = SPRID_S3_UP_BULLET;
   SpriteBase::GetInstance()->Get(spriteID)->Render(m_X, m_Y);
 }
