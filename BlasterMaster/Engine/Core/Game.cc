@@ -1,16 +1,10 @@
 #include "Game.hh"
 
-std::shared_ptr<Game> Game::s_Instance = std::make_shared<Game>();
+Ref<Game> Game::s_Instance = CreateRef<Game>();
 
 Game::~Game()
 {
   Renderer::CleanDirectX3D();
-}
-
-void Game::SetScene(Ref<Scene> scene)
-{
-  if ((m_Scene = scene) != nullptr)
-    Input::GetInstance()->SetKeyHandler(m_Scene->GetKeyboardHandler());
 }
 
 Ref<Scene> Game::GetScene() const
@@ -21,6 +15,17 @@ Ref<Scene> Game::GetScene() const
 TimeStep Game::GetLastFrameTime() const
 {
   return m_LastFrameTime;
+}
+
+TimeStep Game::GetElapsedTime() const
+{
+  return m_ElapsedTime;
+}
+
+void Game::SetScene(Ref<Scene> scene)
+{
+  if ((m_Scene = scene) != nullptr)
+    Input::GetInstance()->SetKeyHandler(m_Scene->GetKeyboardHandler());
 }
 
 void Game::Create(int width, int height, std::wstring title, HINSTANCE hInstance, int nCmdShow)
@@ -51,25 +56,27 @@ void Game::Run()
         break;
       }
     }
-
+   
     TimeStep currentFrameTime = static_cast<TimeStep>(GetTickCount64());
-    TimeStep elapsed = currentFrameTime - m_LastFrameTime;
+    m_ElapsedTime = currentFrameTime - m_LastFrameTime;
     m_LastFrameTime = currentFrameTime;
-
-    if (elapsed < ENGINE_FRAME_STEP) Sleep((DWORD)(ENGINE_FRAME_STEP - elapsed));
+    if (m_ElapsedTime < ENGINE_FRAME_STEP)
+    {
+      Sleep(static_cast<DWORD>(ENGINE_FRAME_STEP - m_ElapsedTime));
+    }
     else
     {
       if (m_Scene)
       {
         Input::GetInstance()->ProcKeyboard();
-        m_Scene->Update(elapsed);
-        Renderer::Render(elapsed);
+        m_Scene->Update(m_ElapsedTime);
+        Renderer::Render(m_ElapsedTime);
       }
     }
   }
 }
 
-Game* Game::GetInstance()
+Ref<Game> Game::GetInstance()
 {
-  return s_Instance.get();
+  return s_Instance;
 }
