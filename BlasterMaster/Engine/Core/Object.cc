@@ -38,6 +38,16 @@ bool Object::IsDied() const
   return m_Died;
 }
 
+void Object::SetSprite(const std::string& name)
+{
+  m_Render = SpriteBase::GetInstance()->Get(name);
+}
+
+void Object::SetAnimation(const std::string& name)
+{
+  m_Render = AnimationBase::GetInstance()->Get(name);
+}
+
 void Object::Update(TimeStep elapsed)
 {
   // Calculate displacement based on velocity and acceleration
@@ -61,25 +71,26 @@ void Object::Update(TimeStep elapsed, std::vector<Object*> objects)
 
 void Object::Render(TimeStep elapsed)
 {
-  //
+  if (m_Render)
+    m_Render->Render(m_X, m_Y, elapsed);
 }
 
-void SpriteObject::Render(float X, float Y, TimeStep elapsed)
-{
-  SpriteBase::GetInstance()->Get(m_ID)->Render(X, Y);
-}
-
-void SpriteObject::Render(TimeStep elapsed)
-{
-  Render(m_X, m_Y, elapsed);
-}
-
-void AnimationObject::Render(float X, float Y, TimeStep elapsed)
-{
-  AnimationBase::GetInstance()->Get(m_ID)->Render(X, Y, elapsed);
-}
-
-void AnimationObject::Render(TimeStep elapsed)
-{
-  Render(m_X, m_Y, elapsed);
-}
+// void SpriteObject::Render(float X, float Y, TimeStep elapsed)
+// {
+//   SpriteBase::GetInstance()->Get(m_ID)->Render(X, Y);
+// }
+// 
+// void SpriteObject::Render(TimeStep elapsed)
+// {
+//   Render(m_X, m_Y, elapsed);
+// }
+// 
+// void AnimationObject::Render(float X, float Y, TimeStep elapsed)
+// {
+//   AnimationBase::GetInstance()->Get(m_ID)->Render(X, Y, elapsed);
+// }
+// 
+// void AnimationObject::Render(TimeStep elapsed)
+// {
+//   Render(m_X, m_Y, elapsed);
+// }

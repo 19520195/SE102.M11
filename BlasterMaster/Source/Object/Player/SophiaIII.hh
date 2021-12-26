@@ -22,10 +22,6 @@ constexpr float SOPHIAIII_GRAVITY   = 0.0005f;
 
 class JasonS;
 
-typedef RenderableObject  SophiaIIIComponent;
-typedef SpriteObject      SophiaIIIBodyPart;
-typedef AnimationObject   SophiaIIIWheel;
-
 enum SophiaIIIKBS : uint32_t
 {
   Open  = DIK_LSHIFT,
@@ -60,11 +56,11 @@ private:
   Vector2F CollideWithBrick(Brick* brick, float deltaCollide);
 
 private:
-  Scope<SophiaIIIComponent> m_Barrel;
-  Scope<SophiaIIIComponent> m_Hammer;
-  Scope<SophiaIIIComponent> m_Grip;
-  Scope<SophiaIIIComponent> m_LWheel;
-  Scope<SophiaIIIComponent> m_RWheel;
+  Scope<Object> m_Barrel;
+  Scope<Object> m_Hammer;
+  Scope<Object> m_Grip;
+  Scope<Object> m_LWheel;
+  Scope<Object> m_RWheel;
 
   std::deque<Scope<SophiaIIIBullet>> m_Bullets;
 };

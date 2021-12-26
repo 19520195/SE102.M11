@@ -1,15 +1,14 @@
 #include "Animation.hh"
 #include "Renderer.hh"
+#include "Engine/Core/Game.hh"
 
-std::shared_ptr<AnimationBase> AnimationBase::s_Instance = std::make_shared<AnimationBase>();
-
-Frame::Frame(Sprite* sprite, TimeStep time)
+Frame::Frame(Ref<Sprite> sprite, TimeStep time)
 {
   m_Sprite = sprite;
   m_Time = time;
 }
 
-Sprite* Frame::GetSprite()
+Ref<Sprite> Frame::GetSprite()
 {
 	return m_Sprite;
 }
@@ -27,17 +26,16 @@ Animation::Animation(TimeStep defaultTime)
 	m_TimeStep = 0;
 }
 
-void Animation::Add(size_t spriteID, TimeStep time)
+void Animation::Add(const std::string& name, TimeStep time)
 {
-  if (time == 0) time = this->m_DefaultTime;
-  Sprite* sprite = SpriteBase::GetInstance()->Get(spriteID);
-  m_Frames.push_back(std::make_shared<Frame>(sprite, time));
+	if (time == 0) time = this->m_DefaultTime;
+	Ref<Sprite> sprite = SpriteBase::GetInstance()->Get(name);
+	m_Frames.push_back(std::make_shared<Frame>(sprite, time));
 }
 
 void Animation::Render(float X, float Y, TimeStep elapsed)
 {
 	TimeStep offset = m_Frames.size() * m_DefaultTime;
-	// m_TimeStep = (m_TimeStep + offset + elapsed) % (offset);
 	m_TimeStep = (m_TimeStep + offset + elapsed) / (offset);
 	m_TimeStep = (m_TimeStep - std::floor(m_TimeStep)) * offset;
 
@@ -45,19 +43,17 @@ void Animation::Render(float X, float Y, TimeStep elapsed)
 	m_Frames[frameID]->GetSprite()->Render(X, Y);
 }
 
-Animation* AnimationBase::Add(size_t ID, Animation* animation)
+
+Ref<AnimationBase> AnimationBase::s_Instance = CreateRef<AnimationBase>();
+Ref<AnimationBase> AnimationBase::GetInstance() { return s_Instance; }
+
+Ref<Animation> AnimationBase::Add(const std::string& name, Ref<Animation> animation)
 {
-	std::shared_ptr<Animation>& pAnimation = m_Animations[ID];
-	pAnimation.reset(animation);
-	return pAnimation.get();
+	Ref<Animation>& refer = m_Animations[name];
+	return refer = animation;
 }
 
-Animation* AnimationBase::Get(size_t ID)
+Ref<Animation> AnimationBase::Get(const std::string& name)
 {
-	return m_Animations[ID].get(); 
-}
-
-AnimationBase* AnimationBase::GetInstance()
-{
-	return s_Instance.get();
+	return m_Animations[name];
 }

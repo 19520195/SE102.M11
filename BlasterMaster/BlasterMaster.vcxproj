@@ -23,6 +23,7 @@
     <ClCompile Include="Engine\Math\Box.cc" />
     <ClCompile Include="Engine\Math\Collision.cc" />
     <ClCompile Include="Engine\Math\Physic.cc" />
+    <ClCompile Include="Source\Scene\SceneManager.cc" />
     <ClCompile Include="Source\Object\Enemy\Ballbot.cc" />
     <ClCompile Include="Source\Object\Enemy\BallCarry.cc" />
     <ClCompile Include="Source\Object\Enemy\Enemy.cc" />
@@ -61,7 +62,9 @@
     <ClInclude Include="Engine\Math\Box.hh" />
     <ClInclude Include="Engine\Math\Collision.hh" />
     <ClInclude Include="Engine\Math\Physic.hh" />
+    <ClInclude Include="Engine\Renderer\IRender2D.hh" />
     <ClInclude Include="Resources\Resources.hh" />
+    <ClInclude Include="Source\Scene\SceneManager.hh" />
     <ClInclude Include="Source\Object\Brick.hh" />
     <ClInclude Include="Source\Object\Enemy\Ballbot.hh" />
     <ClInclude Include="Source\Object\Enemy\BallCarry.hh" />
@@ -100,15 +103,25 @@
     <ClInclude Include="Source\Utility\Strings.hh" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Resources\Area3.png" />
-    <Image Include="Resources\Area3Tiled.png" />
+    <Image Include="Resources\Dungeon\Background.png" />
+    <Image Include="Resources\Dungeon\Foreground.png" />
+    <Image Include="Resources\Dungeon\Tiles.png" />
+    <Image Include="Resources\World\Background.png" />
+    <Image Include="Resources\World\Tiles.png" />
     <Image Include="Resources\Blue.png" />
     <Image Include="Resources\Enemies.png" />
     <Image Include="Resources\Red.png" />
     <Image Include="Resources\SophiaIII.png" />
+    <Image Include="Resources\World\Foreground.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Area3.ini" />
+    <None Include="Resources\Dungeon\Configuration.ini" />
+    <None Include="Resources\Dungeon\Map.tmx" />
+    <None Include="Resources\World\Configuration.ini" />
+    <None Include="Resources\BM.ini" />
+    <None Include="Resources\World\Map.tmx" />
+    <None Include="Resources\World\Objects.ini" />
+    <None Include="Resources\World\Resources.ini" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

@@ -30,6 +30,6 @@ void Stuka::Update(TimeStep elapsed)
 void Stuka::Render(TimeStep elapsed)
 {
   AnimationBase::GetInstance()
-    ->Get(ANMID_STUKA)
+    ->Get("Stuka")
     ->Render(m_X, m_Y, elapsed);
 }

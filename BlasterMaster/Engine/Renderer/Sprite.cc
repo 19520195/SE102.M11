@@ -1,12 +1,12 @@
 #include "Sprite.hh"
 #include "Renderer.hh"
 
-Sprite::Sprite(size_t ID, float top, float left, float bottom, float right, Texture* texture)
+Sprite::Sprite(float top, float left, float bottom, float right, Texture* texture)
 {
-  m_Rect.top    = (LONG)top;
-  m_Rect.left   = (LONG)left;
-  m_Rect.bottom = (LONG)bottom;
-  m_Rect.right  = (LONG)right;
+  m_Rect.top    = static_cast<LONG>(top);
+  m_Rect.left   = static_cast<LONG>(left);
+  m_Rect.bottom = static_cast<LONG>(bottom);
+  m_Rect.right  = static_cast<LONG>(right);
   m_Texture     = texture;
 }
 
@@ -20,25 +20,21 @@ Texture* Sprite::GetTexture()
   return m_Texture;
 }
 
-void Sprite::Render(float X, float Y)
+void Sprite::Render(float X, float Y, TimeStep elapsed)
 {
   Renderer::DrawSprite(X, Y, this);
 }
 
-std::shared_ptr<SpriteBase> SpriteBase::s_Instance = std::make_shared<SpriteBase>();
+Ref<SpriteBase> SpriteBase::s_Instance = CreateRef<SpriteBase>();
+Ref<SpriteBase> SpriteBase::GetInstance() { return s_Instance; }
 
-Sprite* SpriteBase::Add(size_t ID, float top, float left, float bottom, float right, Texture* texture)
+Ref<Sprite> SpriteBase::Add(const std::string& name, float top, float left, float bottom, float right, Texture* texture)
 {
-  m_Sprites[ID].reset(new Sprite(ID, top, left, bottom, right, texture));
-  return m_Sprites[ID].get();
+  m_Sprites[name] = CreateRef<Sprite>(top, left, bottom, right, texture);
+  return m_Sprites[name];
 }
 
-Sprite* SpriteBase::Get(size_t ID)
+Ref<Sprite> SpriteBase::Get(const std::string& name)
 {
-  return m_Sprites[ID].get();
-}
-
-SpriteBase* SpriteBase::GetInstance()
-{
-  return s_Instance.get();
+  return m_Sprites[name];
 }

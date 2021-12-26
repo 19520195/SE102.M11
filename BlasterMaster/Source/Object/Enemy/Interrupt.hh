@@ -14,9 +14,4 @@ public:
   Trigger* CreateTrigger();
 
   void Activate();
-
-  void Render(TimeStep elapsed);
-
-private:
-  uint32_t m_SpriteID;
 };

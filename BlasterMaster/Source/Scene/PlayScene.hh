@@ -8,13 +8,11 @@ class PlayScene : public Scene
 {
 public:
   PlayScene();
-  PlayScene(const std::string& conf);
+  PlayScene(const std::string& rFile, const std::string& oFile);
 
   Player* GetPlayer() const;
   std::vector<Object*> GetObjects() const;
 
-  void SetForeground(uint32_t ID);
-  void SetBackground(uint32_t ID);
   void SetPlayer(Ref<Player> player);
   void SetKeyboardHandler(Ref<KeyboardEvent> handler);
 
@@ -27,7 +25,4 @@ private:
   Ref<Player>               m_Player;
   std::vector<Object*>      m_Objects;
   std::unique_ptr<QuadTree> m_QuadTree;
-
-  uint32_t m_ForegroundID;
-  uint32_t m_BackgroundID;
 };

@@ -2,17 +2,18 @@
 #include "Renderer.hh"
 #include <Windows.h>
 
-std::shared_ptr<TextureBase> TextureBase::s_Instance = std::make_shared<TextureBase>();
+Ref<TextureBase> TextureBase::s_Instance = CreateRef<TextureBase>();
+Ref<TextureBase> TextureBase::GetInstance() { return s_Instance; }
 
 TextureBase::~TextureBase()
 {
   for (auto& texture : m_Textures)
     if (texture.second != nullptr)
       texture.second->Release();
-  m_Textures.clear();
 }
 
-Texture* TextureBase::Add(size_t ID, LPCWSTR path, D3DCOLOR trans)
+
+Texture* TextureBase::Add(const std::string& name, LPCWSTR path, D3DCOLOR trans)
 {
   D3DXIMAGE_INFO info;
   HRESULT result = D3DXGetImageInfoFromFile(path, &info);
@@ -47,16 +48,12 @@ Texture* TextureBase::Add(size_t ID, LPCWSTR path, D3DCOLOR trans)
     return nullptr;
   }
 
-  m_Textures[ID] = texture;
+  m_Textures[name] = texture;
   return texture;
 }
 
-Texture* TextureBase::Get(size_t ID)
+Texture* TextureBase::Get(const std::string& name)
 {
-  return m_Textures[ID];
+  return m_Textures[name];
 }
 
-TextureBase* TextureBase::GetInstance()
-{
-  return s_Instance.get();
-}

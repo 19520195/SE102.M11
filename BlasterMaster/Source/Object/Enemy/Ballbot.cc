@@ -84,6 +84,6 @@ void Ballbot::Update(TimeStep elapsed)
 void Ballbot::Render(TimeStep elapsed)
 {
   AnimationBase::GetInstance()
-    ->Get(ANMID_BALLBOT)
+    ->Get("Ballbot")
     ->Render(m_X, m_Y, elapsed);
 }

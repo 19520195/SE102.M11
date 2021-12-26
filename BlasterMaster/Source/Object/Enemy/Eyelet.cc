@@ -27,12 +27,12 @@ void Eyelet::SetState(int state)
   if (SD_IS_LEFT(m_State))
   {
     m_Velocity.SetX(-EYELET_SPEED);
-    m_RenderID = ANMID_EYELET_RIGHT;
+    m_Render = AnimationBase::GetInstance()->Get("Eyelet-Left");
   }
   else
   {
     m_Velocity.SetX(EYELET_SPEED);
-    m_RenderID = ANMID_EYELET_LEFT;
+    m_Render = AnimationBase::GetInstance()->Get("Eyelet-Right");
   }
 }
 
@@ -54,8 +54,5 @@ void Eyelet::Update(TimeStep elasped)
 
 void Eyelet::Render(TimeStep elapsed)
 {
-  if (m_IsTriggered)
-    AnimationBase::GetInstance()
-      ->Get(m_RenderID)
-      ->Render(m_X, m_Y, elapsed);
+  if (m_IsTriggered) Enemy::Render(elapsed);
 }

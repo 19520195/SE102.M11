@@ -9,7 +9,7 @@ Interrupt::Interrupt()
   m_Height = INTERRUPT_HEIGHT;
 
   m_IsTriggered = false;
-  m_SpriteID = SPRID_INTERRUPT_IDLE;
+  m_Render = SpriteBase::GetInstance()->Get("Interrupt-Idle");
 }
 
 Trigger* Interrupt::CreateTrigger()
@@ -28,14 +28,9 @@ void Interrupt::Activate()
 
   m_Y += 3;
   m_Height -= 3;
-  m_SpriteID = SPRID_INTERRUPT_ACTIVE;
+  m_Render = SpriteBase::GetInstance()->Get("Interrupt-Active");
 
   // Drop a Neoworm
   Ref<PlayScene> scene = std::static_pointer_cast<PlayScene>(Game::GetInstance()->GetScene());
   scene->AddObject(new Neoworm(Vector2F(m_X + 7, m_Y - 4)));
-}
-
-void Interrupt::Render(TimeStep elapsed)
-{
-  SpriteBase::GetInstance()->Get(m_SpriteID)->Render(m_X, m_Y);
 }

@@ -3,7 +3,7 @@
 #include "Engine/Renderer/Texture.hh"
 #include "Engine/Renderer/Sprite.hh"
 #include "Engine/Renderer/Animation.hh"
-#include "Scene/SceneParser.hh"
+#include "Scene/SceneManager.hh"
 
 INT APIENTRY wWinMain(_In_     HINSTANCE hInstance,
                       _In_opt_ HINSTANCE hPrevInstance,
@@ -15,8 +15,8 @@ INT APIENTRY wWinMain(_In_     HINSTANCE hInstance,
     SCREEN_HEIGHT,
     SCREEN_TITLE,
     hInstance, nCmdShow);
-  std::shared_ptr<PlayScene> scene(new PlayScene("Resources/Area3.ini"));
-  Game::GetInstance()->SetScene(std::move(scene));
+  SceneManager::GetInstance()->LoadConfig("Resources/BM.ini");
+  Game::GetInstance()->SetScene(SceneManager::GetInstance()->Get("World"));
   Game::GetInstance()->Run(); 
   return EXIT_SUCCESS;
 }

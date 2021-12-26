@@ -9,7 +9,7 @@ Neoworm::Neoworm(Vector2F p)
 
   m_Width = NEOWORMFALL_WIDTH;
   m_Height = NEOWORMFALL_HEIGHT;
-  m_SpriteID = SPRID_NEOWORM_FALL;
+  m_Render = SpriteBase::GetInstance()->Get("Neoworm-Fall");
 }
 
 void Neoworm::SetState(int state)
@@ -20,12 +20,12 @@ void Neoworm::SetState(int state)
   {
   case true: // LEFT
     velocity = -NEOWORMFALL_SPEED;
-    m_SpriteID = ANMID_NEOWORM_WALK_LEFT;
+    m_Render = AnimationBase::GetInstance()->Get("Neoworm-Walk-Left");
     break;
 
   case false: // RIGHT
     velocity = NEOWORMFALL_SPEED;
-    m_SpriteID = ANMID_NEOWORM_WALK_RIGHT;
+    m_Render = AnimationBase::GetInstance()->Get("Neoworm-Walk-Right");
     break;
   }
 
@@ -45,7 +45,7 @@ void Neoworm::Activate()
   m_Height = NEOWORM_HEIGHT;
 }
 
-void Neoworm::Update(TimeStep elapsed)
+void Neoworm::Update(TimeStep elapsed) 
 {
   Vector2F deltaTime(
     static_cast<float>(elapsed),
@@ -60,13 +60,6 @@ void Neoworm::Update(TimeStep elapsed)
   m_X += GetSpeedX() * deltaTime.GetX();
   m_Y += GetSpeedY() * deltaTime.GetY();
   if (deltaTime.GetY() == 0) SetSpeed(GetSpeedX(), 0);
-}
-
-void Neoworm::Render(TimeStep elapsed)
-{
-  if (!m_IsTriggered)
-    return SpriteBase::GetInstance()->Get(m_SpriteID)->Render(m_X, m_Y);
-  AnimationBase::GetInstance()->Get(m_SpriteID)->Render(m_X, m_Y, elapsed);
 }
 
 void Neoworm::CollideWithBrick(Brick* brick, TimeStep elapsed, Vector2F& deltaTime)

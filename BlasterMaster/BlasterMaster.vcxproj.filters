@@ -36,6 +36,7 @@
     <ClCompile Include="Source\Utility\Strings.cc" />
     <ClCompile Include="Engine\Math\Physic.cc" />
     <ClCompile Include="Engine\Physic\Collider2D.cc" />
+    <ClCompile Include="Source\Scene\SceneManager.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Core\Window.hh" />
@@ -80,16 +81,28 @@
     <ClInclude Include="Engine\Core\Base.hh" />
     <ClInclude Include="Engine\Math\Physic.hh" />
     <ClInclude Include="Engine\Physic\Collider2D.hh" />
+    <ClInclude Include="Source\Scene\SceneManager.hh" />
+    <ClInclude Include="Engine\Renderer\IRender2D.hh" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\SophiaIII.png" />
     <Image Include="Resources\Blue.png" />
-    <Image Include="Resources\Area3.png" />
-    <Image Include="Resources\Area3Tiled.png" />
+    <Image Include="Resources\World\Background.png" />
+    <Image Include="Resources\World\Tiles.png" />
     <Image Include="Resources\Enemies.png" />
     <Image Include="Resources\Red.png" />
+    <Image Include="Resources\World\Foreground.png" />
+    <Image Include="Resources\Dungeon\Tiles.png" />
+    <Image Include="Resources\Dungeon\Background.png" />
+    <Image Include="Resources\Dungeon\Foreground.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Area3.ini" />
+    <None Include="Resources\World\Configuration.ini" />
+    <None Include="Resources\BM.ini" />
+    <None Include="Resources\Dungeon\Configuration.ini" />
+    <None Include="Resources\World\Map.tmx" />
+    <None Include="Resources\Dungeon\Map.tmx" />
+    <None Include="Resources\World\Objects.ini" />
+    <None Include="Resources\World\Resources.ini" />
   </ItemGroup>
 </Project>

@@ -28,12 +28,11 @@ public:
   int GetHeader(const std::string& header);
 
   bool Parse();
-  void PrintDebugInfo() const;
 
-  Object*    ParseObject(const std::string& detail);
-  Texture*   ParseTexture(const std::string& detail); 
-  Sprite*    ParseSprite(const std::string& detail);
-  Animation* ParseAnimation(const std::string& detail);
+  Object*         ParseObject(const std::string& detail);
+  Texture*        ParseTexture(const std::string& detail); 
+  Ref<Sprite>     ParseSprite(const std::string& detail);
+  Ref<Animation>  ParseAnimation(const std::string& detail);
 
 private:
   std::string m_Filename;

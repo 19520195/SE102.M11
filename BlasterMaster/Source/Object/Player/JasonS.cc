@@ -21,12 +21,12 @@ void JasonS::Render(TimeStep elapsed)
 {
   if (SM_IS_IDLE(m_State))
   {
-    size_t ID = (SD_IS_LEFT(m_State) ? SPRID_JASON_IDLE_LEFT : SPRID_JASON_IDLE_RIGHT);
+    std::string ID = (SD_IS_LEFT(m_State) ? "Jason-Idle-Left" : "Jason-Idle-Right");
     SpriteBase::GetInstance()->Get(ID)->Render(m_X, m_Y);
   }
   else
   {
-    size_t ID = (SD_IS_LEFT(m_State) ? ANMID_JASON_WALK_LEFT : ANMID_JASON_WALK_RIGHT);
+    std::string ID = (SD_IS_LEFT(m_State) ? "Jason-Walk-Left" : "Jason-Walk-Right");
     AnimationBase::GetInstance()->Get(ID)->Render(m_X, m_Y, elapsed);
   }
 }

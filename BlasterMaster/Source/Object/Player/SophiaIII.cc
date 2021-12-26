@@ -7,14 +7,14 @@ std::vector<bool> DEBUG_COLLISION;
 
 SophiaIII::SophiaIII()
 {
-  m_Barrel = std::make_unique<SophiaIIIBodyPart>();
-  m_Hammer = std::make_unique<SophiaIIIBodyPart>();
-  m_Grip   = std::make_unique<SophiaIIIBodyPart>();
-  m_LWheel = std::make_unique<SophiaIIIWheel>();
-  m_RWheel = std::make_unique<SophiaIIIWheel>();
+  m_Barrel = std::make_unique<Object>();
+  m_Hammer = std::make_unique<Object>();
+  m_Grip   = std::make_unique<Object>();
+  m_LWheel = std::make_unique<Object>();
+  m_RWheel = std::make_unique<Object>();
 
-  m_LWheel->SetID(ANMID_S3_LEFT_WHEEL);
-  m_RWheel->SetID(ANMID_S3_RIGHT_WHEEL);
+  m_LWheel->SetAnimation("S3-Left-Wheel");
+  m_RWheel->SetAnimation("S3-Right-Wheel");
 
   m_Width = SOPHIAIII_WIDTH;
   m_Height = SOPHIAIII_HEIGHT;
@@ -169,25 +169,24 @@ void SophiaIII::Render(TimeStep elapsed)
   {
     m_Barrel->SetXY(m_X    , m_Y + 8);
     m_Hammer->SetXY(m_X + 8, m_Y + 8);
-
-    m_Grip  ->SetID(SPRID_S3_GRIP_LEFT);
-    m_Barrel->SetID(SPRID_S3_BARREL_LEFT);
-    m_Hammer->SetID(SPRID_S3_LEFT_HAMMER);
+    m_Grip  ->SetSprite("S3-Grip-Left");
+    m_Barrel->SetSprite("S3-Barrel-Left");
+    m_Hammer->SetSprite("S3-Left-Hammer");
   }
 
   if (SD_IS_RIGHT(m_State))
   {
     m_Barrel->SetXY(m_X + 16, m_Y + 8);
     m_Hammer->SetXY(m_X     , m_Y + 8);
-    m_Grip  ->SetID(SPRID_S3_GRIP_RIGHT);
-    m_Barrel->SetID(SPRID_S3_BARREL_RIGHT);
-    m_Hammer->SetID(SPRID_S3_RIGHT_HAMMER);
+    m_Grip  ->SetSprite("S3-Grip-Right");
+    m_Barrel->SetSprite("S3-Barrel-Right");
+    m_Hammer->SetSprite("S3-Right-Hammer");
   }
 
   if (SD_IS_UP(m_State))
   {
     m_Barrel->SetXY(m_X + (m_Width - 8) / 2, m_Y + m_Height + 4);
-    m_Hammer->SetID(SD_IS_LEFT(m_State) ? SPRID_S3_UPLEFT_HAMMER : SPRID_S3_UPRIGHT_HAMMER);
+    m_Hammer->SetSprite(SD_IS_LEFT(m_State) ? "S3-UpLeft-Hammer" : "S3-UpRight-Hammer");
     m_Hammer->SetXY(SD_IS_LEFT(m_State) ? m_X + 9 : m_X, m_Y + 6);
   }
 
@@ -205,7 +204,7 @@ void SophiaIII::Render(TimeStep elapsed)
     m_Barrel->SetXY(m_X + 9, m_Y + 24);
     if (SD_IS_LEFT(m_State))
     {
-      m_Barrel->SetID(SPRID_S3_BARREL_LEFT_90DEG);
+      m_Barrel->SetSprite("S3-Barrel-Left-90deg");
       m_LWheel->SetXY(m_X     , m_Y     );
       m_RWheel->SetXY(m_X + 12, m_Y     );
       m_Grip  ->SetXY(m_X +  6, m_Y +  7);
@@ -213,7 +212,7 @@ void SophiaIII::Render(TimeStep elapsed)
     }
     else
     {
-      m_Barrel->SetID(SPRID_S3_BARREL_RIGHT_90DEG);
+      m_Barrel->SetSprite("S3-Barrel-Right-90deg");
       m_LWheel->SetXY(m_X +  6, m_Y     );
       m_RWheel->SetXY(m_X + 18, m_Y     );
       m_Grip  ->SetXY(m_X + 12, m_Y +  7);
@@ -260,8 +259,6 @@ void SophiaIIIKeyboardEvent::KeyState(BYTE* keyboard)
   SophiaIII* pS3 = static_cast<SophiaIII*>(m_Player);
   int currentState = pS3->GetState();
 
-  
-
   // MOVE: Jump
   if (IS_KEYDOWN(keyboard, SophiaIIIKBS::Jump) && SM_IS_FALL(pS3->GetState()))
     if (!pS3->GetSpeedY())
@@ -284,8 +281,10 @@ void SophiaIIIKeyboardEvent::KeyState(BYTE* keyboard)
   // Set state
   pS3->SetState(currentState);
 
-  if (IS_KEYDOWN(keyboard, SophiaIIIKBS::Shoot))
-    pS3->CreateBullet();
+  // if (IS_KEYDOWN(keyboard, SophiaIIIKBS::Shoot))
+  //   if (auto bullet = pS3->CreateBullet())
+  //     std::static_pointer_cast<PlayScene>(
+  //       Game::GetInstance()->GetScene())->AddObject(bullet);
 
   if (IS_KEYDOWN(keyboard, SophiaIIIKBS::Open))
   {

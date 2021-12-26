@@ -1,9 +1,6 @@
 #pragma once
-
+#include "Engine/Core/Base.hh"
 #include <d3dx9.h>
-
-#include <memory>
-#include <unordered_map>
 
 typedef IDirect3DTexture9 Texture;
 
@@ -12,15 +9,12 @@ class TextureBase
 public:
 	TextureBase() = default;
 	~TextureBase();
+	static Ref<TextureBase> GetInstance();
 
-	Texture* Add(size_t ID, LPCWSTR path, D3DCOLOR trans);
-	Texture* Get(size_t ID);
-
-	static TextureBase* GetInstance();
-
-private:
-	std::unordered_map<size_t, Texture*> m_Textures;
+	Texture* Add(const std::string& name, LPCWSTR path, D3DCOLOR trans);
+	Texture* Get(const std::string& name);
 
 private:
-	static std::shared_ptr<TextureBase> s_Instance;
+	static Ref<TextureBase> s_Instance;
+	HashTable<std::string, Texture*> m_Textures;
 };

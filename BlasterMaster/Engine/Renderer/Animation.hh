@@ -1,29 +1,27 @@
 #pragma once
-
-#include <vector>
-
 #include "Sprite.hh"
 #include "Engine/Core/TimeStep.hh"
+#include <vector>
 
 class Frame
 {
 public:
-  Frame(Sprite* sprite, TimeStep time);
+  Frame(Ref<Sprite> sprite, TimeStep time);
 
-  Sprite* GetSprite();
   TimeStep GetTime();
+  Ref<Sprite> GetSprite();
 
 private:
-  Sprite*  m_Sprite;
-  TimeStep m_Time;
+  TimeStep    m_Time;
+  Ref<Sprite> m_Sprite;
 };
 
-class Animation
+class Animation : public IRender2D
 {
 public:
   Animation(TimeStep defaultTime);
 
-  void Add(size_t spriteID, TimeStep time = 0);
+  void Add(const std::string& name, TimeStep time = 0);
   void Render(float X, float Y, TimeStep elapsed);
 
 private:
@@ -32,20 +30,18 @@ private:
   TimeStep m_TimeStep; 
 
   TimeStep m_LastFrameTime;
-  std::vector<std::shared_ptr<Frame>> m_Frames;
+  std::vector<Ref<Frame>> m_Frames;
 };
 
 class AnimationBase
 {
 public:
-  Animation* Add(size_t ID, Animation* animation);
-  Animation* Get(size_t ID);
-  
-  static AnimationBase* GetInstance(); 
+  static Ref<AnimationBase> GetInstance();
 
+  Ref<Animation> Add(const std::string& name, Ref<Animation> animation);
+  Ref<Animation> Get(const std::string& name);
+ 
 private:
-  std::unordered_map<size_t, std::shared_ptr<Animation>> m_Animations;
-
-private:
-  static std::shared_ptr<AnimationBase> s_Instance;
+  static Ref<AnimationBase> s_Instance;
+  HashTable<std::string, Ref<Animation>> m_Animations;
 };

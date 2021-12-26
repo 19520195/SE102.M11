@@ -8,6 +8,6 @@ BallCarry::BallCarry()
 void BallCarry::Render(TimeStep elapsed)
 {
   AnimationBase::GetInstance()
-    ->Get(ANMID_BALL_CARRY)
+    ->Get("Ball-Carry")
     ->Render(m_X, m_Y, elapsed);
 }

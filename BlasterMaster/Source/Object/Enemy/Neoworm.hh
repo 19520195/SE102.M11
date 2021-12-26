@@ -20,11 +20,7 @@ public:
   void Activate();
 
   void Update(TimeStep elapsed);
-  void Render(TimeStep elapsed);
 
 private:
   void CollideWithBrick(Brick* brick, TimeStep elapsed, Vector2F& deltaTime);
-
-private:
-  uint32_t m_SpriteID;
 };
