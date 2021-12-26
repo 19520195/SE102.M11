@@ -63,7 +63,6 @@
     <ClInclude Include="Engine\Math\Collision.hh" />
     <ClInclude Include="Engine\Math\Physic.hh" />
     <ClInclude Include="Engine\Renderer\IRender2D.hh" />
-    <ClInclude Include="Resources\Resources.hh" />
     <ClInclude Include="Source\Scene\SceneManager.hh" />
     <ClInclude Include="Source\Object\Brick.hh" />
     <ClInclude Include="Source\Object\Enemy\Ballbot.hh" />

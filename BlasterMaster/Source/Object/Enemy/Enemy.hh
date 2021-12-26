@@ -1,7 +1,6 @@
 #pragma once
 #include "Engine/Core/Object.hh"
 #include "Object/State.hh"
-#include "Resources/Resources.hh"
 
 class Enemy;
 class Trigger;

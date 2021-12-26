@@ -69,7 +69,6 @@
     <ClInclude Include="Source\Object\Player\Player.hh" />
     <ClInclude Include="Source\Object\Enemy\Enemy.hh" />
     <ClInclude Include="Source\Object\Brick.hh" />
-    <ClInclude Include="Resources\Resources.hh" />
     <ClInclude Include="Source\Object\Enemy\Ballbot.hh" />
     <ClInclude Include="Source\Object\Enemy\Stuka.hh" />
     <ClInclude Include="Source\Object\Enemy\Eyelet.hh" />

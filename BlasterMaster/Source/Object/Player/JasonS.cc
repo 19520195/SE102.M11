@@ -1,6 +1,5 @@
 #include "JasonS.hh"
 #include "Object/State.hh"
-#include "Resources/Resources.hh"
 
 JasonS::JasonS()
 {
