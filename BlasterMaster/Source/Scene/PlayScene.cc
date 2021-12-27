@@ -1,5 +1,6 @@
 #include "PlayScene.hh"
 #include "SceneParser.hh"
+#include "Engine/Core/Game.hh"
 #include "Engine/Core/Input.hh"
 
 PlayScene::PlayScene()
@@ -14,14 +15,18 @@ PlayScene::PlayScene(const std::string& rFile, const std::string& oFile)
   SceneParser rcParser(rFile);
   if (!rcParser.Parse())
     DEBUG_MSG(L"Can not parse file %s\n", TO_LPWSTR(rFile));
+  else
+  {
+    m_Background = SpriteBase::GetInstance()->Get("Background");
+    m_Foreground = SpriteBase::GetInstance()->Get("Foreground");
+  }
 
   SceneParser obParser(oFile);
   if (!obParser.Parse()) DEBUG_MSG(L"Can not parse file %s\n", TO_LPWSTR(oFile));
   else
   {
     m_QuadTree = CreateScope<QuadTree>(1600.f, 784.f);
-    for (auto object : obParser.GetObjects())
-      m_QuadTree->Insert(object);
+    m_QuadTree->Insert(obParser.GetObjects());
 
     this->SetPlayer(obParser.GetPlayer());
     this->SetKeyboardHandler(obParser.GetKeyboardEvent());
@@ -33,10 +38,16 @@ Player* PlayScene::GetPlayer() const
   return m_Player.get();
 }
 
-std::vector<Object*> PlayScene::GetObjects() const
+std::vector<Ref<Object>> PlayScene::GetObjects()
 {
+  TimeStep currentFrameTime = Game::GetInstance()->GetLastFrameTime();
+  if (m_LastGetObject == currentFrameTime)
+    return m_Objects;
+  m_LastGetObject = currentFrameTime;
+  
   Box2F viewport(m_Camera, SCREEN_WIDTH, SCREEN_HEIGHT);
-  return m_QuadTree->Retrieve(viewport);
+  m_Objects = m_QuadTree->Retrieve(viewport);
+  return m_Objects;
 }
 
 void PlayScene::SetPlayer(Ref<Player> player)
@@ -51,7 +62,7 @@ void PlayScene::SetKeyboardHandler(Ref<KeyboardEvent> handler)
   Input::GetInstance()->SetKeyHandler(m_Keyboard);
 }
 
-void PlayScene::AddObject(Object* object)
+void PlayScene::AddObject(Ref<Object> object)
 {
   m_QuadTree->Insert(object);
 }
@@ -59,67 +70,39 @@ void PlayScene::AddObject(Object* object)
 void PlayScene::Update(TimeStep elapsed)
 {
   m_Objects = this->GetObjects();
-  m_Player->Update(elapsed, m_Objects);
-
   m_Camera.SetXY(m_Player->GetX() - 100, m_Player->GetY() - 100);
   if (m_Camera.GetX() < 0) m_Camera.SetX(0);
   if (m_Camera.GetY() < 0) m_Camera.SetY(0);
   if (m_Camera.GetX() > 1344) m_Camera.SetX(1344);
   if (m_Camera.GetY() > 560) m_Camera.SetY(560);
 
-  // SophiaIII* s3 = dynamic_cast<SophiaIII*>(m_Player);
-  // for (const auto& bullet : s3->GetBullets())
-  //   bullet->Update(elapsed, m_Objects);
-
+  uint32_t deadcount = 0;
   for (auto& object : m_Objects)
     if (object->IsDied() == false)
-      object->Update(elapsed);
+      object->Update(elapsed, m_Objects);
+    else {
+      ++deadcount;
+      m_QuadTree->Remove(object);
+    }
+  
+  DEBUG_MSG(L"Dead Count = %d\n", deadcount);
 }
 
 void PlayScene::Render(TimeStep elapsed)
 {
-  #ifdef _DEBUG
-  Texture* DEBUG_RED_BBOX  = nullptr; // TextureBase::GetInstance()->Get(TEXID_RED_BBOX);
-  Texture* DEBUG_BLUE_BBOX = nullptr; // TextureBase::GetInstance()->Get(TEXID_BLUE_BBOX);
-  #endif // _DEBUG
+  // 3 layers 
+  // L2 - Foreground
+  // L1 - Objects
+  // L0 - Background
 
-  // Draw background
-  SpriteBase::GetInstance()->Get("Background")->Render(0, 0);
+  m_Background->Render(0, 0);
+  
+  auto _hi = TextureBase::GetInstance()->Get("Blue-BBox");
+  for (const auto& object : this->GetObjects())
+    CreateScope<Sprite>(0, 0, object->GetHeight(), object->GetWidth(), _hi)
+      ->Render(object->GetX(), object->GetY());
 
-  for (size_t i = 0; i < DEBUG_COLLISION.size(); ++i)
-  {
-    const auto& object = m_Objects[i];
-    if (!object->IsDied())
-    {
-      object->Render(elapsed);
-
-      #ifdef _DEBUG
-      Texture* bbox = (DEBUG_COLLISION[i] ? DEBUG_RED_BBOX : DEBUG_BLUE_BBOX); 
-      Sprite sprite(0, 0, object->GetHeight(), object->GetWidth(), bbox);
-      Renderer::DrawSprite(object->GetX(), object->GetY(), &sprite);
-      #endif // _DEBUG
-    }
-  }
-
-  // for (const auto& bullet : (static_cast<SophiaIII*>(m_Player))->GetBullets())
-  // {
-  //   if (bullet->IsDied() == false)
-  //   {
-  //     const auto& object = bullet;
-  //     object->Render(elapsed);
-  // 
-  //     #ifdef _DEBUG
-  //     Sprite sprite(0, 0, 0, object->GetHeight(), object->GetWidth(), DEBUG_BLUE_BBOX);
-  //     Renderer::DrawSprite(object->GetX(), object->GetY(), &sprite);
-  //     #endif // _DEBUG
-  //   }
-  // }
-
-  m_Player->Render(elapsed);
-  #ifdef _DEBUG
-  Sprite sprite(0, 0, m_Player->GetHeight(), m_Player->GetWidth(), DEBUG_BLUE_BBOX);
-  Renderer::DrawSprite(m_Player->GetX(), m_Player->GetY(), &sprite);
-  #endif // _DEBUG
-
-  SpriteBase::GetInstance()->Get("Foreground")->Render(0, 0);
+  for (const auto& object : this->GetObjects())
+    object->Render(elapsed);
+  m_Foreground->Render(0, 0);
 }

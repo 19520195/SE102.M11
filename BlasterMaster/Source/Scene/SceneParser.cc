@@ -17,7 +17,7 @@ Ref<Player> SceneParser::GetPlayer() const
   return m_Player;
 }
 
-std::vector<Object*> SceneParser::GetObjects() const
+std::vector<Ref<Object>> SceneParser::GetObjects() const
 {
   return m_Objects;
 }
@@ -57,6 +57,30 @@ int SceneParser::GetHeader(const std::string& header)
   return SceneHeaderUnknow;
 }
 
+ObjectTag SceneParser::StringToTag(const std::string& str)
+{
+  if (str == "Brick") return ObjectTag::Brick;
+  if (str == "Jason") return ObjectTag::Jason;
+  if (str == "SophiaIII") return ObjectTag::SophiaIII;
+  return ObjectTag::Undefined;
+}
+
+ObjectType SceneParser::TagToType(const ObjectTag& tag)
+{
+  switch (tag)
+  {
+  case ObjectTag::Brick:
+    return ObjectType::Brick;
+
+  case ObjectTag::SophiaIII:
+  case ObjectTag::Jason:
+    return ObjectType::Player;
+
+  default:
+    return ObjectType::Enemy;
+  }
+}
+
 bool SceneParser::Parse()
 {
   if (m_IsParsed) return false;
@@ -89,20 +113,26 @@ bool SceneParser::Parse()
   return true;
 }
 
-Object* SceneParser::ParseObject(const std::string& detail)
+Ref<Object> SceneParser::ParseObject(const std::string& detail)
 {
   std::vector<std::string> tokens = Strings::Split(detail, "\t");
   if (tokens.size() != 5 && tokens.size() != 9)
     return nullptr;
 
-  Object* object = nullptr;
+  Ref<Object> object;
   std::string name = tokens[0];
-  if (name == "Brick")
-    object = new Brick();
-  else if (name == "SophiaIII")
-    object = new SophiaIII();
-  else object = Enemy::Create(name);
-  if (object == nullptr) return nullptr;
+  auto tag = StringToTag(name);
+  switch (tag)
+  {
+  case ObjectTag::Brick: object = CreateRef<Brick>(); break;
+  case ObjectTag::Jason: // object = CreateRef<Jason>(); break;
+  case ObjectTag::SophiaIII: object = CreateRef<SophiaIII>(); break;
+  default: object = Enemy::Create(name);
+  }
+
+  // Invalid object
+  if (!object)
+    return nullptr;
 
   float X = std::stof(tokens[1]);
   float Y = std::stof(tokens[2]);
@@ -113,19 +143,13 @@ Object* SceneParser::ParseObject(const std::string& detail)
   object->SetWidth(width);
   object->SetHeight(height);
 
-  Enemy* enemy = dynamic_cast<Enemy*>(object);
-  if (enemy != nullptr)
+  if (TagToType(tag) == ObjectType::Player)
   {
-    if (Trigger* trigger = enemy->CreateTrigger())
-      m_Objects.emplace_back(trigger);
-  }
-
-  if (name == "SophiaIII")
-  {
-    m_Player.reset(static_cast<Player*>(object));
+    m_Player = std::static_pointer_cast<Player>(object);
     m_Keyboard = m_Player->GetKeyboard();
   }
-  else m_Objects.push_back(object);
+
+  m_Objects.push_back(object);
   return object;
 }
 

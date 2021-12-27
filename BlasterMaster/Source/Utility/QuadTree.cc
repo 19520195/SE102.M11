@@ -1,27 +1,54 @@
 #include "QuadTree.hh"
 
+constexpr size_t NUMBER_PARTITIONS = 4;
+
 QuadNode::QuadNode(float width, float height) : 
   m_Level(0), Box2F(0, 0, width, height)
 {
 }
 
-void QuadNode::Insert(Object* object)
+void QuadNode::Insert(Ref<Object> object)
 {
+  Insert(std::vector<Ref<Object>>{ object });
+}
+
+void QuadNode::Insert(const std::vector<Ref<Object>>& objects)
+{
+  m_Objects.insert(objects.begin(), objects.end());
   if (0 <= m_Level || (m_Objects.empty() && m_Children.empty()))
-    return (void)m_Objects.emplace_back(object);
-  
+    return;
+
   if (m_Children.empty())
     m_Children = CreateChildren();
 
-  m_Objects.emplace_back(object);
+  // Partitioning objects to partitions
+  std::vector<std::vector<Ref<Object>>> m_Part(NUMBER_PARTITIONS);
   for (const auto& object : m_Objects)
-    for (auto& child : m_Children)
-      if (Collision::AABB(child, *object))
-        child.Insert(object);
+    for (size_t i = 0; i < NUMBER_PARTITIONS; ++i)
+      if (Collision::AABB(m_Children[i], *object))
+        m_Part[i].emplace_back(object);
+
+  // Migrate object from this node to children
   m_Objects.clear();
+  for (size_t i = 0; i < NUMBER_PARTITIONS; ++i)
+    if (m_Part[i].size() != 0)
+      m_Children[i].Insert(m_Part[i]);
 }
 
-void QuadNode::Retrieve(const Box2F& box, std::set<Object*>& container) const
+void QuadNode::Remove(const Ref<Object>& object)
+{
+  // Leaf node
+  if (m_Objects.size())
+    if (auto iter = m_Objects.find(object); iter != m_Objects.end())
+      m_Objects.erase(iter);
+
+  // Children traversal
+  for (size_t i = 0; i < m_Children.size(); ++i)
+    if (Collision::AABB(m_Children[i], *object))
+      m_Children[i].Remove(object);
+}
+
+void QuadNode::Retrieve(const Box2F& box, std::set<Ref<Object>>& container) const
 {
   if (m_Children.empty())
     return container.insert(m_Objects.begin(), m_Objects.end());
@@ -31,14 +58,11 @@ void QuadNode::Retrieve(const Box2F& box, std::set<Object*>& container) const
       child.Retrieve(box, container);
 }
 
-QuadNode::Container QuadNode::Retrieve(const Box2F& box) const
+std::vector<Ref<Object>> QuadNode::Retrieve(const Box2F& box) const
 {
-  std::set<Object*> container;
-  // Container container;
+  std::set<Ref<Object>> container;
   this->Retrieve(box, container);
-  // std::sort(container.begin(), container.end());
-  // container.resize(std::unique(container.begin(), container.end()) - container.begin());
-  return Container(container.begin(), container.end());
+  return std::vector<Ref<Object>>(container.begin(), container.end());
 }
 
 std::vector<QuadNode> QuadNode::CreateChildren() const

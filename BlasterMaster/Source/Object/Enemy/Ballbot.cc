@@ -39,7 +39,7 @@ void Ballbot::Update(TimeStep elapsed)
     auto objects = currentScene->GetObjects();
     for (const auto& object : objects)
     {
-      if (dynamic_cast<Brick*>(object))
+      if (dynamic_cast<Brick*>(object.get()))
       {
         Collider collider = Collision::SweptAABBx(*this, *object);
         if (IN_RANGE(collider.GetCollisionTime(), 0, static_cast<float>(elapsed)))
@@ -75,7 +75,6 @@ void Ballbot::Update(TimeStep elapsed)
     if (IN_RANGE(direct.GetX(), -BALLBOT_TRIGGER_WITDH, BALLBOT_TRIGGER_WITDH) &&
       IN_RANGE(direct.GetY(), 0, BALLBOT_TRIGGER_HEIGHT))
     {
-      DEBUG_MSG(L"X = %.2f, Y = %.2f\n", direct.GetX(), direct.GetY());
       this->Activate();
     }
   }

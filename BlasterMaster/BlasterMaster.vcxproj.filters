@@ -15,7 +15,6 @@
     <ClCompile Include="Engine\Event\KeyboardEvent.cc" />
     <ClCompile Include="Engine\Scene\Scene.cc" />
     <ClCompile Include="Source\Utility\QuadTree.cc" />
-    <ClCompile Include="Engine\Renderer\Renderable.cc" />
     <ClCompile Include="Engine\Core\Input.cc" />
     <ClCompile Include="Engine\Debug\Debug.cc" />
     <ClCompile Include="Source\Scene\PlayScene.cc" />
@@ -55,7 +54,6 @@
     <ClInclude Include="Engine\Scene\Scene.hh" />
     <ClInclude Include="Source\Utility\QuadTree.hh" />
     <ClInclude Include="Source\BlasterMaster.hh" />
-    <ClInclude Include="Engine\Renderer\Renderable.hh" />
     <ClInclude Include="Engine\Core\Input.hh" />
     <ClInclude Include="Engine\Debug\Debug.hh" />
     <ClInclude Include="Source\Scene\PlayScene.hh" />

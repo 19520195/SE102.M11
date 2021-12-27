@@ -32,17 +32,17 @@ void Enemy::ResetTrigger()
   m_IsTriggered = false;
 }
 
-Enemy* Enemy::Create(const std::string& name)
+Ref<Enemy> Enemy::Create(const std::string& name)
 {
   auto tokens = Strings::Split(name, ".");
   std::string enemyType = tokens[0];
 
-  Enemy* enemy = nullptr;
-       if (enemyType == "Interrupt" ) enemy = new Interrupt();
-  else if (enemyType == "Ballbot"   ) enemy = new Ballbot();
-  else if (enemyType == "Stuka"     ) enemy = new Stuka();
-  else if (enemyType == "Eyelet"    ) enemy = new Eyelet();
-  else if (enemyType == "Ball-Carry") enemy = new BallCarry();
+  Ref<Enemy> enemy;
+       if (enemyType == "Interrupt" ) enemy = CreateRef<Interrupt>();
+  else if (enemyType == "Ballbot"   ) enemy = CreateRef<Ballbot>();
+  else if (enemyType == "Stuka"     ) enemy = CreateRef<Stuka>();
+  else if (enemyType == "Eyelet"    ) enemy = CreateRef<Eyelet>();
+  else if (enemyType == "Ball-Carry") enemy = CreateRef<BallCarry>();
   else return nullptr;
 
   if (tokens.size() >= 2)

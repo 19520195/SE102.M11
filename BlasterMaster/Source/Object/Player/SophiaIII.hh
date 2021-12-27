@@ -7,7 +7,6 @@
 #include "Engine/Core/Input.hh"
 #include "Engine/Renderer/Animation.hh"
 #include "Engine/Renderer/Renderer.hh"
-#include "Engine/Renderer/Renderable.hh"
 #include <deque>
 #include <memory>
 
@@ -40,16 +39,13 @@ public:
   SophiaIII();
 
   TimeStep GetLastBulletTime() const;
-  std::vector<SophiaIIIBullet*> GetBullets();
 
   void SetState(int state);
   
-  void AddBullet(SophiaIIIBullet* bullet);
-  
-  SophiaIIIBullet* CreateBullet();
+  Ref<SophiaIIIBullet> CreateBullet();
   Scope<JasonS> CreateJason();
 
-  virtual void Update(TimeStep elapsed, std::vector<Object*> objects);
+  virtual void Update(TimeStep elapsed, std::vector<Ref<Object>> objects);
   virtual void Render(TimeStep elapsed);
 
 private:
@@ -62,7 +58,7 @@ private:
   Scope<Object> m_LWheel;
   Scope<Object> m_RWheel;
 
-  std::deque<Scope<SophiaIIIBullet>> m_Bullets;
+  std::deque<TimeStep> m_BulletTimes;
 };
 
 class SophiaIIIKeyboardEvent : public KeyboardEvent

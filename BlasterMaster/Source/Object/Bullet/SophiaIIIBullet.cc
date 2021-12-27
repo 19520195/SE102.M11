@@ -21,10 +21,10 @@ void SophiaIIIBullet::SetArriveTime(TimeStep arrive)
   m_ArriveTime = arrive;
 }
 
-void SophiaIIIBullet::Update(TimeStep elapsed, std::vector<Object*> objects)
+void SophiaIIIBullet::Update(TimeStep elapsed, std::vector<Ref<Object>> objects)
 {
   if (this->IsDied()) return;
-  std::sort(objects.begin(), objects.end(), [](Object* shl, Object* shr) {
+  std::sort(objects.begin(), objects.end(), [](Ref<Object> shl, Ref<Object> shr) {
     return shl->GetX() < shr->GetX();
   });
 
@@ -42,10 +42,10 @@ void SophiaIIIBullet::Update(TimeStep elapsed, std::vector<Object*> objects)
 
       if (killed)
       {
-        if (dynamic_cast<Brick*>(object))
+        if (dynamic_cast<Brick*>(object.get()))
           return this->Die();
         
-        if (Enemy* enemy = dynamic_cast<Enemy*>(object))
+        if (Enemy* enemy = dynamic_cast<Enemy*>(object.get()))
         {
           if (enemy->IsActivated())
           {

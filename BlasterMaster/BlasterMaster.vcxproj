@@ -40,7 +40,6 @@
     <ClCompile Include="Engine\Core\Input.cc" />
     <ClCompile Include="Engine\Renderer\Camera.cc" />
     <ClCompile Include="Engine\Renderer\Animation.cc" />
-    <ClCompile Include="Engine\Renderer\Renderable.cc" />
     <ClCompile Include="Source\Scene\PlayScene.cc" />
     <ClCompile Include="Source\BlasterMaster.cc" />
     <ClCompile Include="Engine\Core\Window.cc" />
@@ -89,7 +88,6 @@
     <ClInclude Include="Engine\Renderer\Renderer.hh" />
     <ClInclude Include="Engine\Scene\Scene.hh" />
     <ClInclude Include="Source\Utility\QuadTree.hh" />
-    <ClInclude Include="Engine\Renderer\Renderable.hh" />
     <ClInclude Include="Source\Object\Object.hh" />
     <ClInclude Include="Source\Scene\PlayScene.hh" />
     <ClInclude Include="Source\BlasterMaster.hh" />

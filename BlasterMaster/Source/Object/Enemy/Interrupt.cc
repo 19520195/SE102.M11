@@ -32,5 +32,5 @@ void Interrupt::Activate()
 
   // Drop a Neoworm
   Ref<PlayScene> scene = std::static_pointer_cast<PlayScene>(Game::GetInstance()->GetScene());
-  scene->AddObject(new Neoworm(Vector2F(m_X + 7, m_Y - 4)));
+  scene->AddObject(CreateRef<Neoworm>(Vector2F(m_X + 7, m_Y - 4)));
 }

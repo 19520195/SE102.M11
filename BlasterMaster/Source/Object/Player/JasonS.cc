@@ -4,7 +4,8 @@
 JasonS::JasonS()
 {
   m_Width = JASONS_WIDTH;
-  m_Height = JASONS_HEGIHT;  
+  m_Height = JASONS_HEGIHT;
+  m_Acceleration = Vector2F(.0f, -.033f);
   m_Keyboard = std::make_unique<JasonSKeyboard>(this);
 }
 

@@ -1,7 +1,5 @@
 #pragma once
-
 #include "Engine/Core/Object.hh"
-#include "Engine/Renderer/Renderable.hh"
 
 class Bullet : public Object
 {

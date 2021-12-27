@@ -27,30 +27,16 @@ SophiaIII::SophiaIII()
 
 TimeStep SophiaIII::GetLastBulletTime() const
 {
-  if (m_Bullets.empty()) return 0;
-  return m_Bullets.back()->GetArriveTime();
-}
-
-std::vector<SophiaIIIBullet*> SophiaIII::GetBullets()
-{
-  while (m_Bullets.size())
-  {
-    TimeStep lastFrameTime = Game::GetInstance()->GetLastFrameTime();
-    if ((lastFrameTime - m_Bullets.front()->GetArriveTime()) < S3_BULLET_TIMEOUT) break;
-    m_Bullets.pop_front();
-  }
-
-  std::vector<SophiaIIIBullet*> bullets;
-  for (const auto& bullet : m_Bullets)
-    bullets.emplace_back(bullet.get());
-  return bullets;
+  if (m_BulletTimes.empty())
+    return 0;
+  return m_BulletTimes.back();
 }
 
 void SophiaIII::SetState(int state)
 {
   Object::SetState(state);
 
-  if (SM_IS_IDLE(m_State)) m_Velocity.SetX(0); 
+  if (SM_IS_IDLE(m_State)) m_Velocity.SetX(0);
   else
   {
     // MOVE: left / right
@@ -65,23 +51,17 @@ void SophiaIII::SetState(int state)
   }
 }
 
-void SophiaIII::AddBullet(SophiaIIIBullet* bullet)
-{
-  m_Bullets.emplace_back(bullet);
-}
-
-SophiaIIIBullet* SophiaIII::CreateBullet()
+Ref<SophiaIIIBullet> SophiaIII::CreateBullet()
 {
   TimeStep lastFrameTime = Game::GetInstance()->GetLastFrameTime();
   TimeStep lastBulletTime = this->GetLastBulletTime();
   TimeStep elapsed = lastFrameTime - lastBulletTime;
 
-  if (elapsed < S3_BULLET_DELTA || this->GetBullets().size() >= S3_BULLET_MAX)
+  if (elapsed < S3_BULLET_DELTA || m_BulletTimes.size() >= S3_BULLET_MAX)
     return nullptr;
   
-  SophiaIIIBullet* bullet = new SophiaIIIBullet(SD_IS_UP(m_State));
+  Ref<SophiaIIIBullet> bullet = CreateRef<SophiaIIIBullet>(SD_IS_UP(m_State));
   bullet->SetArriveTime(lastFrameTime);
-  this->AddBullet(bullet);
 
   if (SD_IS_UP(m_State))
   {
@@ -114,7 +94,7 @@ Scope<JasonS> SophiaIII::CreateJason()
   return jason;
 }
 
-void SophiaIII::Update(TimeStep elapsed, std::vector<Object*> objects)
+void SophiaIII::Update(TimeStep elapsed, std::vector<Ref<Object>> objects)
 {
   DEBUG_COLLISION = std::vector<bool>(objects.size());
 
@@ -125,11 +105,11 @@ void SophiaIII::Update(TimeStep elapsed, std::vector<Object*> objects)
     Vector2F deltaMove = Vector2F::Infinity();
     float deltaCollide = Collision::SweptAABB(*this, *objects[i]);
 
-    if (Trigger* trigger = dynamic_cast<Trigger*>(objects[i]))
+    if (Trigger* trigger = dynamic_cast<Trigger*>(objects[i].get()))
       if (0 <= deltaCollide && deltaCollide <= elapsed)
         trigger->Start();
 
-    if (Brick* brick = dynamic_cast<Brick*>(objects[i]))
+    if (Brick* brick = dynamic_cast<Brick*>(objects[i].get()))
     {
       if (0 <= deltaCollide && deltaCollide <= elapsed)
       {
@@ -137,7 +117,7 @@ void SophiaIII::Update(TimeStep elapsed, std::vector<Object*> objects)
         deltaMove = CollideWithBrick(brick, deltaCollide);
       }
     }
-    else if (Enemy* enemy = dynamic_cast<Enemy*>(objects[i]))
+    else if (Enemy* enemy = dynamic_cast<Enemy*>(objects[i].get()))
     {
       if (enemy->IsActivated())
       {
@@ -281,10 +261,10 @@ void SophiaIIIKeyboardEvent::KeyState(BYTE* keyboard)
   // Set state
   pS3->SetState(currentState);
 
-  // if (IS_KEYDOWN(keyboard, SophiaIIIKBS::Shoot))
-  //   if (auto bullet = pS3->CreateBullet())
-  //     std::static_pointer_cast<PlayScene>(
-  //       Game::GetInstance()->GetScene())->AddObject(bullet);
+  if (IS_KEYDOWN(keyboard, SophiaIIIKBS::Shoot))
+    if (auto bullet = pS3->CreateBullet())
+      std::static_pointer_cast<PlayScene>(
+        Game::GetInstance()->GetScene())->AddObject(bullet);
 
   if (IS_KEYDOWN(keyboard, SophiaIIIKBS::Open))
   {

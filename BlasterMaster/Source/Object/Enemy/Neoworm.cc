@@ -53,9 +53,9 @@ void Neoworm::Update(TimeStep elapsed)
   SetSpeed(GetSpeedX(), GetSpeedY() - NEOWORMFALL_GRAVITY * elapsed);
 
   Ref<PlayScene> scene = std::static_pointer_cast<PlayScene>(Game::GetInstance()->GetScene());
-  std::vector<Object*> objects = scene->GetObjects();
+  auto objects = scene->GetObjects();
   for (const auto& object : objects)
-    CollideWithBrick(dynamic_cast<Brick*>(object), elapsed, deltaTime);
+    CollideWithBrick(dynamic_cast<Brick*>(object.get()), elapsed, deltaTime);
 
   m_X += GetSpeedX() * deltaTime.GetX();
   m_Y += GetSpeedY() * deltaTime.GetY();

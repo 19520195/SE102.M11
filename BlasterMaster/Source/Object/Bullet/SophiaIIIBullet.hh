@@ -21,7 +21,7 @@ public:
 
   void SetArriveTime(TimeStep arrive);
 
-  virtual void Update(TimeStep elapsed, std::vector<Object*> objects);
+  virtual void Update(TimeStep elapsed, std::vector<Ref<Object>> objects);
   virtual void Render(TimeStep elapsed);
 
 private:

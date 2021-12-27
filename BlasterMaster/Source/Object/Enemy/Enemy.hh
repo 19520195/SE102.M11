@@ -17,7 +17,7 @@ public:
   virtual void Activate();
   virtual void ResetTrigger();
 
-  static Enemy* Create(const std::string& name);
+  static Ref<Enemy> Create(const std::string& name);
 
 protected:
   bool m_IsActivated;
