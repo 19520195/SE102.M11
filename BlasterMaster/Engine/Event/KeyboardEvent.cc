@@ -1,6 +1,16 @@
 #include "KeyboardEvent.hh"
 
-void KeyboardEvent::SetPlayer(Object* player)
+void KeyboardEvent::KeyState(BYTE* state)
 {
-  m_Player = player;
+  //
+}
+
+void KeyboardEvent::OnKeyDown(int code)
+{
+  //
+}
+
+void KeyboardEvent::OnKeyUp(int code)
+{
+  //
 }

@@ -62,6 +62,7 @@ ObjectTag SceneParser::StringToTag(const std::string& str)
   if (str == "Brick") return ObjectTag::Brick;
   if (str == "Jason") return ObjectTag::Jason;
   if (str == "SophiaIII") return ObjectTag::SophiaIII;
+  if (str == "Scene-Portal") return ObjectTag::ScenePortal;
   return ObjectTag::Undefined;
 }
 
@@ -116,8 +117,6 @@ bool SceneParser::Parse()
 Ref<Object> SceneParser::ParseObject(const std::string& detail)
 {
   std::vector<std::string> tokens = Strings::Split(detail, "\t");
-  if (tokens.size() != 5 && tokens.size() != 9)
-    return nullptr;
 
   Ref<Object> object;
   std::string name = tokens[0];
@@ -125,8 +124,12 @@ Ref<Object> SceneParser::ParseObject(const std::string& detail)
   switch (tag)
   {
   case ObjectTag::Brick: object = CreateRef<Brick>(); break;
-  case ObjectTag::Jason: // object = CreateRef<Jason>(); break;
+  case ObjectTag::Jason: object = CreateRef<Jason>(); break;
   case ObjectTag::SophiaIII: object = CreateRef<SophiaIII>(); break;
+  case ObjectTag::ScenePortal:
+    object = CreateRef<ScenePortal>();
+    std::static_pointer_cast<ScenePortal>(object)->SetScene(tokens[5]);
+    break;
   default: object = Enemy::Create(name);
   }
 
@@ -144,10 +147,7 @@ Ref<Object> SceneParser::ParseObject(const std::string& detail)
   object->SetHeight(height);
 
   if (TagToType(tag) == ObjectType::Player)
-  {
-    m_Player = std::static_pointer_cast<Player>(object);
-    m_Keyboard = m_Player->GetKeyboard();
-  }
+    m_Keyboard = (m_Player = std::static_pointer_cast<Player>(object))->GetKeyboard();
 
   m_Objects.push_back(object);
   return object;

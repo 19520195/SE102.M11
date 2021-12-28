@@ -19,11 +19,12 @@ public:
   Game() = default;
   ~Game();
 
-  Ref<Scene> GetScene() const;
+  Ref<Scene> GetScene();
   TimeStep GetLastFrameTime() const;
   TimeStep GetElapsedTime() const;
 
   void SetScene(Ref<Scene> scene);
+  void SwitchScene(Ref<Scene> scene);
 
   void Create(int width, int height, std::wstring title, HINSTANCE hInstance, int nCmdShow);
   void Run();
@@ -33,6 +34,7 @@ public:
 private:
   Scope<Window> m_Window;
   Ref<Scene>    m_Scene;
+  Ref<Scene>    m_NextScene;
 
   bool     m_Running       = true;
   TimeStep m_LastFrameTime = 0;

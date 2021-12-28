@@ -3,8 +3,6 @@
 #include "Engine/Core/Game.hh"
 #include "Engine/Renderer/Animation.hh"
 
-std::vector<bool> DEBUG_COLLISION;
-
 SophiaIII::SophiaIII()
 {
   m_Barrel = std::make_unique<Object>();
@@ -96,8 +94,6 @@ Scope<JasonS> SophiaIII::CreateJason()
 
 void SophiaIII::Update(TimeStep elapsed, std::vector<Ref<Object>> objects)
 {
-  DEBUG_COLLISION = std::vector<bool>(objects.size());
-
   m_Velocity.SetY(m_Velocity.GetY() - SOPHIAIII_GRAVITY * elapsed);
   Vector2F deltaTime(static_cast<float>(elapsed), static_cast<float>(elapsed));
   for (size_t i = 0; i < objects.size(); ++i)
@@ -110,26 +106,16 @@ void SophiaIII::Update(TimeStep elapsed, std::vector<Ref<Object>> objects)
         trigger->Start();
 
     if (Brick* brick = dynamic_cast<Brick*>(objects[i].get()))
-    {
       if (0 <= deltaCollide && deltaCollide <= elapsed)
-      {
-        DEBUG_COLLISION[i] = true;
         deltaMove = CollideWithBrick(brick, deltaCollide);
-      }
-    }
-    else if (Enemy* enemy = dynamic_cast<Enemy*>(objects[i].get()))
-    {
-      if (enemy->IsActivated())
-      {
-        if ((0 <= deltaCollide && deltaCollide <= elapsed) || Collision::AABB(*this, *objects[i]))
-        {
-          DEBUG_COLLISION[i] = true;
-        }
-      }
-    }
 
     deltaTime.SetX(std::min(deltaTime.GetX(), deltaMove.GetX()));
     deltaTime.SetY(std::min(deltaTime.GetY(), deltaMove.GetY()));
+
+
+    if (Ref<Portal> portal = std::dynamic_pointer_cast<Portal>(objects[i]))
+      if (0 <= deltaCollide && deltaCollide <= elapsed)
+        return portal->Activate();
   }
 
   m_X += m_Velocity.GetX() * deltaTime.GetX();
@@ -229,9 +215,8 @@ Vector2F SophiaIII::CollideWithBrick(Brick* brick, float deltaCollide)
   return delta;
 }
 
-SophiaIIIKeyboardEvent::SophiaIIIKeyboardEvent(SophiaIII* player)
+SophiaIIIKeyboardEvent::SophiaIIIKeyboardEvent(SophiaIII* player) : m_Player(player)
 {
-  m_Player = player;
 }
 
 void SophiaIIIKeyboardEvent::KeyState(BYTE* keyboard)

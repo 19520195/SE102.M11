@@ -16,7 +16,7 @@ INT APIENTRY wWinMain(_In_     HINSTANCE hInstance,
     SCREEN_TITLE,
     hInstance, nCmdShow);
   SceneManager::GetInstance()->LoadConfig("Resources/BM.ini");
-  Game::GetInstance()->SetScene(SceneManager::GetInstance()->Get("World"));
+  Game::GetInstance()->SetScene(SceneManager::GetInstance()->GetCurrentScene());
   Game::GetInstance()->Run(); 
   return EXIT_SUCCESS;
 }

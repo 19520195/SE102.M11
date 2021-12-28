@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="left-up" width="32" height="126" tilewidth="16" tileheight="16" infinite="0" nextlayerid="25" nextobjectid="196">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="left-up" width="32" height="126" tilewidth="16" tileheight="16" infinite="0" nextlayerid="27" nextobjectid="203">
  <tileset firstgid="1" name="Dungeon" tilewidth="16" tileheight="16" spacing="1" tilecount="72" columns="12">
-  <image source="Dungeon.Tiles.png" width="203" height="101"/>
+  <image source="Tiles.png" width="203" height="101"/>
  </tileset>
  <group id="21" name="Tiles" locked="1">
   <layer id="18" name="Background" width="32" height="126" locked="1">
@@ -395,7 +395,10 @@
 </data>
   </layer>
  </group>
- <group id="22" name="Objects" locked="1">
+ <group id="22" name="Objects">
+  <objectgroup id="26" name="Player">
+   <object id="201" name="Jason" x="108" y="32" width="24" height="32"/>
+  </objectgroup>
   <objectgroup id="24" name="Brick" locked="1">
    <object id="165" x="0" y="0" width="32" height="2016"/>
    <object id="167" x="224" y="0" width="64" height="1936"/>

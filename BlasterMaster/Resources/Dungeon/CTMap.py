@@ -6,6 +6,7 @@ with open('Map.tmx', 'r') as MapEditor:
 WorldMap = WorldMap.find('map')
 MAP_WIDTH = int(WorldMap['width']) * int(WorldMap['tilewidth'])
 MAP_HEIGHT = int(WorldMap['height']) * int(WorldMap['tileheight'])
+print("Width x Height =", MAP_WIDTH, MAP_HEIGHT)
 
 def ReCoord(coord):
   X, Y, Width, Height = coord
@@ -16,11 +17,11 @@ def GetDirect(GameObject: bs4.element.Tag):
   if str(Direct) == 'None': return ""
   return ".{}".format(Direct["value"])
 
-with open('Draft.Objects.ini', 'w') as conf:
+with open('Objects.ini', 'w') as conf:
   print('[OBJECTS]', file=conf)
   print('#', 'X', 'Y', 'WIDTH', 'HEIGHT', sep='\t', file=conf)
 
-  for ObjectName in ['SophiaIII', 'Scene Portal', 'Brick', 'Ball Carry', 'Ballbot', 'Eyelet', 'Interrupt', 'Stuka']:
+  for ObjectName in ['Jason', 'Brick']:
     GameObjects = WorldMap.find_all('object', attrs={'name': ObjectName})
     GameObjects = map(lambda GameObject: [*ReCoord(list(map(int, [
       GameObject['x'], GameObject['y'],

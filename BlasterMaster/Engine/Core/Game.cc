@@ -1,14 +1,17 @@
 #include "Game.hh"
 
 Ref<Game> Game::s_Instance = CreateRef<Game>();
+Ref<Game> Game::GetInstance() { return s_Instance; }
 
 Game::~Game()
 {
   Renderer::CleanDirectX3D();
 }
 
-Ref<Scene> Game::GetScene() const
+Ref<Scene> Game::GetScene()
 {
+  if (m_NextScene != nullptr)
+    m_Scene = std::move(m_NextScene);
   return m_Scene; 
 }
 
@@ -24,8 +27,13 @@ TimeStep Game::GetElapsedTime() const
 
 void Game::SetScene(Ref<Scene> scene)
 {
-  if ((m_Scene = scene) != nullptr)
-    Input::GetInstance()->SetKeyHandler(m_Scene->GetKeyboardHandler());
+  m_Scene = scene;
+  Input::GetInstance()->SetKeyHandler(m_Scene->GetKeyboardHandler());
+}
+
+void Game::SwitchScene(Ref<Scene> scene)
+{
+  m_NextScene = scene;
 }
 
 void Game::Create(int width, int height, std::wstring title, HINSTANCE hInstance, int nCmdShow)
@@ -69,14 +77,9 @@ void Game::Run()
       if (m_Scene)
       {
         Input::GetInstance()->ProcKeyboard();
-        m_Scene->Update(m_ElapsedTime);
+        GetScene()->Update(m_ElapsedTime);
         Renderer::Render(m_ElapsedTime);
       }
     }
   }
-}
-
-Ref<Game> Game::GetInstance()
-{
-  return s_Instance;
 }

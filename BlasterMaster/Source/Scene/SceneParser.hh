@@ -17,7 +17,7 @@ enum class ObjectTag : uint32_t
   Brick,
   Jason,
   SophiaIII,
-  Portal
+  ScenePortal
 };
 
 enum class ObjectType : uint32_t

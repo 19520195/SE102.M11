@@ -1,6 +1,7 @@
 #pragma once
-#include "Engine/Core/Base.hh"
-#include "Engine/Core/TimeStep.hh"
+#include "Base.hh"
+#include "TimeStep.hh"
+#include "Behavior.hh"
 #include "Engine/Renderer/Renderer.hh"
 #include "Engine/Math/Math.hh"
 #include "Engine/Physic/Collider2D.hh"
@@ -18,9 +19,11 @@ public:
   virtual void Die();
 
   int GetState();
+  Behavior GetBehavior() const;
   Ref<Collider2D> GetCollider() const;
   virtual bool IsDied() const;
 
+  virtual void SetBehavior(const Behavior& behavior);
   void SetSprite(const std::string& name);
   void SetAnimation(const std::string& name);
 
@@ -32,6 +35,7 @@ protected:
   int  m_State;
   bool m_Died;
 
+  Behavior        m_Behavior;
   Ref<IRender2D>  m_Render;
   Ref<Collider2D> m_Collider;
 };

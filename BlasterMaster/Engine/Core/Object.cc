@@ -28,6 +28,11 @@ int Object::GetState()
   return m_State;
 }
 
+Behavior Object::GetBehavior() const
+{
+  return m_Behavior;
+}
+
 Ref<Collider2D> Object::GetCollider() const
 {
   return m_Collider;
@@ -36,6 +41,11 @@ Ref<Collider2D> Object::GetCollider() const
 bool Object::IsDied() const
 {
   return m_Died;
+}
+
+void Object::SetBehavior(const Behavior& behavior)
+{
+  m_Behavior = behavior;
 }
 
 void Object::SetSprite(const std::string& name)

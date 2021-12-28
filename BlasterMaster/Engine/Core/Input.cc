@@ -63,6 +63,7 @@ void Input::ProcKeyboard()
     return; 
   }
 
+  if (!m_KeyHandler) return; /// DEBUG ///
   m_KeyHandler->KeyState((BYTE*)&m_KeyStates);
 
   // Collect all buffered events

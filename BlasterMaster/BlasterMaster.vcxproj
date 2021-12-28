@@ -19,10 +19,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Engine\Core\Behavior.cc" />
     <ClCompile Include="Engine\Physic\Collider2D.cc" />
     <ClCompile Include="Engine\Math\Box.cc" />
     <ClCompile Include="Engine\Math\Collision.cc" />
     <ClCompile Include="Engine\Math\Physic.cc" />
+    <ClCompile Include="Source\Object\Player\Jason.cc" />
+    <ClCompile Include="Source\Object\Portal\ScenePortal.cc" />
+    <ClCompile Include="Source\Object\Portal\Portal.cc" />
     <ClCompile Include="Source\Scene\SceneManager.cc" />
     <ClCompile Include="Source\Object\Enemy\Ballbot.cc" />
     <ClCompile Include="Source\Object\Enemy\BallCarry.cc" />
@@ -56,12 +60,16 @@
     <ClCompile Include="Source\Utility\Strings.cc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Engine\Core\Behavior.hh" />
     <ClInclude Include="Engine\Physic\Collider2D.hh" />
     <ClInclude Include="Engine\Core\Base.hh" />
     <ClInclude Include="Engine\Math\Box.hh" />
     <ClInclude Include="Engine\Math\Collision.hh" />
     <ClInclude Include="Engine\Math\Physic.hh" />
     <ClInclude Include="Engine\Renderer\IRender2D.hh" />
+    <ClInclude Include="Source\Object\Player\Jason.hh" />
+    <ClInclude Include="Source\Object\Portal\ScenePortal.hh" />
+    <ClInclude Include="Source\Object\Portal\Portal.hh" />
     <ClInclude Include="Source\Scene\SceneManager.hh" />
     <ClInclude Include="Source\Object\Brick.hh" />
     <ClInclude Include="Source\Object\Enemy\Ballbot.hh" />
@@ -103,6 +111,7 @@
     <Image Include="Resources\Dungeon\Background.png" />
     <Image Include="Resources\Dungeon\Foreground.png" />
     <Image Include="Resources\Dungeon\Tiles.png" />
+    <Image Include="Resources\Jason.png" />
     <Image Include="Resources\World\Background.png" />
     <Image Include="Resources\World\Tiles.png" />
     <Image Include="Resources\Blue.png" />
@@ -112,13 +121,16 @@
     <Image Include="Resources\World\Foreground.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Dungeon\Configuration.ini" />
+    <None Include="Resources\Dungeon\Resources.ini" />
     <None Include="Resources\Dungeon\Map.tmx" />
     <None Include="Resources\World\Configuration.ini" />
     <None Include="Resources\BM.ini" />
     <None Include="Resources\World\Map.tmx" />
     <None Include="Resources\World\Objects.ini" />
     <None Include="Resources\World\Resources.ini" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Resources\Dungeon\Objects.ini" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

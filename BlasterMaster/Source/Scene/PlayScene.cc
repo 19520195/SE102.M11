@@ -25,7 +25,8 @@ PlayScene::PlayScene(const std::string& rFile, const std::string& oFile)
   if (!obParser.Parse()) DEBUG_MSG(L"Can not parse file %s\n", TO_LPWSTR(oFile));
   else
   {
-    m_QuadTree = CreateScope<QuadTree>(1600.f, 784.f);
+    // m_QuadTree = CreateScope<QuadTree>(1600.f, 784.f);
+    m_QuadTree = CreateScope<QuadTree>(512.f, 2016.f);
     m_QuadTree->Insert(obParser.GetObjects());
 
     this->SetPlayer(obParser.GetPlayer());
@@ -52,8 +53,8 @@ std::vector<Ref<Object>> PlayScene::GetObjects()
 
 void PlayScene::SetPlayer(Ref<Player> player)
 {
-  m_Player = player;
-  SetKeyboardHandler(player->GetKeyboard());
+  if (m_Player = player)
+    SetKeyboardHandler(player->GetKeyboard());
 }
 
 void PlayScene::SetKeyboardHandler(Ref<KeyboardEvent> handler)
@@ -73,19 +74,13 @@ void PlayScene::Update(TimeStep elapsed)
   m_Camera.SetXY(m_Player->GetX() - 100, m_Player->GetY() - 100);
   if (m_Camera.GetX() < 0) m_Camera.SetX(0);
   if (m_Camera.GetY() < 0) m_Camera.SetY(0);
-  if (m_Camera.GetX() > 1344) m_Camera.SetX(1344);
-  if (m_Camera.GetY() > 560) m_Camera.SetY(560);
+  // if (m_Camera.GetX() > 1344) m_Camera.SetX(1344);
+  // if (m_Camera.GetY() > 560) m_Camera.SetY(560);
 
-  uint32_t deadcount = 0;
   for (auto& object : m_Objects)
     if (object->IsDied() == false)
       object->Update(elapsed, m_Objects);
-    else {
-      ++deadcount;
-      m_QuadTree->Remove(object);
-    }
-  
-  DEBUG_MSG(L"Dead Count = %d\n", deadcount);
+    else m_QuadTree->Remove(object);  
 }
 
 void PlayScene::Render(TimeStep elapsed)
@@ -97,10 +92,10 @@ void PlayScene::Render(TimeStep elapsed)
 
   m_Background->Render(0, 0);
   
-  auto _hi = TextureBase::GetInstance()->Get("Blue-BBox");
-  for (const auto& object : this->GetObjects())
-    CreateScope<Sprite>(0, 0, object->GetHeight(), object->GetWidth(), _hi)
-      ->Render(object->GetX(), object->GetY());
+  // auto _hi = TextureBase::GetInstance()->Get("Blue-BBox");
+  // for (const auto& object : this->GetObjects())
+  //   Sprite(0, 0, object->GetHeight(), object->GetWidth(), _hi)
+  //     .Render(object->GetX(), object->GetY());
 
   for (const auto& object : this->GetObjects())
     object->Render(elapsed);

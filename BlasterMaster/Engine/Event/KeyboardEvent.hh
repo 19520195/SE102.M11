@@ -6,11 +6,7 @@
 class KeyboardEvent
 {
 public:
-	virtual void KeyState(BYTE* state) = 0;
-	virtual void OnKeyDown(int code) = 0;
-	virtual void OnKeyUp(int code) = 0;
-	virtual void SetPlayer(Object* player);
-
-protected:
-	Object* m_Player;
+	virtual void KeyState(BYTE* state);
+	virtual void OnKeyDown(int code);
+	virtual void OnKeyUp(int code);
 };

@@ -1,16 +1,12 @@
 #pragma once
-
+#include "JasonS.hh"
 #include "Object/Object.hh"
-#include "Object/Player/JasonS.hh"
 #include "Object/Bullet/SophiaIIIBullet.hh"
-
 #include "Engine/Core/Input.hh"
 #include "Engine/Renderer/Animation.hh"
 #include "Engine/Renderer/Renderer.hh"
 #include <deque>
 #include <memory>
-
-extern std::vector<bool> DEBUG_COLLISION;
 
 constexpr float SOPHIAIII_WIDTH  = 24.f;
 constexpr float SOPHIAIII_HEIGHT = 18.f;
@@ -70,4 +66,7 @@ public:
   virtual void KeyState(BYTE* state);
   virtual void OnKeyUp(int code);
   virtual void OnKeyDown(int code);
+
+private:
+  SophiaIII* m_Player;
 };
