@@ -51,7 +51,9 @@ void QuadNode::Remove(const Ref<Object>& object)
 void QuadNode::Retrieve(const Box2F& box, std::set<Ref<Object>>& container) const
 {
   if (m_Children.empty())
-    return container.insert(m_Objects.begin(), m_Objects.end());
+    for (const auto& object : m_Objects)
+      if (Collision::AABB(box, *object))
+        container.insert(object);
 
   for (const auto& child : m_Children)
     if (Collision::AABB(box, child))

@@ -80,7 +80,14 @@ void PlayScene::Update(TimeStep elapsed)
   for (auto& object : m_Objects)
     if (object->IsDied() == false)
       object->Update(elapsed, m_Objects);
-    else m_QuadTree->Remove(object);  
+    else m_QuadTree->Remove(object);
+
+  // Colliders
+  std::vector<Ref<Collider2D>> colliders;
+  for (const auto& object : m_Objects)
+    if (Ref<Collider2D> collider = object->GetCollider())
+      colliders.emplace_back(collider);
+  DEBUG_MSG(L"Number of Colliders: %d\n", colliders.size());
 }
 
 void PlayScene::Render(TimeStep elapsed)

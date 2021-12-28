@@ -146,6 +146,11 @@ Ref<Object> SceneParser::ParseObject(const std::string& detail)
   object->SetWidth(width);
   object->SetHeight(height);
 
+  // Handle single move enemy
+  if (Ref<Stuka> stuka = std::dynamic_pointer_cast<Stuka>(object))
+    stuka->SetTrail(Y);
+
+  // Handle player
   if (TagToType(tag) == ObjectType::Player)
     m_Keyboard = (m_Player = std::static_pointer_cast<Player>(object))->GetKeyboard();
 
