@@ -11,6 +11,8 @@ PlayScene::PlayScene()
 PlayScene::PlayScene(const std::string& rFile, const std::string& oFile)
 {
   m_Player = nullptr;
+  m_Camera.SetWidth(SCREEN_WIDTH);
+  m_Camera.SetHeight(SCREEN_HEIGHT);
 
   SceneParser rcParser(rFile);
   if (!rcParser.Parse())
@@ -47,8 +49,7 @@ std::vector<Ref<Object>> PlayScene::GetObjects()
     return m_Objects;
   m_LastGetObject = currentFrameTime;
   
-  Box2F viewport(m_Camera, SCREEN_WIDTH, SCREEN_HEIGHT);
-  m_Objects = m_QuadTree->Retrieve(viewport);
+  m_Objects = m_QuadTree->Retrieve(m_Camera);
   return m_Objects;
 }
 
@@ -86,6 +87,8 @@ void PlayScene::Update(TimeStep elapsed)
 {
   m_Objects = this->GetObjects();
   m_Camera.SetXY(m_Player->GetX() - 100, m_Player->GetY() - 100);
+  m_Camera.SetCenter(m_Player->GetLocation());
+  
   // if (m_Camera.GetX() < 0) m_Camera.SetX(0);
   // if (m_Camera.GetY() < 0) m_Camera.SetY(0);
   // if (m_Camera.GetX() > 1344) m_Camera.SetX(1344);

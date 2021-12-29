@@ -66,6 +66,11 @@ void Box2F::SetHeight(const float& hegiht)
   m_Height = hegiht;
 }
 
+void Box2F::SetCenter(const Vector2F& location)
+{
+  SetLocation(location - (Vector2F(m_Width, m_Height) / 2.f));
+}
+
 void Box2F::SetLocation(const Vector2F& location)
 {
   m_X = location.GetX();
