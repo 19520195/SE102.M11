@@ -83,6 +83,12 @@ void Box2F::SetLocation(float X, float Y)
   m_Y = Y;
 }
 
+void Box2F::SetSize(const Vector2F& size)
+{
+  m_Width = size.GetX();
+  m_Height = size.GetY();
+}
+
 void Box2F::SetSize(float width, float height)
 {
   m_Width = width;

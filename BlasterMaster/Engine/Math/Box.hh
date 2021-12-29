@@ -25,6 +25,7 @@ public:
   void SetCenter(const Vector2F& location);
   virtual void SetLocation(const Vector2F& location);
   virtual void SetLocation(float X, float Y);
+  virtual void SetSize(const Vector2F& size);
   virtual void SetSize(float width, float height);
 
 protected:

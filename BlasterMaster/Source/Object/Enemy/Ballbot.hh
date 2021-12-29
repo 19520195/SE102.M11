@@ -12,7 +12,9 @@ class Ballbot : public Enemy
 {
 public:
   Ballbot();
+
+  void OnCollide(const Ref<Collision2D>& collision) override;
+
   void Activate();
-  void Update(TimeStep elapsed);
-  void Render(TimeStep elapsed);
+  void Update();
 };

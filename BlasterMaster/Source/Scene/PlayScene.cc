@@ -49,7 +49,10 @@ std::vector<Ref<Object>> PlayScene::GetObjects()
     return m_Objects;
   m_LastGetObject = currentFrameTime;
   
-  m_Objects = m_QuadTree->Retrieve(m_Camera);
+  Box2F active;
+  active.SetLocation(m_Camera.GetLocation() - m_Camera.GetSize() / 2.f);
+  active.SetSize(m_Camera.GetSize() * 2.f);
+  m_Objects = m_QuadTree->Retrieve(active);
   return m_Objects;
 }
 
