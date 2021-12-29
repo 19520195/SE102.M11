@@ -21,6 +21,8 @@ public:
 
   void SetArriveTime(TimeStep arrive);
 
+  void OnCollide(const Ref<Collision2D>& collision) override;
+
   virtual void Update(TimeStep elapsed, std::vector<Ref<Object>> objects);
   virtual void Render(TimeStep elapsed);
 

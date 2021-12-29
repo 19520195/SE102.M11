@@ -21,6 +21,14 @@ void SophiaIIIBullet::SetArriveTime(TimeStep arrive)
   m_ArriveTime = arrive;
 }
 
+void SophiaIIIBullet::OnCollide(const Ref<Collision2D>& collision)
+{
+  if (dynamic_cast<Brick*>(collision->GetCollider()->GetRefer()))
+    this->Die();
+  if (auto enemy = dynamic_cast<Enemy*>(collision->GetCollider()->GetRefer()))
+    this->Die(), enemy->Die();
+}
+
 void SophiaIIIBullet::Update(TimeStep elapsed, std::vector<Ref<Object>> objects)
 {
   if (this->IsDied()) return;

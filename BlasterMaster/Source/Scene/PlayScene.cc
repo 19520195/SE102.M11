@@ -41,6 +41,7 @@ Player* PlayScene::GetPlayer() const
 
 std::vector<Ref<Object>> PlayScene::GetObjects()
 {
+  // Cache for multiple retrieve
   TimeStep currentFrameTime = Game::GetInstance()->GetLastFrameTime();
   if (m_LastGetObject == currentFrameTime)
     return m_Objects;
@@ -77,15 +78,10 @@ void PlayScene::Update(TimeStep elapsed)
 {
   m_Objects = this->GetObjects();
   m_Camera.SetXY(m_Player->GetX() - 100, m_Player->GetY() - 100);
-  if (m_Camera.GetX() < 0) m_Camera.SetX(0);
-  if (m_Camera.GetY() < 0) m_Camera.SetY(0);
+  // if (m_Camera.GetX() < 0) m_Camera.SetX(0);
+  // if (m_Camera.GetY() < 0) m_Camera.SetY(0);
   // if (m_Camera.GetX() > 1344) m_Camera.SetX(1344);
   // if (m_Camera.GetY() > 560) m_Camera.SetY(560);
-
-  // for (auto& object : m_Objects)
-  //   if (object->IsDied() == false)
-  //     object->Update(elapsed, m_Objects);
-  //   else m_QuadTree->Remove(object);
 
   // Colliders
   List<Ref<Collider2D>> colliders;
@@ -97,12 +93,9 @@ void PlayScene::Update(TimeStep elapsed)
   for (auto& collider : colliders)
     collider->UpdateRefer();
 
-  // for (auto& object : m_Objects)
-  // {
-  //   // object->Update(elapsed);
-  //   if (object->IsDied())
-  //     m_QuadTree->Remove(object);
-  // }
+  for (auto& object : m_Objects)
+    if (object->IsDied())
+      m_QuadTree->Remove(object);
 }
 
 void PlayScene::Render(TimeStep elapsed)
