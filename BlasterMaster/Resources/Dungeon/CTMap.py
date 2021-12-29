@@ -21,13 +21,14 @@ with open('Objects.ini', 'w') as conf:
   print('[OBJECTS]', file=conf)
   print('#', 'X', 'Y', 'WIDTH', 'HEIGHT', sep='\t', file=conf)
 
-  for ObjectName in ['Jason', 'Brick']:
-    GameObjects = WorldMap.find_all('object', attrs={'name': ObjectName})
-    GameObjects = map(lambda GameObject: [*ReCoord(list(map(int, [
+  # for ObjectName in ['Jason', 'Brick']:
+  GameObjects = WorldMap.find_all('object') # , attrs={'name': ObjectName})
+  GameObjects = map(lambda GameObject: [
+    GameObject['name'], *ReCoord(list(map(int, [
       GameObject['x'], GameObject['y'],
-      GameObject['width'], GameObject['height']]))), GetDirect(GameObject)], GameObjects)
-    GameObjects = sorted(GameObjects)
+      GameObject['width'], GameObject['height']]))),
+    GetDirect(GameObject)], GameObjects)
+  GameObjects = sorted(GameObjects)
 
-    ObjectName = ObjectName.replace(' ', '-')
-    for X, Y, Width, Height, Direct in GameObjects:
-      print(ObjectName + Direct, X, Y, Width, Height, sep='\t', file=conf)
+  for name, X, Y, Width, Height, Direct in GameObjects:
+    print(name.replace(' ', '-'), X, Y, Width, Height, sep='\t', file=conf)

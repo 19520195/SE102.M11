@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="left-up" width="32" height="126" tilewidth="16" tileheight="16" infinite="0" nextlayerid="27" nextobjectid="203">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="left-up" width="32" height="126" tilewidth="16" tileheight="16" infinite="0" nextlayerid="30" nextobjectid="430">
  <tileset firstgid="1" name="Dungeon" tilewidth="16" tileheight="16" spacing="1" tilecount="72" columns="12">
   <image source="Tiles.png" width="203" height="101"/>
  </tileset>
  <group id="21" name="Tiles" locked="1">
-  <layer id="18" name="Background" width="32" height="126" locked="1">
+  <layer id="18" name="Background" width="32" height="126">
    <data encoding="csv">
 21,22,16,17,18,17,18,17,18,17,18,17,18,19,20,21,21,22,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 21,22,37,37,37,37,37,37,37,37,37,37,37,38,20,21,21,22,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -81,10 +81,10 @@
 21,22,37,37,37,37,39,39,37,37,37,37,37,38,20,21,21,22,37,37,37,37,37,37,37,37,37,37,37,38,20,21,
 21,22,37,37,37,37,37,37,37,37,37,37,37,38,20,21,21,22,37,37,37,37,37,37,37,37,37,37,37,38,20,21,
 21,22,37,37,37,37,37,37,37,37,37,37,37,38,20,21,21,22,37,37,37,37,37,37,37,37,37,37,37,38,20,21,
-21,22,37,37,37,37,37,37,37,37,37,37,37,38,20,21,21,22,37,37,37,37,37,11,12,37,37,37,37,38,20,21,
-21,22,37,37,37,37,37,37,37,37,37,37,37,38,20,21,21,22,37,37,37,37,37,23,24,37,37,37,37,38,20,21,
-21,22,37,37,37,38,0,0,0,0,0,0,0,0,20,21,21,22,0,0,0,0,0,23,24,0,0,0,0,0,20,21,
-21,22,37,37,37,38,0,0,0,0,0,0,0,0,20,21,21,22,0,0,0,0,0,35,36,0,0,0,0,0,20,21,
+21,22,37,37,37,37,37,37,37,37,37,37,37,38,20,21,21,22,37,37,37,37,37,0,0,37,37,37,37,38,20,21,
+21,22,37,37,37,37,37,37,37,37,37,37,37,38,20,21,21,22,37,37,37,37,37,0,0,37,37,37,37,38,20,21,
+21,22,37,37,37,38,0,0,0,0,0,0,0,0,20,21,21,22,0,0,0,0,0,0,0,0,0,0,0,0,20,21,
+21,22,37,37,37,38,0,0,0,0,0,0,0,0,20,21,21,22,0,0,0,0,0,0,0,0,0,0,0,0,20,21,
 21,22,37,37,37,38,4,5,5,5,5,5,5,6,20,21,21,22,5,5,5,5,7,47,48,4,5,5,5,5,20,21,
 21,22,37,37,37,38,16,17,18,17,18,17,18,19,20,21,21,22,17,18,17,18,19,59,60,16,17,18,17,18,20,21,
 21,22,37,37,37,37,37,37,37,37,37,37,37,38,20,21,21,22,39,39,39,39,37,71,72,37,37,37,37,38,20,21,
@@ -93,30 +93,30 @@
 21,22,37,37,37,37,37,37,37,37,37,37,37,38,20,21,21,22,39,39,39,39,39,39,37,37,37,37,37,38,20,21,
 21,22,37,37,37,37,37,37,37,37,37,37,37,38,20,21,21,22,39,39,39,39,39,39,39,39,39,39,37,38,20,21,
 21,22,37,37,37,37,37,37,37,37,37,37,37,38,20,21,21,22,39,39,39,39,39,39,39,39,39,39,37,38,20,21,
-21,22,37,37,37,37,37,37,37,37,37,37,37,38,20,21,21,22,0,0,0,0,0,0,0,0,0,0,0,0,20,21,
-21,22,37,37,37,37,37,37,37,37,37,37,37,38,20,21,21,22,0,0,0,0,0,0,0,0,0,0,0,0,20,21,
+21,22,37,37,37,37,37,37,37,37,37,37,37,38,20,21,21,22,66,67,67,67,67,67,67,67,67,67,67,68,20,21,
+21,22,37,37,37,37,37,37,37,37,37,37,37,38,20,21,21,22,66,67,67,67,67,67,67,67,67,67,67,68,20,21,
 21,22,37,37,37,37,37,37,37,37,37,37,37,38,20,21,21,22,39,39,37,37,39,39,37,37,39,39,37,38,20,21,
 21,22,37,37,37,37,37,37,37,37,37,37,37,38,20,21,21,22,39,39,37,37,39,39,37,37,39,39,37,38,20,21,
-21,22,37,37,37,37,37,37,37,37,37,37,37,38,20,21,21,22,0,0,0,0,0,0,0,0,0,0,0,0,20,21,
-21,22,37,37,37,37,37,37,37,37,37,37,37,38,20,21,21,22,0,0,0,0,0,0,0,0,0,0,0,0,20,21,
+21,22,37,37,37,37,37,37,37,37,37,37,37,38,20,21,21,22,66,67,67,67,67,67,67,67,67,67,67,68,20,21,
+21,22,37,37,37,37,37,37,37,37,37,37,37,38,20,21,21,22,66,67,67,67,67,67,67,67,67,67,67,68,20,21,
 21,22,0,0,0,0,0,0,0,0,37,37,37,38,20,21,21,22,37,37,39,39,37,37,39,39,37,37,39,39,20,21,
 21,22,0,0,0,0,0,0,0,0,37,37,37,38,20,21,21,22,37,37,39,39,37,37,39,39,37,37,39,39,20,21,
-21,22,4,5,5,5,5,5,5,7,37,37,37,38,20,21,21,22,0,0,0,0,0,0,0,0,0,0,0,0,20,21,
-21,22,16,17,18,17,18,17,18,19,37,37,37,38,20,21,21,22,0,0,0,0,0,0,0,0,0,0,0,0,20,21,
+21,22,4,5,5,5,5,5,5,7,37,37,37,38,20,21,21,22,66,67,67,67,67,67,67,67,67,67,67,68,20,21,
+21,22,16,17,18,17,18,17,18,19,37,37,37,38,20,21,21,22,66,67,67,67,67,67,67,67,67,67,67,68,20,21,
 21,22,37,37,37,37,37,37,37,37,37,37,37,38,20,21,21,22,39,39,37,37,39,39,37,37,39,39,37,38,20,21,
 21,22,37,37,37,37,37,37,37,37,37,37,37,38,20,21,21,22,39,39,37,37,39,39,37,37,39,39,37,38,20,21,
-21,22,37,37,37,37,37,37,37,37,37,37,37,38,20,21,21,22,0,0,0,0,0,0,0,0,0,0,0,0,20,21,
-21,22,37,37,37,37,37,37,37,37,37,37,37,38,20,21,21,22,0,0,0,0,0,0,0,0,0,0,0,0,20,21,
+21,22,37,37,37,37,37,37,37,37,37,37,37,38,20,21,21,22,66,67,67,67,67,67,67,67,67,67,67,68,20,21,
+21,22,37,37,37,37,37,37,37,37,37,37,37,38,20,21,21,22,66,67,67,67,67,67,67,67,67,67,67,68,20,21,
 21,22,37,37,37,38,0,0,0,0,0,0,0,0,20,21,21,22,37,37,39,39,37,37,39,39,37,37,39,39,20,21,
 21,22,37,37,37,38,0,0,0,0,0,0,0,0,20,21,21,22,37,37,39,39,37,37,39,39,37,37,39,39,20,21,
-21,22,37,37,37,38,4,5,5,5,5,5,5,6,20,21,21,22,0,0,0,0,0,0,0,0,0,0,0,0,20,21,
-21,22,37,37,37,38,16,17,18,17,18,17,18,19,20,21,21,22,0,0,0,0,0,0,0,0,0,0,0,0,20,21,
+21,22,37,37,37,38,4,5,5,5,5,5,5,6,20,21,21,22,66,67,67,67,67,67,67,67,67,67,67,68,20,21,
+21,22,37,37,37,38,16,17,18,17,18,17,18,19,20,21,21,22,66,67,67,67,67,67,67,67,67,67,67,68,20,21,
 21,22,37,37,37,37,37,37,37,37,37,37,37,38,20,21,21,22,37,37,37,37,37,37,37,37,37,37,37,38,20,21,
 21,22,37,37,37,37,37,37,37,37,37,37,37,38,20,21,21,22,37,37,37,37,37,37,37,37,37,37,37,38,20,21,
-21,22,37,37,37,37,37,11,12,37,37,37,37,38,20,21,21,22,37,37,37,37,37,11,12,37,37,37,37,38,20,21,
-21,22,37,37,37,37,37,23,24,37,37,37,37,38,20,21,21,22,37,37,37,37,37,23,24,37,37,37,37,38,20,21,
-21,22,0,0,0,0,0,23,24,0,0,0,0,0,20,21,21,22,0,0,0,0,0,23,24,0,0,0,0,0,20,21,
-21,22,0,0,0,0,0,35,36,0,0,0,0,0,20,21,21,22,0,0,0,0,0,35,36,0,0,0,0,0,20,21,
+21,22,37,37,37,37,37,37,37,37,37,37,37,38,20,21,21,22,37,37,37,37,37,37,37,37,37,37,37,38,20,21,
+21,22,37,37,37,37,37,37,37,37,37,37,37,38,20,21,21,22,37,37,37,37,37,37,37,37,37,37,37,38,20,21,
+21,22,0,0,0,0,0,0,0,0,0,0,0,0,20,21,21,22,0,0,0,0,0,0,0,0,0,0,0,0,20,21,
+21,22,0,0,0,0,0,0,0,0,0,0,0,0,20,21,21,22,0,0,0,0,0,0,0,0,0,0,0,0,20,21,
 21,22,5,5,5,5,7,47,48,4,5,5,5,5,20,21,21,22,5,5,5,5,7,47,48,4,5,5,5,5,20,21,
 21,22,17,18,17,18,19,59,60,16,17,18,17,18,20,21,21,22,17,18,17,18,19,59,60,16,17,18,17,18,20,21,
 21,22,37,37,39,39,37,71,72,37,39,39,37,38,20,21,21,22,37,37,39,39,37,71,72,37,39,39,37,38,20,21,
@@ -134,7 +134,7 @@
 21,22,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
   </layer>
-  <layer id="20" name="Draft" width="32" height="126" locked="1">
+  <layer id="20" name="Draft" width="32" height="126" visible="0">
    <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -264,7 +264,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
   </layer>
-  <layer id="19" name="Foreground" width="32" height="126" locked="1">
+  <layer id="19" name="Foreground" width="32" height="126" visible="0">
    <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -341,10 +341,10 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,8,9,9,9,9,9,9,9,45,0,0,46,9,9,9,9,10,0,0,8,9,9,9,9,45,0,
-0,0,0,0,0,0,20,21,21,21,21,21,21,21,21,0,0,21,21,21,21,21,22,0,0,20,21,21,21,21,21,0,
-0,0,0,0,0,0,20,21,21,21,21,21,21,21,21,0,0,21,21,21,21,21,22,0,0,20,21,21,21,21,21,0,
-0,0,0,0,0,0,32,33,33,33,33,33,33,33,57,0,0,58,33,33,33,33,34,0,0,32,33,33,33,33,57,0,
+0,0,0,0,0,0,8,9,9,9,9,9,9,9,45,0,0,46,9,9,9,9,10,11,12,8,9,9,9,9,45,0,
+0,0,0,0,0,0,20,21,21,21,21,21,21,21,21,0,0,21,21,21,21,21,22,23,24,20,21,21,21,21,21,0,
+0,0,0,0,0,0,20,21,21,21,21,21,21,21,21,0,0,21,21,21,21,21,22,23,24,20,21,21,21,21,21,0,
+0,0,0,0,0,0,32,33,33,33,33,33,33,33,57,0,0,58,33,33,33,33,34,35,36,32,33,33,33,33,57,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -373,10 +373,10 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,46,9,9,9,9,10,0,0,8,9,9,9,9,45,0,0,46,9,9,9,9,10,0,0,8,9,9,9,9,45,0,
-0,21,21,21,21,21,22,0,0,20,21,21,21,21,21,0,0,21,21,21,21,21,22,0,0,20,21,21,21,21,21,0,
-0,21,21,21,21,21,22,0,0,20,21,21,21,21,21,0,0,21,21,21,21,21,22,0,0,20,21,21,21,21,21,0,
-0,58,33,33,33,33,34,0,0,32,33,33,33,33,57,0,0,58,33,33,33,33,34,0,0,32,33,33,33,33,57,0,
+0,46,9,9,9,9,10,11,12,8,9,9,9,9,45,0,0,46,9,9,9,9,10,11,12,8,9,9,9,9,45,0,
+0,21,21,21,21,21,22,23,24,20,21,21,21,21,21,0,0,21,21,21,21,21,22,23,24,20,21,21,21,21,21,0,
+0,21,21,21,21,21,22,23,24,20,21,21,21,21,21,0,0,21,21,21,21,21,22,23,24,20,21,21,21,21,21,0,
+0,58,33,33,33,33,34,35,36,32,33,33,33,33,57,0,0,58,33,33,33,33,34,35,36,32,33,33,33,33,57,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -396,29 +396,215 @@
   </layer>
  </group>
  <group id="22" name="Objects">
-  <objectgroup id="26" name="Player">
-   <object id="201" name="Jason" x="108" y="32" width="24" height="32"/>
+  <objectgroup color="#aaff7f" id="27" name="Brick">
+   <object id="204" name="Brick" x="32" y="0" width="192" height="16"/>
+   <object id="205" name="Brick" x="224" y="0" width="16" height="240"/>
+   <object id="206" name="Brick" x="16" y="0" width="16" height="240"/>
+   <object id="210" name="Brick" x="96" y="208" width="128" height="64"/>
+   <object id="211" name="Brick" x="32" y="336" width="128" height="64"/>
+   <object id="212" name="Brick" x="224" y="240" width="16" height="256"/>
+   <object id="213" name="Brick" x="16" y="496" width="16" height="256"/>
+   <object id="214" name="Brick" x="96" y="464" width="128" height="64"/>
+   <object id="215" name="Brick" x="32" y="720" width="64" height="64"/>
+   <object id="216" name="Brick" x="160" y="720" width="64" height="64"/>
+   <object id="217" name="Brick" x="224" y="496" width="16" height="256"/>
+   <object id="218" name="Brick" x="16" y="752" width="16" height="256"/>
+   <object id="219" name="Brick" x="32" y="976" width="128" height="64"/>
+   <object id="220" name="Brick" x="16" y="1008" width="16" height="256"/>
+   <object id="221" name="Brick" x="16" y="1264" width="16" height="256"/>
+   <object id="222" name="Brick" x="16" y="368" width="16" height="128"/>
+   <object id="223" name="Brick" x="16" y="240" width="16" height="128"/>
+   <object id="224" name="Brick" x="224" y="752" width="16" height="256"/>
+   <object id="225" name="Brick" x="224" y="1008" width="16" height="240"/>
+   <object id="226" name="Brick" x="224" y="1248" width="16" height="272"/>
+   <object id="227" name="Brick" x="224" y="1520" width="16" height="256"/>
+   <object id="228" name="Brick" x="272" y="1776" width="16" height="128"/>
+   <object id="230" name="Brick" x="224" y="1776" width="16" height="128"/>
+   <object id="231" name="Brick" x="224" y="1904" width="64" height="32"/>
+   <object id="232" name="Brick" x="272" y="1520" width="16" height="256"/>
+   <object id="233" name="Brick" x="272" y="1248" width="16" height="272"/>
+   <object id="234" name="Brick" x="272" y="1008" width="16" height="240"/>
+   <object id="235" name="Brick" x="96" y="1232" width="128" height="64"/>
+   <object id="236" name="Brick" x="32" y="1488" width="128" height="64"/>
+   <object id="237" name="Brick" x="96" y="1616" width="128" height="64"/>
+   <object id="238" name="Brick" x="16" y="1520" width="16" height="256"/>
+   <object id="239" name="Brick" x="16" y="1776" width="16" height="128"/>
+   <object id="240" name="Brick" x="16" y="1904" width="16" height="112"/>
+   <object id="241" name="Brick" x="32" y="2000" width="224" height="16"/>
+   <object id="242" name="Brick" x="256" y="2000" width="224" height="16"/>
+   <object id="243" name="Brick" x="480" y="1776" width="16" height="128"/>
+   <object id="244" name="Brick" x="480" y="1520" width="16" height="256"/>
+   <object id="245" name="Brick" x="480" y="1248" width="16" height="272"/>
+   <object id="246" name="Brick" x="480" y="1008" width="16" height="240"/>
+   <object id="247" name="Brick" x="480" y="1904" width="16" height="112"/>
+   <object id="248" name="Brick" x="144" y="1744" width="80" height="64"/>
+   <object id="249" name="Brick" x="32" y="1744" width="80" height="64"/>
+   <object id="256" name="Brick" x="288" y="1008" width="192" height="32"/>
+   <object id="426" name="Brick" x="400" y="1744" width="80" height="64"/>
+   <object id="427" name="Brick" x="288" y="1744" width="80" height="64"/>
+   <object id="428" name="Brick" x="400" y="1232" width="80" height="64"/>
+   <object id="429" name="Brick" x="288" y="1232" width="80" height="64"/>
   </objectgroup>
-  <objectgroup id="24" name="Brick" locked="1">
-   <object id="165" x="0" y="0" width="32" height="2016"/>
-   <object id="167" x="224" y="0" width="64" height="1936"/>
-   <object id="171" x="16" y="0" width="224" height="16"/>
-   <object id="172" x="96" y="208" width="144" height="64"/>
-   <object id="174" x="16" y="336" width="144" height="64"/>
-   <object id="175" x="96" y="464" width="144" height="64"/>
-   <object id="176" x="160" y="720" width="80" height="64"/>
-   <object id="177" x="16" y="720" width="80" height="64"/>
-   <object id="178" x="16" y="976" width="144" height="64"/>
-   <object id="180" x="16" y="1488" width="144" height="64"/>
-   <object id="181" x="96" y="1616" width="144" height="64"/>
-   <object id="182" x="16" y="1744" width="96" height="64"/>
-   <object id="185" x="16" y="2000" width="480" height="16"/>
-   <object id="186" x="480" y="1024" width="32" height="992"/>
-   <object id="188" x="272" y="1008" width="224" height="32"/>
-   <object id="190" x="400" y="1744" width="96" height="64"/>
-   <object id="193" x="400" y="1232" width="96" height="64"/>
-   <object id="194" x="144" y="1744" width="224" height="64"/>
-   <object id="195" x="96" y="1232" width="272" height="64"/>
+  <objectgroup color="#ffff00" id="28" name="Obstacle" locked="1">
+   <object id="257" name="Obstacle" x="288" y="1392" width="16" height="16"/>
+   <object id="258" name="Obstacle" x="304" y="1392" width="16" height="16"/>
+   <object id="260" name="Obstacle" x="320" y="1392" width="16" height="16"/>
+   <object id="261" name="Obstacle" x="336" y="1392" width="16" height="16"/>
+   <object id="262" name="Obstacle" x="352" y="1392" width="16" height="16"/>
+   <object id="263" name="Obstacle" x="368" y="1392" width="16" height="16"/>
+   <object id="264" name="Obstacle" x="384" y="1392" width="16" height="16"/>
+   <object id="265" name="Obstacle" x="400" y="1392" width="16" height="16"/>
+   <object id="266" name="Obstacle" x="416" y="1392" width="16" height="16"/>
+   <object id="267" name="Obstacle" x="432" y="1392" width="16" height="16"/>
+   <object id="268" name="Obstacle" x="448" y="1392" width="16" height="16"/>
+   <object id="269" name="Obstacle" x="464" y="1392" width="16" height="16"/>
+   <object id="274" name="Obstacle" x="288" y="1408" width="16" height="16"/>
+   <object id="275" name="Obstacle" x="304" y="1408" width="16" height="16"/>
+   <object id="276" name="Obstacle" x="320" y="1408" width="16" height="16"/>
+   <object id="277" name="Obstacle" x="336" y="1408" width="16" height="16"/>
+   <object id="278" name="Obstacle" x="352" y="1408" width="16" height="16"/>
+   <object id="279" name="Obstacle" x="368" y="1408" width="16" height="16"/>
+   <object id="280" name="Obstacle" x="384" y="1408" width="16" height="16"/>
+   <object id="281" name="Obstacle" x="400" y="1408" width="16" height="16"/>
+   <object id="282" name="Obstacle" x="416" y="1408" width="16" height="16"/>
+   <object id="283" name="Obstacle" x="432" y="1408" width="16" height="16"/>
+   <object id="284" name="Obstacle" x="448" y="1408" width="16" height="16"/>
+   <object id="285" name="Obstacle" x="464" y="1408" width="16" height="16"/>
+   <object id="286" name="Obstacle" x="288" y="1456" width="16" height="16"/>
+   <object id="287" name="Obstacle" x="304" y="1456" width="16" height="16"/>
+   <object id="288" name="Obstacle" x="320" y="1456" width="16" height="16"/>
+   <object id="289" name="Obstacle" x="336" y="1456" width="16" height="16"/>
+   <object id="290" name="Obstacle" x="352" y="1456" width="16" height="16"/>
+   <object id="291" name="Obstacle" x="368" y="1456" width="16" height="16"/>
+   <object id="292" name="Obstacle" x="384" y="1456" width="16" height="16"/>
+   <object id="293" name="Obstacle" x="400" y="1456" width="16" height="16"/>
+   <object id="294" name="Obstacle" x="416" y="1456" width="16" height="16"/>
+   <object id="295" name="Obstacle" x="432" y="1456" width="16" height="16"/>
+   <object id="296" name="Obstacle" x="448" y="1456" width="16" height="16"/>
+   <object id="297" name="Obstacle" x="464" y="1456" width="16" height="16"/>
+   <object id="298" name="Obstacle" x="288" y="1472" width="16" height="16"/>
+   <object id="299" name="Obstacle" x="304" y="1472" width="16" height="16"/>
+   <object id="300" name="Obstacle" x="320" y="1472" width="16" height="16"/>
+   <object id="301" name="Obstacle" x="336" y="1472" width="16" height="16"/>
+   <object id="302" name="Obstacle" x="352" y="1472" width="16" height="16"/>
+   <object id="303" name="Obstacle" x="368" y="1472" width="16" height="16"/>
+   <object id="304" name="Obstacle" x="384" y="1472" width="16" height="16"/>
+   <object id="305" name="Obstacle" x="400" y="1472" width="16" height="16"/>
+   <object id="306" name="Obstacle" x="416" y="1472" width="16" height="16"/>
+   <object id="307" name="Obstacle" x="432" y="1472" width="16" height="16"/>
+   <object id="308" name="Obstacle" x="448" y="1472" width="16" height="16"/>
+   <object id="309" name="Obstacle" x="464" y="1472" width="16" height="16"/>
+   <object id="310" name="Obstacle" x="288" y="1520" width="16" height="16"/>
+   <object id="311" name="Obstacle" x="304" y="1520" width="16" height="16"/>
+   <object id="312" name="Obstacle" x="320" y="1520" width="16" height="16"/>
+   <object id="313" name="Obstacle" x="336" y="1520" width="16" height="16"/>
+   <object id="314" name="Obstacle" x="352" y="1520" width="16" height="16"/>
+   <object id="315" name="Obstacle" x="368" y="1520" width="16" height="16"/>
+   <object id="316" name="Obstacle" x="384" y="1520" width="16" height="16"/>
+   <object id="317" name="Obstacle" x="400" y="1520" width="16" height="16"/>
+   <object id="318" name="Obstacle" x="416" y="1520" width="16" height="16"/>
+   <object id="319" name="Obstacle" x="432" y="1520" width="16" height="16"/>
+   <object id="320" name="Obstacle" x="448" y="1520" width="16" height="16"/>
+   <object id="321" name="Obstacle" x="464" y="1520" width="16" height="16"/>
+   <object id="322" name="Obstacle" x="288" y="1536" width="16" height="16"/>
+   <object id="323" name="Obstacle" x="304" y="1536" width="16" height="16"/>
+   <object id="324" name="Obstacle" x="320" y="1536" width="16" height="16"/>
+   <object id="325" name="Obstacle" x="336" y="1536" width="16" height="16"/>
+   <object id="326" name="Obstacle" x="352" y="1536" width="16" height="16"/>
+   <object id="327" name="Obstacle" x="368" y="1536" width="16" height="16"/>
+   <object id="328" name="Obstacle" x="384" y="1536" width="16" height="16"/>
+   <object id="329" name="Obstacle" x="400" y="1536" width="16" height="16"/>
+   <object id="330" name="Obstacle" x="416" y="1536" width="16" height="16"/>
+   <object id="331" name="Obstacle" x="432" y="1536" width="16" height="16"/>
+   <object id="332" name="Obstacle" x="448" y="1536" width="16" height="16"/>
+   <object id="333" name="Obstacle" x="464" y="1536" width="16" height="16"/>
+   <object id="334" name="Obstacle" x="288" y="1584" width="16" height="16"/>
+   <object id="335" name="Obstacle" x="304" y="1584" width="16" height="16"/>
+   <object id="336" name="Obstacle" x="320" y="1584" width="16" height="16"/>
+   <object id="337" name="Obstacle" x="336" y="1584" width="16" height="16"/>
+   <object id="338" name="Obstacle" x="352" y="1584" width="16" height="16"/>
+   <object id="339" name="Obstacle" x="368" y="1584" width="16" height="16"/>
+   <object id="340" name="Obstacle" x="384" y="1584" width="16" height="16"/>
+   <object id="341" name="Obstacle" x="400" y="1584" width="16" height="16"/>
+   <object id="342" name="Obstacle" x="416" y="1584" width="16" height="16"/>
+   <object id="343" name="Obstacle" x="432" y="1584" width="16" height="16"/>
+   <object id="344" name="Obstacle" x="448" y="1584" width="16" height="16"/>
+   <object id="345" name="Obstacle" x="464" y="1584" width="16" height="16"/>
+   <object id="346" name="Obstacle" x="288" y="1600" width="16" height="16"/>
+   <object id="347" name="Obstacle" x="304" y="1600" width="16" height="16"/>
+   <object id="348" name="Obstacle" x="320" y="1600" width="16" height="16"/>
+   <object id="349" name="Obstacle" x="336" y="1600" width="16" height="16"/>
+   <object id="350" name="Obstacle" x="352" y="1600" width="16" height="16"/>
+   <object id="351" name="Obstacle" x="368" y="1600" width="16" height="16"/>
+   <object id="352" name="Obstacle" x="384" y="1600" width="16" height="16"/>
+   <object id="353" name="Obstacle" x="400" y="1600" width="16" height="16"/>
+   <object id="354" name="Obstacle" x="416" y="1600" width="16" height="16"/>
+   <object id="355" name="Obstacle" x="432" y="1600" width="16" height="16"/>
+   <object id="356" name="Obstacle" x="448" y="1600" width="16" height="16"/>
+   <object id="357" name="Obstacle" x="464" y="1600" width="16" height="16"/>
+   <object id="358" name="Obstacle" x="288" y="1648" width="16" height="16"/>
+   <object id="359" name="Obstacle" x="304" y="1648" width="16" height="16"/>
+   <object id="360" name="Obstacle" x="320" y="1648" width="16" height="16"/>
+   <object id="361" name="Obstacle" x="336" y="1648" width="16" height="16"/>
+   <object id="362" name="Obstacle" x="352" y="1648" width="16" height="16"/>
+   <object id="363" name="Obstacle" x="368" y="1648" width="16" height="16"/>
+   <object id="364" name="Obstacle" x="384" y="1648" width="16" height="16"/>
+   <object id="365" name="Obstacle" x="400" y="1648" width="16" height="16"/>
+   <object id="366" name="Obstacle" x="416" y="1648" width="16" height="16"/>
+   <object id="367" name="Obstacle" x="432" y="1648" width="16" height="16"/>
+   <object id="368" name="Obstacle" x="448" y="1648" width="16" height="16"/>
+   <object id="369" name="Obstacle" x="464" y="1648" width="16" height="16"/>
+   <object id="370" name="Obstacle" x="288" y="1664" width="16" height="16"/>
+   <object id="371" name="Obstacle" x="304" y="1664" width="16" height="16"/>
+   <object id="372" name="Obstacle" x="320" y="1664" width="16" height="16"/>
+   <object id="373" name="Obstacle" x="336" y="1664" width="16" height="16"/>
+   <object id="374" name="Obstacle" x="352" y="1664" width="16" height="16"/>
+   <object id="375" name="Obstacle" x="368" y="1664" width="16" height="16"/>
+   <object id="376" name="Obstacle" x="384" y="1664" width="16" height="16"/>
+   <object id="377" name="Obstacle" x="400" y="1664" width="16" height="16"/>
+   <object id="378" name="Obstacle" x="416" y="1664" width="16" height="16"/>
+   <object id="379" name="Obstacle" x="432" y="1664" width="16" height="16"/>
+   <object id="380" name="Obstacle" x="448" y="1664" width="16" height="16"/>
+   <object id="381" name="Obstacle" x="464" y="1664" width="16" height="16"/>
+  </objectgroup>
+  <objectgroup color="#55007f" id="29" name="Thorn" locked="1">
+   <object id="384" name="Thorn" x="64" y="560" width="64" height="32"/>
+   <object id="385" name="Thorn" x="32" y="560" width="32" height="96"/>
+   <object id="386" name="Thorn" x="160" y="560" width="64" height="96"/>
+   <object id="387" name="Thorn" x="96" y="624" width="64" height="32"/>
+   <object id="388" name="Thorn" x="32" y="848" width="32" height="32"/>
+   <object id="389" name="Thorn" x="96" y="848" width="32" height="64"/>
+   <object id="390" name="Thorn" x="128" y="880" width="32" height="32"/>
+   <object id="391" name="Thorn" x="160" y="816" width="32" height="96"/>
+   <object id="392" name="Thorn" x="192" y="816" width="32" height="32"/>
+   <object id="395" name="Thorn" x="96" y="1072" width="32" height="96"/>
+   <object id="396" name="Thorn" x="64" y="1104" width="96" height="32"/>
+   <object id="398" name="Thorn" x="192" y="1104" width="32" height="32"/>
+   <object id="399" name="Thorn" x="64" y="1808" width="32" height="64"/>
+   <object id="400" name="Thorn" x="64" y="1872" width="48" height="32"/>
+   <object id="401" name="Thorn" x="144" y="1872" width="48" height="32"/>
+   <object id="402" name="Thorn" x="160" y="1808" width="32" height="64"/>
+   <object id="403" name="Thorn" x="320" y="1808" width="32" height="64"/>
+   <object id="404" name="Thorn" x="320" y="1872" width="128" height="32"/>
+   <object id="405" name="Thorn" x="416" y="1808" width="32" height="32"/>
+   <object id="407" name="Thorn" x="320" y="1616" width="32" height="32"/>
+   <object id="408" name="Thorn" x="384" y="1616" width="32" height="32"/>
+   <object id="409" name="Thorn" x="448" y="1616" width="32" height="32"/>
+   <object id="414" name="Thorn" x="288" y="1552" width="32" height="32"/>
+   <object id="415" name="Thorn" x="352" y="1552" width="32" height="32"/>
+   <object id="416" name="Thorn" x="416" y="1552" width="32" height="32"/>
+   <object id="417" name="Thorn" x="320" y="1488" width="32" height="32"/>
+   <object id="418" name="Thorn" x="384" y="1488" width="32" height="32"/>
+   <object id="419" name="Thorn" x="448" y="1488" width="32" height="32"/>
+   <object id="420" name="Thorn" x="288" y="1424" width="32" height="32"/>
+   <object id="421" name="Thorn" x="352" y="1424" width="32" height="32"/>
+   <object id="422" name="Thorn" x="416" y="1424" width="32" height="32"/>
+   <object id="423" name="Thorn" x="288" y="1296" width="64" height="96"/>
+   <object id="424" name="Thorn" x="352" y="1328" width="32" height="64"/>
+   <object id="425" name="Thorn" x="384" y="1360" width="64" height="32"/>
+  </objectgroup>
+  <objectgroup id="26" name="Player" locked="1">
+   <object id="201" name="Jason" x="112" y="1696" width="24" height="16"/>
   </objectgroup>
  </group>
 </map>

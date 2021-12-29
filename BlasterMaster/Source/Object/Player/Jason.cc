@@ -1,13 +1,11 @@
 #include "Jason.hh"
 
-constexpr float __JASON_WIDTH = 6.f;
-constexpr float __JASON_HEGIHT = 18.f;
-constexpr float __JASON_SPEED = 0.1f;
+constexpr float JASON_SPEED  = 0.1f;
 
 Jason::Jason()
 {
   m_Keyboard = CreateRef<JasonKeyboard>(this);
-  m_Render = AnimationBase::GetInstance()->Get("Jason-Walk-Up");
+  SetSprite("Jason-Idle-Up");
 }
 
 void Jason::SetBehavior(const Behavior& behavior)
@@ -44,10 +42,10 @@ JasonKeyboard::JasonKeyboard(Jason* player)
 void JasonKeyboard::KeyState(BYTE* state)
 {
   Vector2F velocity;
-  if (IS_KEYDOWN(state, DIK_UP)) velocity.SetY(__JASON_SPEED);
-  if (IS_KEYDOWN(state, DIK_DOWN)) velocity.SetY(-__JASON_SPEED);
-  if (IS_KEYDOWN(state, DIK_LEFT)) velocity.SetX(-__JASON_SPEED);
-  if (IS_KEYDOWN(state, DIK_RIGHT)) velocity.SetX(__JASON_SPEED);
+  if (IS_KEYDOWN(state, DIK_UP)) velocity.SetY(JASON_SPEED);
+  if (IS_KEYDOWN(state, DIK_DOWN)) velocity.SetY(-JASON_SPEED);
+  if (IS_KEYDOWN(state, DIK_LEFT)) velocity.SetX(-JASON_SPEED);
+  if (IS_KEYDOWN(state, DIK_RIGHT)) velocity.SetX(JASON_SPEED);
   m_Player->SetVelocity(velocity);
 
   Behavior behavior = m_Player->GetBehavior();
