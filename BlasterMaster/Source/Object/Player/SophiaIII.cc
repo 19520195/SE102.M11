@@ -21,6 +21,8 @@ SophiaIII::SophiaIII()
 
   SM_SET_IDLE(m_State);
   SD_SET_LEFT(m_State);
+
+  m_Acceleration = Vector2F(0.f, -SOPHIAIII_GRAVITY);
 }
 
 TimeStep SophiaIII::GetLastBulletTime() const
@@ -46,6 +48,7 @@ void SophiaIII::SetState(int state)
   {
     m_Velocity.SetY(SOPHIAIII_JUMPSPEED);
     SM_SET_FALL(m_State); 
+    DEBUG_MSG(L"Jumping...\n");
   }
 }
 
@@ -90,6 +93,12 @@ Scope<JasonS> SophiaIII::CreateJason()
   Scope<JasonS> jason = CreateScope<JasonS>();
   jason->SetLocation(m_X, m_Y);
   return jason;
+}
+
+void SophiaIII::OnCollide(const Ref<Collision2D>& collision)
+{
+  if (dynamic_cast<Enemy*>(collision->GetCollider()->GetRefer()))
+    return DEBUG_MSG(L"Collide with enemy\n");
 }
 
 void SophiaIII::Update(TimeStep elapsed, std::vector<Ref<Object>> objects)

@@ -17,10 +17,20 @@ void Stuka::SetState(const StukaState& state)
   m_CustomState = state;
 }
 
-void Stuka::Update(TimeStep elapsed)
+void Stuka::OnCollide(const Ref<Collision2D>& collision)
+{
+  if (dynamic_cast<Brick*>(collision->GetCollider()->GetRefer()))
+  {
+    DEBUG_MSG(L"Stuka vs Brick\n");
+    if (m_CustomState == StukaState::Left)
+      m_CustomState = StukaState::Right;
+    else m_CustomState = StukaState::Left;
+  }
+}
+
+void Stuka::Update()
 {
   auto player = std::static_pointer_cast<PlayScene>(Game::GetInstance()->GetScene())->GetPlayer();
-  
   Vector2F direct = (player->GetLocation()) - (this->GetLocation());
   if (direct.Abs() > STUKA_RANGE)
   {
@@ -31,8 +41,9 @@ void Stuka::Update(TimeStep elapsed)
 
   // Set velocity to reach target (player/trail)
   this->SetVelocity(STUKA_SPEED * direct.GetUnit());
+}
 
-  // Update
-  Enemy::Update(elapsed);
+void Stuka::Update(TimeStep elapsed)
+{
 }
 

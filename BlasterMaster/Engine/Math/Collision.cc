@@ -27,6 +27,11 @@ Vector2F Movable::GetVelocity() const
   return Vector2F(m_Velocity.GetX(), m_Velocity.GetY());
 }
 
+Vector2F Movable::GetAcceleration() const
+{
+  return m_Acceleration;
+}
+
 void Movable::SetVelocity(const Vector2F& velocity)
 {
   m_Velocity = velocity;

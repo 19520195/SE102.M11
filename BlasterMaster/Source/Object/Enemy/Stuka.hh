@@ -5,7 +5,7 @@ constexpr float STUKA_WIDTH  = 16.000f;
 constexpr float STUKA_HEIGHT = 16.000f;
 
 constexpr float STUKA_SPEED =  0.033f;
-constexpr float STUKA_RANGE = 96.000f;
+constexpr float STUKA_RANGE = 64.000f;
 
 enum class StukaState : uint32_t
 {
@@ -20,7 +20,10 @@ public:
   Stuka();
   void SetTrail(float trail);
   void SetState(const StukaState& state);
-  
+
+  void OnCollide(const Ref<Collision2D>& collision) override;
+
+  void Update() override;
   void Update(TimeStep elapsed);
 
 private:

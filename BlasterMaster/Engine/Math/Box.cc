@@ -66,6 +66,12 @@ void Box2F::SetHeight(const float& hegiht)
   m_Height = hegiht;
 }
 
+void Box2F::SetLocation(const Vector2F& location)
+{
+  m_X = location.GetX();
+  m_Y = location.GetY();
+}
+
 void Box2F::SetLocation(float X, float Y)
 {
   m_X = X;

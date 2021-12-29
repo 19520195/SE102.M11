@@ -22,6 +22,7 @@ public:
   void SetWidth(const float& width);
   void SetHeight(const float& hegiht);
 
+  virtual void SetLocation(const Vector2F& location);
   virtual void SetLocation(float X, float Y);
   virtual void SetSize(float width, float height);
 

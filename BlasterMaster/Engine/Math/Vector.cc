@@ -12,6 +12,11 @@ Vector2F::Vector2F(float X, float Y)
   m_Y = Y;
 }
 
+Vector2F::Vector2F(const Vector2F& vector2) :
+  m_X(vector2.m_X), m_Y(vector2.m_Y)
+{
+}
+
 void Vector2F::SetX(float X)
 {
   m_X = X;

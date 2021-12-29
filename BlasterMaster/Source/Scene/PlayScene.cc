@@ -68,6 +68,11 @@ void PlayScene::AddObject(Ref<Object> object)
   m_QuadTree->Insert(object);
 }
 
+void PlayScene::AddBounding(Ref<BoundingBox> box)
+{
+  m_Boxes.emplace_back(box);
+}
+
 void PlayScene::Update(TimeStep elapsed)
 {
   m_Objects = this->GetObjects();
@@ -77,17 +82,27 @@ void PlayScene::Update(TimeStep elapsed)
   // if (m_Camera.GetX() > 1344) m_Camera.SetX(1344);
   // if (m_Camera.GetY() > 560) m_Camera.SetY(560);
 
-  for (auto& object : m_Objects)
-    if (object->IsDied() == false)
-      object->Update(elapsed, m_Objects);
-    else m_QuadTree->Remove(object);
+  // for (auto& object : m_Objects)
+  //   if (object->IsDied() == false)
+  //     object->Update(elapsed, m_Objects);
+  //   else m_QuadTree->Remove(object);
 
   // Colliders
-  std::vector<Ref<Collider2D>> colliders;
+  List<Ref<Collider2D>> colliders;
   for (const auto& object : m_Objects)
     if (Ref<Collider2D> collider = object->GetCollider())
       colliders.emplace_back(collider);
-  DEBUG_MSG(L"Number of Colliders: %d\n", colliders.size());
+
+  Physics::Calculate(colliders);
+  for (auto& collider : colliders)
+    collider->UpdateRefer();
+
+  // for (auto& object : m_Objects)
+  // {
+  //   // object->Update(elapsed);
+  //   if (object->IsDied())
+  //     m_QuadTree->Remove(object);
+  // }
 }
 
 void PlayScene::Render(TimeStep elapsed)
@@ -95,14 +110,12 @@ void PlayScene::Render(TimeStep elapsed)
   // 3 layers 
   // L2 - Foreground
   // L1 - Objects
+  // L0 - Bounding boxes
   // L0 - Background
 
   m_Background->Render(0, 0);
-  
-  // auto _hi = TextureBase::GetInstance()->Get("Blue-BBox");
-  // for (const auto& object : this->GetObjects())
-  //   Sprite(0, 0, object->GetHeight(), object->GetWidth(), _hi)
-  //     .Render(object->GetX(), object->GetY());
+  for (const auto& box : m_Boxes) box->Render();
+  m_Boxes.clear();
 
   for (const auto& object : this->GetObjects())
     object->Render(elapsed);

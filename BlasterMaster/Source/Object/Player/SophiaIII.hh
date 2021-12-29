@@ -41,6 +41,8 @@ public:
   Ref<SophiaIIIBullet> CreateBullet();
   Scope<JasonS> CreateJason();
 
+  void OnCollide(const Ref<Collision2D>& collision) override;
+
   virtual void Update(TimeStep elapsed, std::vector<Ref<Object>> objects);
   virtual void Render(TimeStep elapsed);
 

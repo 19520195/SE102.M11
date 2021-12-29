@@ -14,6 +14,7 @@ public:
   float GetSpeedX() const;
   float GetSpeedY() const;
   Vector2F GetVelocity() const;
+  Vector2F GetAcceleration() const;
 
   void SetVelocity(const Vector2F& velocity);
 

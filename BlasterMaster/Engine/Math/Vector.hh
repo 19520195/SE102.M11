@@ -5,6 +5,7 @@ class Vector2F
 public:
   Vector2F(float V = 0);
   Vector2F(float X, float Y);
+  Vector2F(const Vector2F& vector2);
   
   void SetX(float X); 
   void SetY(float Y); 
