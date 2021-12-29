@@ -50,10 +50,7 @@ void Collider2D::Update(Ref<Collision2D> collision)
   Vector2F s = Physics::CalculateDisplacement(*m_Refer, collision->GetTime());
   m_Displacement = m_Displacement + MINIMAL_DISTANCE * collision->GetNormal();
   if (collision->GetNormal().GetX())
-  {
-    m_Velocity.SetX(0);
     m_Displacement.SetX(s.GetX());
-  }
   else
   {
     m_Velocity.SetY(0);

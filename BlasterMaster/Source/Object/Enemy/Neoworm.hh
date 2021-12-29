@@ -11,16 +11,23 @@ constexpr float NEOWORMFALL_SPEED     = 0.07f;
 constexpr float NEOWORMFALL_GRAVITY   = 0.001f;
 constexpr float NEOWORMFALL_JUMPSPEED = 0.2f;
 
+enum class NeowormWalkState : uint8_t
+{
+  Left,
+  Right, 
+  Chase
+};
+
 class Neoworm : public Enemy
 {
 public:
   Neoworm(Vector2F p);
-  void SetState(int state);
+  void SetWalkState(NeowormWalkState ws);
+
+  void OnCollide(const Ref<Collision2D>& collision) override;
 
   void Activate();
 
-  void Update(TimeStep elapsed);
-
 private:
-  void CollideWithBrick(Brick* brick, TimeStep elapsed, Vector2F& deltaTime);
+  NeowormWalkState m_WalkState;
 };

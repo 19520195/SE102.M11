@@ -11,7 +11,7 @@ class Interrupt : public Enemy
 {
 public:
   Interrupt();
-  Trigger* CreateTrigger();
+  void Update() override;
 
   void Activate();
 };

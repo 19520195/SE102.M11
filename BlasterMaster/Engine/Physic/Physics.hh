@@ -5,6 +5,7 @@
 namespace Physics
 {
   using Move2F = Movable;
+  constexpr float GRAVITY = -0.0005f;
 
   Vector2F CalculateDisplacement(const Move2F& entity, const float& elapsed);
 

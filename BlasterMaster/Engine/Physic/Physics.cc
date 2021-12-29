@@ -55,16 +55,15 @@ void Physics::Calculate(List<Ref<Collider2D>>& colliders)
   TimeStep elapsed = Game::GetInstance()->GetElapsedTime();
   for (auto& shl : colliders)
   {
-    shl->CalculateDisplacement(elapsed);
-
     auto collisions = CalculateCollisions(shl, colliders);
     collisions = FilterCollisions(collisions);
     
     for (auto& collision : collisions)
-    {
       shl->GetRefer()->OnCollide(collision);
+    shl->CalculateDisplacement(elapsed);
+
+    for (auto& collision : collisions)
       if (collision->GetCollider()->GetMaterial())
         shl->Update(collision);
-    }
   }
 }
