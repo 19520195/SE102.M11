@@ -37,6 +37,8 @@ public:
   void SetPlayer(Ref<Player> player);
   void SetKeyboardHandler(Ref<KeyboardEvent> handler);
 
+  Ref<Object> FindRef(Object* object) const;
+
   void AddObject(Ref<Object> object); 
   void AddBounding(Ref<BoundingBox> box);
 

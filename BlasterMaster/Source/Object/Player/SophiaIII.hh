@@ -59,16 +59,20 @@ private:
   std::deque<TimeStep> m_BulletTimes;
 };
 
-class SophiaIIIKeyboardEvent : public KeyboardEvent
+class SophiaIIIKeyboard : public KeyboardEvent
 {
 public:
-  SophiaIIIKeyboardEvent() = delete;
-  SophiaIIIKeyboardEvent(SophiaIII* player);
+  enum Key
+  {
+    KRelease = DIK_LSHIFT
+  };
 
-  virtual void KeyState(BYTE* state);
-  virtual void OnKeyUp(int code);
-  virtual void OnKeyDown(int code);
+  SophiaIIIKeyboard() = delete;
+  SophiaIIIKeyboard(SophiaIII* sophiaIII);
+
+  void OnKeyDown(int keycode) override;
+  void KeyState(BYTE* state) override;
 
 private:
-  SophiaIII* m_Player;
+  SophiaIII* m_SophiaIII;
 };

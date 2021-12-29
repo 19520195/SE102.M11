@@ -17,7 +17,7 @@ SophiaIII::SophiaIII()
   m_Width = SOPHIAIII_WIDTH;
   m_Height = SOPHIAIII_HEIGHT;
 
-  m_Keyboard = CreateRef<SophiaIIIKeyboardEvent>(this);
+  m_Keyboard = CreateRef<SophiaIIIKeyboard>(this);
 
   SM_SET_IDLE(m_State);
   SD_SET_LEFT(m_State);
@@ -90,8 +90,8 @@ Ref<SophiaIIIBullet> SophiaIII::CreateBullet()
 
 Scope<JasonS> SophiaIII::CreateJason()
 {
-  Scope<JasonS> jason = CreateScope<JasonS>();
-  jason->SetLocation(m_X, m_Y);
+  Scope<JasonS> jason = CreateScope<JasonS>(this);
+  jason->SetLocation(Vector2F(m_X + 8, m_Y));
   return jason;
 }
 
@@ -224,13 +224,25 @@ Vector2F SophiaIII::CollideWithBrick(Brick* brick, float deltaCollide)
   return delta;
 }
 
-SophiaIIIKeyboardEvent::SophiaIIIKeyboardEvent(SophiaIII* player) : m_Player(player)
+SophiaIIIKeyboard::SophiaIIIKeyboard(SophiaIII* sophiaIII) : m_SophiaIII(sophiaIII)
 {
 }
 
-void SophiaIIIKeyboardEvent::KeyState(BYTE* keyboard)
+void SophiaIIIKeyboard::OnKeyDown(int keycode)
 {
-  SophiaIII* pS3 = static_cast<SophiaIII*>(m_Player);
+  if (keycode == KRelease)
+  {
+    auto scene = std::static_pointer_cast<PlayScene>(
+      Game::GetInstance()->GetScene());
+    Ref<JasonS> jason = m_SophiaIII->CreateJason();
+    scene->AddObject(jason);
+    scene->SetPlayer(jason);
+  }
+}
+
+void SophiaIIIKeyboard::KeyState(BYTE* keyboard)
+{
+  SophiaIII* pS3 = static_cast<SophiaIII*>(m_SophiaIII);
   int currentState = pS3->GetState();
 
   // MOVE: Jump
@@ -259,21 +271,4 @@ void SophiaIIIKeyboardEvent::KeyState(BYTE* keyboard)
     if (auto bullet = pS3->CreateBullet())
       std::static_pointer_cast<PlayScene>(
         Game::GetInstance()->GetScene())->AddObject(bullet);
-
-  if (IS_KEYDOWN(keyboard, SophiaIIIKBS::Open))
-  {
-    auto jason = pS3->CreateJason();
-    auto scene = std::static_pointer_cast<PlayScene>(Game::GetInstance()->GetScene());
-    scene->SetPlayer(std::move(jason));
-  }
-}
-
-void SophiaIIIKeyboardEvent::OnKeyUp(int code) 
-{
-  // 
-}
-
-void SophiaIIIKeyboardEvent::OnKeyDown(int code) 
-{
-  //
 }

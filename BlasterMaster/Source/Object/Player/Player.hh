@@ -1,6 +1,6 @@
 #pragma once
 #include "Engine/Core/Object.hh"
-#include "Engine/Event/KeyboardEvent.hh"
+#include "Engine/Core/Input.hh"
 #include "Object/State.hh"
 
 class Player : public Object 

@@ -76,8 +76,8 @@ void Game::Run()
     {
       if (m_Scene)
       {
-        Input::GetInstance()->ProcKeyboard();
         GetScene()->Update(m_ElapsedTime);
+        Input::GetInstance()->ProcKeyboard();
         Renderer::Render(m_ElapsedTime);
       }
     }

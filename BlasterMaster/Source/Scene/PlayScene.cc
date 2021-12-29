@@ -64,6 +64,14 @@ void PlayScene::SetKeyboardHandler(Ref<KeyboardEvent> handler)
   Input::GetInstance()->SetKeyHandler(m_Keyboard);
 }
 
+Ref<Object> PlayScene::FindRef(Object* object) const
+{
+  for (const auto& ref : m_Objects)
+    if (ref.get() == object)
+      return ref;
+  return nullptr;
+}
+
 void PlayScene::AddObject(Ref<Object> object)
 {
   m_QuadTree->Insert(object);
@@ -112,5 +120,6 @@ void PlayScene::Render(TimeStep elapsed)
 
   for (const auto& object : this->GetObjects())
     object->Render(elapsed);
+  m_Player->Render(elapsed);
   m_Foreground->Render(0, 0);
 }

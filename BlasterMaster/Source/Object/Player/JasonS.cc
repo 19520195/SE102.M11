@@ -1,61 +1,120 @@
 #include "JasonS.hh"
-#include "Object/State.hh"
+#include "Scene/PlayScene.hh"
+#include "Engine/Core/Game.hh"
 
-JasonS::JasonS()
+JasonS::JasonS(Player* owner) : m_Owner(owner)
 {
   m_Width = JASONS_WIDTH;
   m_Height = JASONS_HEGIHT;
-  m_Acceleration = Vector2F(.0f, -.033f);
+
+  m_Acceleration = Vector2F(0, JASONS_GRAVITY);
+  m_Velocity = JASONS_JUMP * m_Acceleration;
+
   m_Keyboard = std::make_unique<JasonSKeyboard>(this);
+  SetWalkState(JasonSWalkState::IdleLeft);
 }
 
-void JasonS::SetState(int state)
+Player* JasonS::GetOwner()
 {
-  Object::SetState(state);
-  if (SM_IS_WALK(state))
-    m_Velocity.SetX((SD_IS_LEFT(m_State) ? -1 : 1) * JASONS_SPEED);
-  else m_Velocity.SetX(0); 
+  return m_Owner;
 }
 
-void JasonS::Render(TimeStep elapsed)
+JasonSWalkState JasonS::GetCustomState() const
 {
-  if (SM_IS_IDLE(m_State))
+  return m_WalkState;
+}
+
+void JasonS::SetWalkState(JasonSWalkState s)
+{
+  switch (m_WalkState = s)
   {
-    std::string ID = (SD_IS_LEFT(m_State) ? "Jason-Idle-Left" : "Jason-Idle-Right");
-    SpriteBase::GetInstance()->Get(ID)->Render(m_X, m_Y);
+  case JasonSWalkState::IdleLeft:
+    m_Velocity.SetX(0);
+    SetSprite("Jason-Idle-Left");
+    break;
+
+  case JasonSWalkState::IdleRight:
+    m_Velocity.SetX(0);
+    SetSprite("Jason-Idle-Right");
+    break;
+
+  case JasonSWalkState::WalkLeft:
+    m_Velocity.SetX(-JASONS_WALK);
+    SetAnimation("Jason-Walk-Left");
+    break;
+
+  case JasonSWalkState::WalkRight:
+    m_Velocity.SetX(JASONS_WALK);
+    SetAnimation("Jason-Walk-Right");
+    break;
   }
-  else
+}
+
+void JasonS::OnCollide(const Ref<Collision2D>& collision)
+{
+  auto refer = collision->GetCollider()->GetRefer();
+  if (auto portal = dynamic_cast<ScenePortal*>(refer))
+    portal->Activate();
+}
+
+JasonSKeyboard::JasonSKeyboard(JasonS* jason) : m_JasonS(jason)
+{
+}
+
+void JasonSKeyboard::KeyState(BYTE* keyboard)
+{
+  HandleWalk(keyboard);
+  HandleJump(keyboard);
+}
+
+void JasonSKeyboard::OnKeyDown(int keycode)
+{
+  HandleEnter(keycode);
+}
+
+void JasonSKeyboard::HandleWalk(BYTE* keyboard)
+{
+  // Walk
+  if (IS_KEYDOWN(keyboard, KLeft))
+    return m_JasonS->SetWalkState(JasonSWalkState::WalkLeft);
+  if (IS_KEYDOWN(keyboard, KRight))
+    return m_JasonS->SetWalkState(JasonSWalkState::WalkRight);
+
+  // Idle
+  switch (m_JasonS->GetCustomState())
   {
-    std::string ID = (SD_IS_LEFT(m_State) ? "Jason-Walk-Left" : "Jason-Walk-Right");
-    AnimationBase::GetInstance()->Get(ID)->Render(m_X, m_Y, elapsed);
+  case JasonSWalkState::WalkLeft:
+    m_JasonS->SetWalkState(JasonSWalkState::IdleLeft);
+    break;
+
+  case JasonSWalkState::WalkRight:
+    m_JasonS->SetWalkState(JasonSWalkState::IdleRight);
+    break;
   }
 }
 
-JasonSKeyboard::JasonSKeyboard(JasonS* player)
+void JasonSKeyboard::HandleJump(BYTE* keyboard)
 {
-  m_JasonS = player;
+  Vector2F velocity = m_JasonS->GetVelocity();
+  if (velocity.GetY()) return;
+  
+  if (IS_KEYDOWN(keyboard, KJump))
+    velocity.SetY(JASONS_JUMP * JASONS_GRAVITY);
+  m_JasonS->SetVelocity(velocity);
 }
 
-void JasonSKeyboard::KeyState(BYTE* state)
+void JasonSKeyboard::HandleEnter(int keycode)
 {
-  auto currentState = m_JasonS->GetState(); 
-  if (IS_KEYDOWN(state, DIK_LEFT) || IS_KEYDOWN(state, DIK_RIGHT))
+  if (keycode == KEnter)
   {
-    SM_SET_WALK(currentState);
-    if (IS_KEYDOWN(state, DIK_LEFT))
-      SD_SET_LEFT(currentState);
-    else SD_SET_RIGHT(currentState);
+    if (Collision2D::AABB(*m_JasonS, *m_JasonS->GetOwner()))
+    {
+      auto scene = std::static_pointer_cast<PlayScene>(
+        Game::GetInstance()->GetScene());
+      scene->SetPlayer(
+        std::static_pointer_cast<Player>(
+          scene->FindRef(m_JasonS->GetOwner())));
+      m_JasonS->Die();
+    }
   }
-  else SM_SET_IDLE(currentState);
-  m_JasonS->SetState(currentState);
-}
-
-void JasonSKeyboard::OnKeyDown(int code)
-{
-  //
-}
-
-void JasonSKeyboard::OnKeyUp(int code)
-{
-  //
 }
