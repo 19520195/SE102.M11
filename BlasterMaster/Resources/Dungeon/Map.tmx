@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="left-up" width="32" height="126" tilewidth="16" tileheight="16" infinite="0" nextlayerid="30" nextobjectid="430">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="left-up" width="32" height="126" tilewidth="16" tileheight="16" infinite="0" nextlayerid="31" nextobjectid="458">
  <tileset firstgid="1" name="Dungeon" tilewidth="16" tileheight="16" spacing="1" tilecount="72" columns="12">
   <image source="Tiles.png" width="203" height="101"/>
  </tileset>
- <group id="21" name="Tiles" locked="1">
+ <group id="21" name="Tiles">
   <layer id="18" name="Background" width="32" height="126">
    <data encoding="csv">
 21,22,16,17,18,17,18,17,18,17,18,17,18,19,20,21,21,22,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -81,8 +81,8 @@
 21,22,37,37,37,37,39,39,37,37,37,37,37,38,20,21,21,22,37,37,37,37,37,37,37,37,37,37,37,38,20,21,
 21,22,37,37,37,37,37,37,37,37,37,37,37,38,20,21,21,22,37,37,37,37,37,37,37,37,37,37,37,38,20,21,
 21,22,37,37,37,37,37,37,37,37,37,37,37,38,20,21,21,22,37,37,37,37,37,37,37,37,37,37,37,38,20,21,
-21,22,37,37,37,37,37,37,37,37,37,37,37,38,20,21,21,22,37,37,37,37,37,0,0,37,37,37,37,38,20,21,
-21,22,37,37,37,37,37,37,37,37,37,37,37,38,20,21,21,22,37,37,37,37,37,0,0,37,37,37,37,38,20,21,
+21,22,37,37,37,37,37,37,37,37,37,37,37,38,20,21,21,22,37,37,37,37,37,37,37,37,37,37,37,38,20,21,
+21,22,37,37,37,37,37,37,37,37,37,37,37,38,20,21,21,22,37,37,37,37,37,37,37,37,37,37,37,38,20,21,
 21,22,37,37,37,38,0,0,0,0,0,0,0,0,20,21,21,22,0,0,0,0,0,0,0,0,0,0,0,0,20,21,
 21,22,37,37,37,38,0,0,0,0,0,0,0,0,20,21,21,22,0,0,0,0,0,0,0,0,0,0,0,0,20,21,
 21,22,37,37,37,38,4,5,5,5,5,5,5,6,20,21,21,22,5,5,5,5,7,47,48,4,5,5,5,5,20,21,
@@ -396,7 +396,7 @@
   </layer>
  </group>
  <group id="22" name="Objects">
-  <objectgroup color="#aaff7f" id="27" name="Brick">
+  <objectgroup color="#aaff7f" id="27" name="Brick" locked="1">
    <object id="204" name="Brick" x="32" y="0" width="192" height="16"/>
    <object id="205" name="Brick" x="224" y="0" width="16" height="240"/>
    <object id="206" name="Brick" x="16" y="0" width="16" height="240"/>
@@ -602,6 +602,33 @@
    <object id="423" name="Thorn" x="288" y="1296" width="64" height="96"/>
    <object id="424" name="Thorn" x="352" y="1328" width="32" height="64"/>
    <object id="425" name="Thorn" x="384" y="1360" width="64" height="32"/>
+  </objectgroup>
+  <objectgroup color="#ff0000" id="30" name="Enemies">
+   <object id="430" name="GX-680S" x="48" y="272" width="16" height="16"/>
+   <object id="433" name="GX-680" x="192" y="336" width="16" height="16"/>
+   <object id="434" name="GX-680S" x="48" y="448" width="16" height="16"/>
+   <object id="435" name="GX-680" x="192" y="544" width="18" height="16"/>
+   <object id="436" name="GX-680S" x="64" y="656" width="16" height="16"/>
+   <object id="437" name="GX-680" x="192" y="800" width="16" height="16"/>
+   <object id="438" name="GX-680S" x="64" y="896" width="16" height="16"/>
+   <object id="439" name="GX-680S" x="48" y="1056" width="16" height="16"/>
+   <object id="441" name="GX-680S" x="96" y="1328" width="16" height="16"/>
+   <object id="442" name="GX-680S" x="160" y="1376" width="16" height="16"/>
+   <object id="443" name="GX-680S" x="48" y="1408" width="16" height="16"/>
+   <object id="444" name="GX-680S" x="112" y="1456" width="16" height="16"/>
+   <object id="445" name="GX-680S" x="48" y="1568" width="16" height="16"/>
+   <object id="446" name="GX-680S" x="48" y="1664" width="16" height="16"/>
+   <object id="447" name="Drap" x="208" y="1824" width="16" height="16"/>
+   <object id="448" name="GX-680" x="96" y="1920" width="16" height="16"/>
+   <object id="449" name="GX-680S" x="144" y="1920" width="16" height="16"/>
+   <object id="450" name="GX-680S" x="304" y="1920" width="16" height="16"/>
+   <object id="451" name="GX-680" x="400" y="1904" width="16" height="16"/>
+   <object id="452" name="Drap" x="288" y="1632" width="16" height="16"/>
+   <object id="453" name="Drap" x="464" y="1568" width="16" height="16"/>
+   <object id="454" name="GX-680" x="432" y="1680" width="16" height="16"/>
+   <object id="455" name="GX-680S" x="432" y="1344" width="16" height="16"/>
+   <object id="456" name="Drap" x="288" y="1504" width="16" height="16"/>
+   <object id="457" name="Drap" x="464" y="1440" width="16" height="16"/>
   </objectgroup>
   <objectgroup id="26" name="Player" locked="1">
    <object id="201" name="Jason" x="112" y="1696" width="24" height="16"/>

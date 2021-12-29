@@ -42,6 +42,9 @@
     <ClCompile Include="Engine\Physic\Collision2D.cc" />
     <ClCompile Include="Engine\Physic\Physics.cc" />
     <ClCompile Include="Engine\Physic\Material.cc" />
+    <ClCompile Include="Source\Object\Enemy\GX680.cc" />
+    <ClCompile Include="Source\Object\Enemy\Drap.cc" />
+    <ClCompile Include="Source\Object\Enemy\LazerGuard.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Core\Window.hh" />
@@ -92,6 +95,9 @@
     <ClInclude Include="Engine\Physic\Collision2D.hh" />
     <ClInclude Include="Engine\Physic\Physics.hh" />
     <ClInclude Include="Engine\Physic\Material.hh" />
+    <ClInclude Include="Source\Object\Enemy\GX680.hh" />
+    <ClInclude Include="Source\Object\Enemy\Drap.hh" />
+    <ClInclude Include="Source\Object\Enemy\LazerGuard.hh" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\SophiaIII.png" />

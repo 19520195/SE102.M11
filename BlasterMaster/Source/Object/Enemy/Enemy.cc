@@ -38,11 +38,15 @@ Ref<Enemy> Enemy::Create(const std::string& name)
   std::string enemyType = tokens[0];
 
   Ref<Enemy> enemy;
-       if (enemyType == "Interrupt" ) enemy = CreateRef<Interrupt>();
-  else if (enemyType == "Ballbot"   ) enemy = CreateRef<Ballbot>();
-  else if (enemyType == "Stuka"     ) enemy = CreateRef<Stuka>();
-  else if (enemyType == "Eyelet"    ) enemy = CreateRef<Eyelet>();
-  else if (enemyType == "Ball-Carry") enemy = CreateRef<BallCarry>();
+       if (enemyType == "Interrupt"  ) enemy = CreateRef<Interrupt>();
+  else if (enemyType == "Ballbot"    ) enemy = CreateRef<Ballbot>();
+  else if (enemyType == "Stuka"      ) enemy = CreateRef<Stuka>();
+  else if (enemyType == "Eyelet"     ) enemy = CreateRef<Eyelet>();
+  else if (enemyType == "Ball-Carry" ) enemy = CreateRef<BallCarry>();
+  else if (enemyType == "GX-680"     ) enemy = CreateRef<GX680>();
+  else if (enemyType == "GX-680S"    ) enemy = CreateRef<GX680S>();
+  else if (enemyType == "Drap"       ) enemy = CreateRef<Drap>();
+  else if (enemyType == "Lazer-Guard") enemy = CreateRef<LazerGuard>();
   else return nullptr;
 
   if (tokens.size() >= 2)

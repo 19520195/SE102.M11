@@ -41,3 +41,6 @@ private:
 #include "Stuka.hh"
 #include "Eyelet.hh"
 #include "BallCarry.hh"
+#include "GX680.hh"
+#include "Drap.hh"
+#include "LazerGuard.hh"
