@@ -48,7 +48,7 @@ void Collider2D::UpdateRefer()
 void Collider2D::Update(Ref<Collision2D> collision)
 {
   Vector2F s = Physics::CalculateDisplacement(*m_Refer, collision->GetTime());
-  m_Displacement = m_Displacement + .6f * collision->GetNormal();
+  m_Displacement = m_Displacement + MINIMAL_DISTANCE * collision->GetNormal();
   if (collision->GetNormal().GetX())
   {
     m_Velocity.SetX(0);

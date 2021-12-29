@@ -3,6 +3,11 @@
 #include "Physics.hh"
 #include "Collision2D.hh"
 
+// Because the smallest render unit is 1px
+// So minimal distance shouble be less than 0.5
+// to void ceiling of renderer
+constexpr float MINIMAL_DISTANCE = 0.216f;
+
 class Object;
 class Collision2D;
 
