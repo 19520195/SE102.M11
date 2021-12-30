@@ -8,50 +8,59 @@ Jason::Jason()
   SetSprite("Jason-Idle-Up");
 }
 
-void Jason::SetBehavior(const Behavior& behavior)
+JasonWalkState Jason::GetWalkState() const
 {
-  // Direction
-  if (behavior.GetDirect() != m_Behavior.GetDirect())
-  switch (behavior.GetDirect())
+  return m_WalkState;
+}
+
+void Jason::SetWalkState(const JasonWalkState& ws)
+{
+  if (m_WalkState != ws)
   {
-  case Behavior::Direct::Up:
-    m_Render = AnimationBase::GetInstance()->Get("Jason-Walk-Up");
-    break;
+    switch (m_WalkState = ws)
+    {
+    case JasonWalkState::IdleUp   : SetSprite("Jason-Idle-Up")   ; break;
+    case JasonWalkState::IdleLeft : SetSprite("Jason-Idle-Left") ; break;
+    case JasonWalkState::IdleDown : SetSprite("Jason-Idle-Down") ; break;
+    case JasonWalkState::IdleRight: SetSprite("Jason-Idle-Right"); break;
 
-  case Behavior::Direct::Down:
-    m_Render = AnimationBase::GetInstance()->Get("Jason-Walk-Down");
-    break;
-
-  case Behavior::Direct::Left:
-    m_Render = AnimationBase::GetInstance()->Get("Jason-Walk-Left");
-    break;
-
-  case Behavior::Direct::Right:
-    m_Render = AnimationBase::GetInstance()->Get("Jason-Walk-Right");
-    break;
+    case JasonWalkState::WalkUp   : SetAnimation("Jason-Walk-Up")   ; break;
+    case JasonWalkState::WalkLeft : SetAnimation("Jason-Walk-Left") ; break;
+    case JasonWalkState::WalkDown : SetAnimation("Jason-Walk-Down") ; break;
+    case JasonWalkState::WalkRight: SetAnimation("Jason-Walk-Right"); break;
+    }
   }
-
-  Player::SetBehavior(behavior);
 }
 
-JasonKeyboard::JasonKeyboard(Jason* player)
+JasonKeyboard::JasonKeyboard(Jason* jason)
 {
-  m_Player = player;
+  m_Jason = jason;
 }
 
-void JasonKeyboard::KeyState(BYTE* state)
+void JasonKeyboard::KeyState(BYTE* keyboard)
 {
   Vector2F velocity;
-  if (IS_KEYDOWN(state, DIK_UP)) velocity.SetY(JASON_SPEED);
-  if (IS_KEYDOWN(state, DIK_DOWN)) velocity.SetY(-JASON_SPEED);
-  if (IS_KEYDOWN(state, DIK_LEFT)) velocity.SetX(-JASON_SPEED);
-  if (IS_KEYDOWN(state, DIK_RIGHT)) velocity.SetX(JASON_SPEED);
-  m_Player->SetVelocity(velocity);
+  if (IS_KEYDOWN(keyboard, KUp)) velocity.SetY(1.f);
+  else if (IS_KEYDOWN(keyboard, KDown)) velocity.SetY(-1.f);
+  if (IS_KEYDOWN(keyboard, KLeft)) velocity.SetX(-1.f);
+  else if (IS_KEYDOWN(keyboard, KRight)) velocity.SetX(1.f);
+  
+  if (velocity.Abs() != 0)
+    velocity = velocity / velocity.Abs();
+  m_Jason->SetVelocity(velocity * JASON_SPEED);
 
-  Behavior behavior = m_Player->GetBehavior();
-  if (IS_KEYDOWN(state, DIK_UP)) behavior.SetDirect(Behavior::Direct::Up);
-  else if (IS_KEYDOWN(state, DIK_DOWN)) behavior.SetDirect(Behavior::Direct::Down);
-  else if (IS_KEYDOWN(state, DIK_LEFT)) behavior.SetDirect(Behavior::Direct::Left);
-  else if (IS_KEYDOWN(state, DIK_RIGHT)) behavior.SetDirect(Behavior::Direct::Right);
-  m_Player->SetBehavior(behavior);
+  if (velocity.GetY() > 0) m_Jason->SetWalkState(JasonWalkState::WalkUp);
+  else if (velocity.GetY() < 0) m_Jason->SetWalkState(JasonWalkState::WalkDown);
+  else if (velocity.GetX() < 0) m_Jason->SetWalkState(JasonWalkState::WalkLeft);
+  else if (velocity.GetX() > 0) m_Jason->SetWalkState(JasonWalkState::WalkRight);
+  else
+  {
+    switch (m_Jason->GetWalkState())
+    {
+    case JasonWalkState::WalkUp   : m_Jason->SetWalkState(JasonWalkState::IdleUp)   ; break;
+    case JasonWalkState::WalkLeft : m_Jason->SetWalkState(JasonWalkState::IdleLeft) ; break;
+    case JasonWalkState::WalkDown : m_Jason->SetWalkState(JasonWalkState::IdleDown) ; break;
+    case JasonWalkState::WalkRight: m_Jason->SetWalkState(JasonWalkState::IdleRight); break;
+    }
+  }
 }
