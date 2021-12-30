@@ -60,7 +60,7 @@ void Object::SetAnimation(const std::string& name)
 
 void Object::OnCollide(const Ref<Collision2D>& collision)
 {
-  DEBUG_MSG(L"Object::OnCollide\n");
+  //
 }
 
 void Object::Update()
