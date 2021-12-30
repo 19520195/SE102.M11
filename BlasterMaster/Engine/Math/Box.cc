@@ -94,3 +94,11 @@ void Box2F::SetSize(float width, float height)
   m_Width = width;
   m_Height = height;
 }
+
+Box2F Box2F::CreateBox(const Vector2F& offset)
+{
+  Box2F box;
+  box.SetLocation(Vector2F(m_X, m_Y) - (offset / 2.f));
+  box.SetSize(Vector2F(m_Width, m_Height) + offset);
+  return box;
+}

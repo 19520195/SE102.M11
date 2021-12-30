@@ -49,6 +49,9 @@ private:
   Ref<Sprite> m_Foreground;
   Ref<Sprite> m_Background;
   List<Ref<BoundingBox>> m_Boxes;
+ 
+  float m_ScreenWidth;
+  float m_ScreenHeight;
 
   Ref<Player>     m_Player;
   Scope<QuadTree> m_QuadTree;

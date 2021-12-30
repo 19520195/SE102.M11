@@ -10,6 +10,9 @@ SceneParser::SceneParser(const std::string& filename)
   m_TextureCount = 0;
   m_SpriteCount = 0;
   m_AnimationCount = 0;
+
+  m_ScreenWidth = 0;
+  m_ScreenHeight = 0;
 }
 
 Ref<Player> SceneParser::GetPlayer() const
@@ -25,6 +28,16 @@ std::vector<Ref<Object>> SceneParser::GetObjects() const
 Ref<KeyboardEvent> SceneParser::GetKeyboardEvent() const
 {
   return m_Keyboard;
+}
+
+float SceneParser::GetScreenWidth() const
+{
+  return m_ScreenWidth;
+}
+
+float SceneParser::GetScreenHeight() const
+{
+  return m_ScreenHeight;
 }
 
 size_t SceneParser::GetTextureID(const std::string& name) const
@@ -54,6 +67,7 @@ int SceneParser::GetHeader(const std::string& header)
   if (header == "[SPRITES]") return SceneHeaderSprites;
   if (header == "[ANIMATIONS]") return SceneHeaderAnimations;
   if (header == "[OBJECTS]") return SceneHeaderObjects;
+  if (header == "[CONFIGS]") return SceneHeaderConfigs;
   return SceneHeaderUnknow;
 }
 
@@ -103,6 +117,8 @@ bool SceneParser::Parse()
       switch (header)
       {
       case SceneHeaderObjects: ParseObject(buffer); break;
+      case SceneHeaderConfigs: ParseConfiguaration(buffer); break;
+
       case SceneHeaderTextures: ParseTexture(buffer); break;
       case SceneHeaderSprites: ParseSprite(buffer); break;
       case SceneHeaderAnimations: ParseAnimation(buffer); break;
@@ -201,4 +217,15 @@ Ref<Animation> SceneParser::ParseAnimation(const std::string& detail)
     animation->Add(tokens[i]);
   m_AnimationID[name] = ++m_AnimationCount;
   return AnimationBase::GetInstance()->Add(name, animation);
+}
+
+void SceneParser::ParseConfiguaration(const std::string& str)
+{
+  auto tokens = Strings::Split(str, "=");
+  if (tokens.size() != 2) return;
+
+  std::string k = tokens[0];
+  std::string v = tokens[1];
+  if (k == "Width") m_ScreenWidth = std::stof(v);
+  if (k == "Height") m_ScreenHeight = std::stof(v);
 }

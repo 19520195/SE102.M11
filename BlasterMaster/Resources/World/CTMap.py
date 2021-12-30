@@ -16,7 +16,7 @@ def GetDirect(GameObject: bs4.element.Tag):
   if str(Direct) == 'None': return ""
   return ".{}".format(Direct["value"])
 
-with open('Draft.Objects.ini', 'w') as conf:
+with open('_Objects.ini', 'w') as conf:
   print('[OBJECTS]', file=conf)
   print('#', 'X', 'Y', 'WIDTH', 'HEIGHT', sep='\t', file=conf)
 

@@ -48,7 +48,6 @@ void SophiaIII::SetState(int state)
   {
     m_Velocity.SetY(SOPHIAIII_JUMPSPEED);
     SM_SET_FALL(m_State); 
-    DEBUG_MSG(L"Jumping...\n");
   }
 }
 

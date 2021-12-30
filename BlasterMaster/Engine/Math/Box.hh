@@ -28,6 +28,8 @@ public:
   virtual void SetSize(const Vector2F& size);
   virtual void SetSize(float width, float height);
 
+  Box2F CreateBox(const Vector2F& offset);
+
 protected:
   float m_Width;
   float m_Height;
