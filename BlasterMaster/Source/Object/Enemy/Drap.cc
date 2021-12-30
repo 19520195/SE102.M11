@@ -8,6 +8,7 @@ constexpr float DRAP_VELOCITY =  0.2f;
 Drap::Drap()
 {
   SetAnimation("Drap-Spin-Left");
+  m_WalkState = DrapWalkState::Left;
 }
 
 void Drap::SetWalkState(const DrapWalkState& ws)
