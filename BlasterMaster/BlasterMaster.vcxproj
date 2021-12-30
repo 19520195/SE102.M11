@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Object\Bullet\BallCarryBullet.cc" />
     <ClCompile Include="Source\Object\Enemy\LazerGuard.cc" />
     <ClCompile Include="Source\Object\Enemy\Drap.cc" />
     <ClCompile Include="Engine\Physic\Collision2D.cc" />
@@ -65,6 +66,7 @@
     <ClCompile Include="Source\Utility\Strings.cc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Object\Bullet\BallCarryBullet.hh" />
     <ClInclude Include="Source\Object\Enemy\LazerGuard.hh" />
     <ClInclude Include="Source\Object\Enemy\Drap.hh" />
     <ClInclude Include="Engine\Physic\Collision2D.hh" />

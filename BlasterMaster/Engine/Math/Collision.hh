@@ -17,6 +17,7 @@ public:
   Vector2F GetAcceleration() const;
 
   void SetVelocity(const Vector2F& velocity);
+  void SetAcceleration(const Vector2F& acceleration);
 
   Movable GetMove(float delta) const;
   void Move(float delta);

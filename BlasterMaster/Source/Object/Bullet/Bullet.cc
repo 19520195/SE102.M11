@@ -1,4 +1,10 @@
 #include "Bullet.hh"
+#include "Engine/Core/Game.hh"
+
+Bullet::Bullet()
+{
+  m_Arrival = Game::GetInstance()->GetLastFrameTime();
+}
 
 void Bullet::Update(TimeStep elapsed)
 {

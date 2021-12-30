@@ -45,6 +45,7 @@
     <ClCompile Include="Source\Object\Enemy\GX680.cc" />
     <ClCompile Include="Source\Object\Enemy\Drap.cc" />
     <ClCompile Include="Source\Object\Enemy\LazerGuard.cc" />
+    <ClCompile Include="Source\Object\Bullet\BallCarryBullet.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Core\Window.hh" />
@@ -98,6 +99,7 @@
     <ClInclude Include="Source\Object\Enemy\GX680.hh" />
     <ClInclude Include="Source\Object\Enemy\Drap.hh" />
     <ClInclude Include="Source\Object\Enemy\LazerGuard.hh" />
+    <ClInclude Include="Source\Object\Bullet\BallCarryBullet.hh" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\SophiaIII.png" />

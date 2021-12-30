@@ -25,8 +25,13 @@ void SophiaIIIBullet::OnCollide(const Ref<Collision2D>& collision)
 {
   if (dynamic_cast<Brick*>(collision->GetCollider()->GetRefer()))
     this->Die();
+
   if (auto enemy = dynamic_cast<Enemy*>(collision->GetCollider()->GetRefer()))
-    this->Die(), enemy->Die();
+  {
+    this->Die();
+    enemy->Die();
+    DEBUG_MSG(L"Bullet killed enemy\n");
+  }
 }
 
 void SophiaIIIBullet::Update(TimeStep elapsed, std::vector<Ref<Object>> objects)

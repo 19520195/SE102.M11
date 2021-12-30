@@ -37,6 +37,11 @@ void Movable::SetVelocity(const Vector2F& velocity)
   m_Velocity = velocity;
 }
 
+void Movable::SetAcceleration(const Vector2F& acceleration)
+{
+  m_Acceleration = acceleration;
+}
+
 Movable Movable::GetMove(float delta) const
 {
   Vector2F velocity = GetVelocity();
